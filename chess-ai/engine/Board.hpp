@@ -8,7 +8,8 @@ class Board {
 public:
     typedef unsigned long long U64; 
     Board(std::string fen);
-    void print_board();
+    void print_full_board();
+    void print_board(U64 board);
     //generate legal moves
 private:
     enum board {a1, b1, c1, d1, e1, f1, g1, h1,
@@ -51,6 +52,8 @@ private:
     inline void set_bit(U64 &board, int square);
     inline U64 get_bit(U64 board, int square);
     inline void remove_bit(U64 board, int square);
+
+    inline void update_board();
  
     void gen_board(std::string &fen);
 
@@ -73,4 +76,5 @@ private:
     //pawn pushes
     inline U64 pawn_single_push(U64 pawns, int color);
     inline U64 pawn_double_push(U64 pawns, int color);
+    inline U64 pawn_attack(U64 board, int color);
 };

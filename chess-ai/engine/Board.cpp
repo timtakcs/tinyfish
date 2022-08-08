@@ -11,6 +11,18 @@ Board::Board(std::string fen) {
     gen_board(fen);
 }
 
+inline void Board::update_board() {
+    bitmap['1'] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
+                | bitmap['B'] | bitmap['P']; 
+
+    bitmap['0'] = bitmap['k'] | bitmap['q'] | bitmap['r'] | bitmap['n']
+                | bitmap['b'] | bitmap['p']; 
+
+    bitmap['A'] = bitmap['1'] | bitmap['0'];
+
+    bitmap['E'] = ~bitmap['A'];
+}
+
 void Board::gen_board(std::string& fen) {
     if (fen == "") fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     std::string nums = "12345678";
@@ -75,26 +87,34 @@ void Board::gen_board(std::string& fen) {
     } 
 
     //generate full boards
-    bitmap['1'] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
-                | bitmap['B'] | bitmap['P']; 
+    update_board();
 
-    bitmap['0'] = bitmap['k'] | bitmap['q'] | bitmap['r'] | bitmap['n']
-                | bitmap['b'] | bitmap['p']; 
-
-    bitmap['A'] = bitmap['1'] | bitmap['0'];
-
-    bitmap['E'] = ~bitmap['A'];
-
-    cout << bitmap['N'] << endl;
-    cout << bitmap['0'] << endl;
+    cout << bitmap['A'] << endl;
+    cout << bitmap['E'] << endl;
 }   
 
-void Board::print_board() {
+void Board::print_board(U64 board) {
     std::vector<char> b(64, '.');
 
-    cout << black;
-    cout << bitmap['E'];
-    bitmap['p'] = pawn_single_push(bitmap['p'], black);
+    for (int j = 0; j < 64; j++) {
+        U64 bit = get_bit(board, j);
+        if (bit != 0) b[j] = '1';
+    }
+
+    for (int i = 0; i < 64; i++) {
+        if (i % 8 == 0) std::cout << "\n";
+        std::cout << ' ' << b[i] << ' ';
+    }
+
+    cout << "\n\n\n";
+}
+
+void Board::print_full_board() {
+    std::vector<char> b(64, '.');
+
+    bitmap['P'] = pawn_double_push(bitmap['P'], white);
+
+    cout << "\n\n\n";
 
     //iterate throught all the boards and find the active bits
     for (int piece = 0; piece < string_pieces.length(); piece++) {
@@ -112,8 +132,8 @@ void Board::print_board() {
     }
 }
 
-inline Board::U64 Board::southOne(U64 &board) {return board >> 8;};
-inline Board::U64 Board::northOne(U64 &board) {return board << 8;};
+inline Board::U64 Board::southOne(U64 &board) {return board << 8;};
+inline Board::U64 Board::northOne(U64 &board) {return board >> 8;};
 inline Board::U64 Board::eastOne(U64 &board) {return (board << 1) & notAFile;};
 inline Board::U64 Board::westOne(U64 &board) {return (board >> 1) & notHFile;};
 inline Board::U64 Board::southWestOne(U64 &board) {return (board >> 9) & notHFile;};
@@ -128,20 +148,27 @@ inline Board::U64 Board::pawn_single_push(U64 pawns, int color) {
 
 inline Board::U64 Board::pawn_double_push(U64 pawns, int color) {
     if (color == 0) {
-        const U64 rank4 = 0x00000000FF000000;
+        const U64 rank4 = 0x000000FF00000000;
         U64 single_push = pawn_single_push(bitmap['P'], color);
         return northOne(single_push) & bitmap['E'] & rank4;
+        
     }
     else {
-        const U64 rank4 = 0x000000FF00000000;
+        const U64 rank5 = 0x00000000FF000000;
         U64 single_push = pawn_single_push(bitmap['p'], color);
-        return southOne(single_push) & bitmap['E'] & rank4;
+        return southOne(single_push) & bitmap['E'] & rank5;
+    }
+}
+
+inline Board::U64 Board::pawn_attack(U64 board, int color) {
+    if (color == 0) {
+        return (northEastOne(bitmap['P']) | northWestOne(bitmap['P'])) & bitmap['black'];
     }
 }
 
 int main() {
     std::string fen("");
     Board board(fen);
-    board.print_board();
+    board.print_full_board();
     return 0;
 }
