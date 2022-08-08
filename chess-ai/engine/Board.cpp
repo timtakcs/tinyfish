@@ -1,10 +1,11 @@
 #include "Board.hpp"
 #include <iostream>
 
-//function to set a from a square counter used for fen board generation
+using namespace std;
+
 inline void Board::set_bit(U64 &board, int square) {(board) |= (1ULL << (square));};
-inline void Board::get_bit(U64 board, int square) {board = board & (1ULL << square);};
-inline void Board::remove_bit(U64 board, int square) {board = board ^ (1ULL << square);};
+inline Board::U64 Board::get_bit(U64 board, int square) {return (board & (1ULL << square));};
+inline void Board::remove_bit(U64 board, int square) {board &= ~(1ULL << square);};
 
 Board::Board(std::string fen) {
     gen_board(fen);
@@ -57,19 +58,16 @@ void Board::gen_board(std::string& fen) {
     int skip = 0;
     int square = 0;
 
-    std::cout << a1 << "a1" << std::endl;
-
     //setting up the bitboard from fen
     for (int i = 0; i < board.length(); i++) {
-        if (skip != 0) {
+        while (skip != 0) {
             square++;
             skip--;
             continue;
         }
         if (board[i] == '/') continue;
-        if (nums.find(board[i]) < nums.length()) {
-            skip = (int)board[i];
-            square++;
+        if (nums.find(board[i]) != std::string::npos) {
+            skip = board[i] - '0';
             continue;
         }
         set_bit(bitmap[board[i]], square);
@@ -85,14 +83,65 @@ void Board::gen_board(std::string& fen) {
 
     bitmap['A'] = bitmap['1'] | bitmap['0'];
 
-    //debug
-    std::cout << bitmap['N'] << std::endl;
-    std::cout << bitmap['p'] << std::endl;
-    std::cout << bitmap['A'] << std::endl;
+    bitmap['E'] = ~bitmap['A'];
+
+    cout << bitmap['N'] << endl;
+    cout << bitmap['0'] << endl;
 }   
+
+void Board::print_board() {
+    std::vector<char> b(64, '.');
+
+    cout << black;
+    cout << bitmap['E'];
+    bitmap['p'] = pawn_single_push(bitmap['p'], black);
+
+    //iterate throught all the boards and find the active bits
+    for (int piece = 0; piece < string_pieces.length(); piece++) {
+        U64 board = bitmap[string_pieces[piece]];
+        for (int square = 0; square < 64; square++) {
+            U64 bit = get_bit(board, square);
+            if (bit != 0) b[square] = string_pieces[piece];
+        }
+    }
+
+    //iterate through the array and print each char in the form of a board
+    for (int i = 0; i < 64; i++) {
+        if (i % 8 == 0) std::cout << "\n";
+        std::cout << ' ' << b[i] << ' ';
+    }
+}
+
+inline Board::U64 Board::southOne(U64 &board) {return board >> 8;};
+inline Board::U64 Board::northOne(U64 &board) {return board << 8;};
+inline Board::U64 Board::eastOne(U64 &board) {return (board << 1) & notAFile;};
+inline Board::U64 Board::westOne(U64 &board) {return (board >> 1) & notHFile;};
+inline Board::U64 Board::southWestOne(U64 &board) {return (board >> 9) & notHFile;};
+inline Board::U64 Board::southEastOne(U64 &board){return (board >> 7) & notAFile;};;
+inline Board::U64 Board::northWestOne(U64 &board) {return (board << 7) & notHFile;};
+inline Board::U64 Board::northEastOne(U64 &board){return (board << 9) & notAFile;};
+
+inline Board::U64 Board::pawn_single_push(U64 pawns, int color) {
+    if (color == 0) return northOne(bitmap['P']) & bitmap['E'];
+    else return southOne(bitmap['p']) & bitmap['E'];
+}
+
+inline Board::U64 Board::pawn_double_push(U64 pawns, int color) {
+    if (color == 0) {
+        const U64 rank4 = 0x00000000FF000000;
+        U64 single_push = pawn_single_push(bitmap['P'], color);
+        return northOne(single_push) & bitmap['E'] & rank4;
+    }
+    else {
+        const U64 rank4 = 0x000000FF00000000;
+        U64 single_push = pawn_single_push(bitmap['p'], color);
+        return southOne(single_push) & bitmap['E'] & rank4;
+    }
+}
 
 int main() {
     std::string fen("");
     Board board(fen);
+    board.print_board();
     return 0;
 }
