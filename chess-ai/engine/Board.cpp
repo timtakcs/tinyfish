@@ -112,10 +112,6 @@ void Board::print_board(U64 board) {
 void Board::print_full_board() {
     std::vector<char> b(64, '.');
 
-    bitmap['P'] = pawn_double_push(bitmap['P'], white);
-
-    cout << "\n\n\n";
-
     //iterate throught all the boards and find the active bits
     for (int piece = 0; piece < string_pieces.length(); piece++) {
         U64 board = bitmap[string_pieces[piece]];
@@ -132,6 +128,7 @@ void Board::print_full_board() {
     }
 }
 
+//normal moves
 inline Board::U64 Board::southOne(U64 &board) {return board << 8;};
 inline Board::U64 Board::northOne(U64 &board) {return board >> 8;};
 inline Board::U64 Board::eastOne(U64 &board) {return (board << 1) & notAFile;};
@@ -140,6 +137,16 @@ inline Board::U64 Board::southWestOne(U64 &board) {return (board >> 9) & notHFil
 inline Board::U64 Board::southEastOne(U64 &board){return (board >> 7) & notAFile;};;
 inline Board::U64 Board::northWestOne(U64 &board) {return (board << 7) & notHFile;};
 inline Board::U64 Board::northEastOne(U64 &board){return (board << 9) & notAFile;};
+
+//knight moves
+inline Board::U64 Board::noNoEa(U64 b) {return (b << 17) & notAFile ;};
+inline Board::U64 Board::noEaEa(U64 b) {return (b << 10) & notABFile;};
+inline Board::U64 Board::soEaEa(U64 b) {return (b >>  6) & notABFile;};
+inline Board::U64 Board::soSoEa(U64 b) {return (b >> 15) & notAFile ;};
+inline Board::U64 Board::noNoWe(U64 b) {return (b << 15) & notHFile ;};
+inline Board::U64 Board::noWeWe(U64 b) {return (b <<  6) & notGHFile;};
+inline Board::U64 Board::soWeWe(U64 b) {return (b >> 10) & notGHFile;};
+inline Board::U64 Board::soSoWe(U64 b) {return (b >> 17) & notHFile ;};
 
 inline Board::U64 Board::pawn_single_push(U64 pawns, int color) {
     if (color == 0) return northOne(bitmap['P']) & bitmap['E'];
@@ -161,9 +168,8 @@ inline Board::U64 Board::pawn_double_push(U64 pawns, int color) {
 }
 
 inline Board::U64 Board::pawn_attack(U64 board, int color) {
-    if (color == 0) {
-        return (northEastOne(bitmap['P']) | northWestOne(bitmap['P'])) & bitmap['black'];
-    }
+    if (color == 0) return (northEastOne(bitmap['P']) | northWestOne(bitmap['P'])) & bitmap['0'];
+    else return (southEastOne(bitmap['p']) | southWestOne(bitmap['p'])) & bitmap['1'];
 }
 
 int main() {

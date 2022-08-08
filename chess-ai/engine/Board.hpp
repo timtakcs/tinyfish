@@ -60,6 +60,8 @@ private:
     //shifting bitboards operations and constants
     const U64 notAFile = 0xfefefefefefefefe;
     const U64 notHFile = 0x7f7f7f7f7f7f7f7f;
+    const U64 notGHFile = 4557430888798830399ULL;
+    const U64 notABFile = 18229723555195321596ULL;
 
     //sliding pieces
     inline U64 southOne(U64 &board);
@@ -72,6 +74,14 @@ private:
     inline U64 northEastOne(U64 &board);
 
     //knights
+    inline U64 noNoEa(U64 b);
+    inline U64 noEaEa(U64 b);
+    inline U64 soEaEa(U64 b);
+    inline U64 soSoEa(U64 b);
+    inline U64 noNoWe(U64 b);
+    inline U64 noWeWe(U64 b);
+    inline U64 soWeWe(U64 b);
+    inline U64 soSoWe(U64 b);
 
     //pawn pushes
     inline U64 pawn_single_push(U64 pawns, int color);
