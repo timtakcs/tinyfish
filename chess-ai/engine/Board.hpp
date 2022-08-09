@@ -63,6 +63,15 @@ private:
     const U64 notGHFile = 4557430888798830399ULL;
     const U64 notABFile = 18229723555195321596ULL;
 
+    //pre generating leaping attack squares
+    std::vector<U64> knight_attacks;
+    U64 get_knight_attack(int square);
+
+    std::vector<U64> king_attacks;
+    U64 get_king_attack(int square);
+
+    void get_leaping_attacks();
+
     //sliding pieces
     inline U64 southOne(U64 &board);
     inline U64 northOne(U64 &board);

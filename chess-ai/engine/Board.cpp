@@ -117,7 +117,7 @@ void Board::print_full_board() {
         U64 board = bitmap[string_pieces[piece]];
         for (int square = 0; square < 64; square++) {
             U64 bit = get_bit(board, square);
-            if (bit != 0) b[square] = string_pieces[piece];
+            if (bit) b[square] = string_pieces[piece];
         }
     }
 
@@ -170,6 +170,51 @@ inline Board::U64 Board::pawn_double_push(U64 pawns, int color) {
 inline Board::U64 Board::pawn_attack(U64 board, int color) {
     if (color == 0) return (northEastOne(bitmap['P']) | northWestOne(bitmap['P'])) & bitmap['0'];
     else return (southEastOne(bitmap['p']) | southWestOne(bitmap['p'])) & bitmap['1'];
+}
+
+Board::U64 Board::get_knight_attack(int square) {
+    U64 board = 0x0000000000000000ULL;
+
+    U64 attack = 0x0000000000000000ULL;
+
+    set_bit(board, square);
+
+    if (soSoWe(board)) attack |= (board >> 17);
+    if (soSoEa(board)) attack |= (board >> 15);
+    if (soWeWe(board)) attack |= (board >> 10);
+    if (soEaEa(board)) attack |= (board >> 6);
+    if (noNoEa(board)) attack |= (board << 17);
+    if (noNoWe(board)) attack |= (board << 15);
+    if (noEaEa(board)) attack |= (board << 10);
+    if (noWeWe(board)) attack |= (board << 6);
+
+    return attack;
+}
+
+Board::U64 Board::get_king_attack(int square) {
+    U64 board = 0x0000000000000000ULL;
+
+    U64 attack = 0x0000000000000000ULL;
+
+    set_bit(board, square);
+
+    if (southOne(board)) attack |= (board >> 8);
+    if (southWestOne(board)) attack |= (board >> 9);
+    if (southEastOne(board)) attack |= (board >> 7);
+    if (westOne(board)) attack |= (board >> 1);
+    if (northOne(board)) attack |= (board << 8);
+    if (northEastOne(board)) attack |= (board << 9);
+    if (northWestOne(board)) attack |= (board << 7);
+    if (eastOne(board)) attack |= (board << 1);
+
+    return attack
+}
+
+void Board::get_leaping_attacks() {
+    for (int i = 0; i < 64; i++) {
+        knight_attacks.push_back(get_knight_attack(i));
+        king_attacks.push_back(get_king_attack(i));
+    }
 }
 
 int main() {
