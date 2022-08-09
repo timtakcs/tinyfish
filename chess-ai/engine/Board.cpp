@@ -207,7 +207,7 @@ Board::U64 Board::get_king_attack(int square) {
     if (northWestOne(board)) attack |= (board << 7);
     if (eastOne(board)) attack |= (board << 1);
 
-    return attack
+    return attack;
 }
 
 void Board::get_leaping_attacks() {
