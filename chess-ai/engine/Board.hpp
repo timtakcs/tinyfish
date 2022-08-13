@@ -73,6 +73,9 @@ private:
     U64 get_bishop_attack(int square);
     U64 get_rook_attack(int square);
 
+    U64 get_obstructed_bishop_attack(int square, U64 occupancy);
+    U64 get_obstructed_rook_attack(int square, U64 occupancy);
+
     void get_leaping_attacks();
 
     //sliding pieces

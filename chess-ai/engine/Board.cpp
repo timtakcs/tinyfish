@@ -311,6 +311,103 @@ Board::U64 Board::get_rook_attack(int square) {
     return attack;
 }
 
+Board::U64 Board::get_obstructed_bishop_attack(int square, U64 occupancy) {
+    U64 attack = 0x0000000000000000ULL;
+
+    int r;
+    int f;
+
+    int tr = square / 8;
+    int tf = square % 8;
+
+    //get northeast diagonal
+    r = tr - 1;
+    f = tf + 1;
+
+    while (r >= 0 && f < 8) {
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, r * 8 + f);
+        r--;
+        f++;
+    }
+
+    //get southeast diagonal
+    r = tr + 1;
+    f = tf + 1;
+    while (r < 8 && f < 8) {
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, r * 8 + f);
+        r++;
+        f++;
+    }
+
+    //get northwest diagonal
+    r = tr + 1;
+    f = tf - 1;
+    while (r < 8 && f >= 0) {
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, r * 8 + f);
+        r++;
+        f--;
+    }
+
+    //get northeast attacks
+    r = tr - 1;
+    f = tf - 1;
+    while (r >= 0 && f >= 0) {
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, r * 8 + f);
+        r--;
+        f--;
+    }
+
+    return attack;
+}
+
+Board::U64 Board::get_obstructed_rook_attack(int square, U64 occupancy) {
+    U64 attack = 0x0000000000000000ULL;
+    
+    int r;
+    int f;
+
+    int tr = square / 8;
+    int tf = square % 8;
+
+    //north
+    r = tr - 1;
+    while(r >= 0) {
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, r * 8 + tf);
+        r--;
+    }
+
+    //south
+    r = tr + 1;
+    while(r < 8){
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, r * 8 + tf);
+        r++;
+    }
+
+    //west
+    f = tf + 1;
+    while(f < 8) {
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, tr * 8 + f);
+        f++;
+    }
+
+    //east
+    f = tf - 1;
+    while (f >= 0) {
+        if (get_bit(occupancy, r * 8 + f)) break;
+        set_bit(attack, tr * 8 + f);
+        f--;
+    }
+
+    return attack;
+}
+
 void Board::get_leaping_attacks() {
     for (int i = 0; i < 64; i++) {
         knight_attacks.push_back(get_knight_attack(i));
