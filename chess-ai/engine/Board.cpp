@@ -112,6 +112,18 @@ void Board::print_board(U64 board) {
 void Board::print_full_board() {
     std::vector<char> b(64, '.');
 
+    get_leaping_attacks();
+
+    print_board(knight_attacks[c6]);
+    print_board(king_attacks[a5]);
+
+    print_board(get_bishop_attack(d5));
+
+    print_board(get_rook_attack(d5));
+
+    //test queen attack
+    print_board(get_bishop_attack(d5) | get_rook_attack(d5));
+
     //iterate throught all the boards and find the active bits
     for (int piece = 0; piece < string_pieces.length(); piece++) {
         U64 board = bitmap[string_pieces[piece]];
@@ -206,6 +218,95 @@ Board::U64 Board::get_king_attack(int square) {
     if (northEastOne(board)) attack |= (board << 9);
     if (northWestOne(board)) attack |= (board << 7);
     if (eastOne(board)) attack |= (board << 1);
+
+    return attack;
+}
+
+Board::U64 Board::get_bishop_attack(int square) {
+    U64 attack = 0x0000000000000000ULL;
+
+    int r;
+    int f;
+
+    int tr = square / 8;
+    int tf = square % 8;
+
+    //get northeast diagonal
+    r = tr - 1;
+    f = tf + 1;
+
+    while (r > 0 && f < 7) {
+        set_bit(attack, r * 8 + f);
+        r--;
+        f++;
+    }
+
+    //get southeast diagonal
+    r = tr + 1;
+    f = tf + 1;
+    while (r < 7 && f < 7) {
+        set_bit(attack, r * 8 + f);
+        r++;
+        f++;
+    }
+
+    //get northwest diagonal
+    r = tr + 1;
+    f = tf - 1;
+    while (r < 7 && f > 0) {
+        set_bit(attack, r * 8 + f);
+        r++;
+        f--;
+    }
+
+    //get northeast attacks
+    r = tr - 1;
+    f = tf - 1;
+    while (r > 0 && f > 0) {
+        set_bit(attack, r * 8 + f);
+        r--;
+        f--;
+    }
+
+    return attack;
+}
+
+Board::U64 Board::get_rook_attack(int square) {
+    U64 attack = 0x0000000000000000ULL;
+    
+    int r;
+    int f;
+
+    int tr = square / 8;
+    int tf = square % 8;
+
+    //north
+    r = tr - 1;
+    while(r > 0) {
+        set_bit(attack, r * 8 + tf);
+        r--;
+    }
+
+    //south
+    r = tr + 1;
+    while(r < 7){
+        set_bit(attack, r * 8 + tf);
+        r++;
+    }
+
+    //west
+    f = tf + 1;
+    while(f < 7) {
+        set_bit(attack, tr * 8 + f);
+        f++;
+    }
+
+    //east
+    f = tf - 1;
+    while (f > 0) {
+        set_bit(attack, tr * 8 + f);
+        f--;
+    }
 
     return attack;
 }

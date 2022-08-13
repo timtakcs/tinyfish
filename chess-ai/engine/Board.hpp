@@ -70,6 +70,9 @@ private:
     std::vector<U64> king_attacks;
     U64 get_king_attack(int square);
 
+    U64 get_bishop_attack(int square);
+    U64 get_rook_attack(int square);
+
     void get_leaping_attacks();
 
     //sliding pieces
