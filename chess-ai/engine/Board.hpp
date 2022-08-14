@@ -3,6 +3,7 @@
 #include <set>
 #include <vector>
 #include <map>
+#include <bits/stdc++.h>
 
 class Board {
 public:
@@ -52,6 +53,8 @@ private:
     inline void set_bit(U64 &board, int square);
     inline U64 get_bit(U64 board, int square);
     inline void remove_bit(U64 board, int square);
+    inline int get_bitcount(U64 board);
+    inline int get_lsb_index(U64 board);
 
     inline void update_board();
  
@@ -102,4 +105,8 @@ private:
     inline U64 pawn_single_push(U64 pawns, int color);
     inline U64 pawn_double_push(U64 pawns, int color);
     inline U64 pawn_attack(U64 board, int color);
+
+    //operations for magic bitboards (borrowed code from https://github.com/maksimKorzh/bbc/blob/master/src/bbc_nnue/bbc.c)
+    //based on index, returns the attack mask combination - used later for multiplication by magic numbers
+    U64 set_occupancy(int index, int num_bits, U64 attack);
 };

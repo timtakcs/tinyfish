@@ -62,11 +62,6 @@ void Board::gen_board(std::string& fen) {
         bitmap[string_pieces[j]] = 0x0000000000000000ULL;
     }
 
-    //initializing empty bitboards for each side and full board 
-    bitmap['1'] = 0x0000000000000000ULL;
-    bitmap['0'] = 0x0000000000000000ULL;
-    bitmap['A'] = 0x0000000000000000ULL;
-
     int skip = 0;
     int square = 0;
 
@@ -308,6 +303,8 @@ Board::U64 Board::get_rook_attack(int square) {
         f--;
     }
 
+    get_bitcount(attack);
+
     return attack;
 }
 
@@ -413,6 +410,36 @@ void Board::get_leaping_attacks() {
         knight_attacks.push_back(get_knight_attack(i));
         king_attacks.push_back(get_king_attack(i));
     }
+}
+
+inline int Board::get_bitcount(U64 board) {
+    int count = 0;
+
+    while(board) {
+        count++;
+        board &= board - 1;
+    }
+
+    return count;
+}
+
+inline int Board::get_lsb_index(U64 board) {
+    U64 bit = board & ~(board - 1);
+    int index = log2(index);
+}
+
+Board::U64 Board::set_occupancy(int index, int num_bits, U64 attack) {
+    U64 occupancy = 0x0000000000000000ULL;
+
+    for (int i = 0; i < num_bits; i++) {
+        int square = get_lsb_index(attack);
+
+        remove_bit(attack, square);
+
+        if (get_bit(index, i)) set_bit(occupancy, square);
+    }
+
+    return occupancy;
 }
 
 int main() {
