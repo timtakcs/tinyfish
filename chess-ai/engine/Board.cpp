@@ -109,15 +109,12 @@ void Board::print_full_board() {
 
     get_leaping_attacks();
 
-    print_board(knight_attacks[c6]);
-    print_board(king_attacks[a5]);
+    U64 board = 0ULL;
 
-    print_board(get_bishop_attack(d5));
+    set_bit(board, a1);
+    print_board(board);
 
-    print_board(get_rook_attack(d5));
-
-    //test queen attack
-    print_board(get_bishop_attack(d5) | get_rook_attack(d5));
+    populate_attack_mask_arrays();
 
     //iterate throught all the boards and find the active bits
     for (int piece = 0; piece < string_pieces.length(); piece++) {
@@ -426,6 +423,7 @@ inline int Board::get_bitcount(U64 board) {
 inline int Board::get_lsb_index(U64 board) {
     U64 bit = board & ~(board - 1);
     int index = log2(index);
+    return index;
 }
 
 Board::U64 Board::set_occupancy(int index, int num_bits, U64 attack) {
@@ -440,6 +438,35 @@ Board::U64 Board::set_occupancy(int index, int num_bits, U64 attack) {
     }
 
     return occupancy;
+}
+
+void Board::populate_attack_mask_arrays() {
+    for (int file = 0; file < 8; file++) {
+        for (int rank = 0; rank < 8; rank++) {
+            //this indexing might be screwed
+            int square = rank * 8 + file;
+
+            U64 rook_attack = get_rook_attack(square);
+            U64 bishop_attack = get_bishop_attack(square);
+
+            relevant_bishop_squares[square] = bishop_attack;
+            relevant_rook_squares[square] = rook_attack;
+            
+            for (int index = 0; index < 4096; index++) {
+                masked_rook_attacks[square][index] = set_occupancy(index, get_bitcount(rook_attack), rook_attack);
+            }
+            for (int index = 0; index < 512; index++) {
+                masked_bishop_attacks[square][index] = set_occupancy(index, get_bitcount(bishop_attack), bishop_attack);    
+            }
+        }
+    }
+}
+
+Board::U64 Board::get_magic_bishop_attacks(U64 occupancy, int square) {
+    occupancy &= relevant_bishop_squares[square];
+    occupancy *= bishop_magics[square];
+    occupancy >>= 64 - 9;
+    return masked_bishop_attacks[square][occupancy];
 }
 
 int main() {
