@@ -50,7 +50,7 @@ void Board::gen_board(std::string& fen) {
         idx++;
     }
 
-    idx += 2;
+    idx += 1;
 
     while (fen[idx] != ' ') {
         string_en_passant += fen[idx];
@@ -81,12 +81,34 @@ void Board::gen_board(std::string& fen) {
         square++;
     } 
 
-    //generate full boards
+    //generate full boards and attacks
     update_board();
+    get_leaping_attacks();
+    populate_attack_mask_arrays();
 
-    cout << bitmap['A'] << endl;
-    cout << bitmap['E'] << endl;
-}   
+    //set en passant
+    if (string_en_passant != "-") {
+        int file = string_en_passant[0] - 'a';
+        int rank = string_en_passant[1] - '0';
+
+        en_passant = (rank - 1) * 8 + file;
+    }
+
+    //set turn
+    if (turn == "w") side = white;
+    else side = black;
+
+    //parsing castling rights
+    for (int i = 0; i < string_castle.length(); i++) {
+        switch(string_castle[i]) {
+            case 'K': castle += wk; break;
+            case 'Q': castle += wq; break;
+            case 'k': castle += bk; break;
+            case 'q': castle += bq; break;
+            default: break;
+        }
+    }
+}  
 
 void Board::print_board(U64 board) {
     std::vector<char> b(64, '.');
@@ -107,15 +129,6 @@ void Board::print_board(U64 board) {
 void Board::print_full_board() {
     std::vector<char> b(64, '.');
 
-    get_leaping_attacks();
-
-    U64 board = 0ULL;
-
-    set_bit(board, a1);
-    print_board(board);
-
-    populate_attack_mask_arrays();
-
     //iterate throught all the boards and find the active bits
     for (int piece = 0; piece < string_pieces.length(); piece++) {
         U64 board = bitmap[string_pieces[piece]];
@@ -128,8 +141,13 @@ void Board::print_full_board() {
     //iterate through the array and print each char in the form of a board
     for (int i = 0; i < 64; i++) {
         if (i % 8 == 0) std::cout << "\n";
-        std::cout << ' ' << b[i] << ' ';
+        std::cout << ' ' << b[63 - i] << ' ';
     }
+
+    std::cout << "en passant: " << en_passant << std::endl;
+    std::cout << "castling white: " << std::endl;
+    std::cout << "castling black: " << std::endl;
+    std::cout << "turn: " << side << std::endl;
 }
 
 //normal moves
@@ -137,10 +155,10 @@ inline Board::U64 Board::southOne(U64 &board) {return board << 8;};
 inline Board::U64 Board::northOne(U64 &board) {return board >> 8;};
 inline Board::U64 Board::eastOne(U64 &board) {return (board << 1) & notAFile;};
 inline Board::U64 Board::westOne(U64 &board) {return (board >> 1) & notHFile;};
-inline Board::U64 Board::southWestOne(U64 &board) {return (board >> 9) & notHFile;};
-inline Board::U64 Board::southEastOne(U64 &board){return (board >> 7) & notAFile;};;
-inline Board::U64 Board::northWestOne(U64 &board) {return (board << 7) & notHFile;};
-inline Board::U64 Board::northEastOne(U64 &board){return (board << 9) & notAFile;};
+inline Board::U64 Board::northWestOne(U64 &board) {return (board >> 9) & notHFile;};
+inline Board::U64 Board::northEastOne(U64 &board){return (board >> 7) & notAFile;};;
+inline Board::U64 Board::southWestOne(U64 &board) {return (board << 7) & notHFile;};
+inline Board::U64 Board::southEastOne(U64 &board){return (board << 9) & notAFile;};
 
 //knight moves
 inline Board::U64 Board::noNoEa(U64 b) {return (b << 17) & notAFile ;};
@@ -152,28 +170,61 @@ inline Board::U64 Board::noWeWe(U64 b) {return (b <<  6) & notGHFile;};
 inline Board::U64 Board::soWeWe(U64 b) {return (b >> 10) & notGHFile;};
 inline Board::U64 Board::soSoWe(U64 b) {return (b >> 17) & notHFile ;};
 
-inline Board::U64 Board::pawn_single_push(U64 pawns, int color) {
-    if (color == 0) return northOne(bitmap['P']) & bitmap['E'];
-    else return southOne(bitmap['p']) & bitmap['E'];
-}
+// inline Board::U64 Board::pawn_single_push(U64 pawns, int color) {
+//     if (color == 0) return northOne(bitmap['P']) & bitmap['E'];
+//     else return southOne(bitmap['p']) & bitmap['E'];
+// }
 
-inline Board::U64 Board::pawn_double_push(U64 pawns, int color) {
-    if (color == 0) {
-        const U64 rank4 = 0x000000FF00000000;
-        U64 single_push = pawn_single_push(bitmap['P'], color);
-        return northOne(single_push) & bitmap['E'] & rank4;
+// inline Board::U64 Board::pawn_double_push(U64 pawns, int color) {
+//     if (color == 0) {
+//         const U64 rank4 = 0x000000FF00000000;
+//         U64 single_push = pawn_single_push(bitmap['P'], color);
+//         return northOne(single_push) & bitmap['E'] & rank4;
         
+//     }
+//     else {
+//         const U64 rank5 = 0x00000000FF000000;
+//         U64 single_push = pawn_single_push(bitmap['p'], color);
+//         return southOne(single_push) & bitmap['E'] & rank5;
+//     }
+// }
+
+inline Board::U64 Board::get_pawn_attack(int square, int color) {
+    U64 attack_left = 0ULL;
+    U64 attack_right = 0ULL;
+
+    set_bit(attack_left, square);
+    set_bit(attack_right, square);
+    
+    if (!color) {
+        attack_left = northWestOne(attack_left);
+        attack_right = northEastOne(attack_right);
     }
     else {
-        const U64 rank5 = 0x00000000FF000000;
-        U64 single_push = pawn_single_push(bitmap['p'], color);
-        return southOne(single_push) & bitmap['E'] & rank5;
+        attack_left = southWestOne(attack_left);
+        attack_right = southEastOne(attack_right);
     }
+
+    U64 attack = attack_left | attack_right;
+
+    return attack;
 }
 
-inline Board::U64 Board::pawn_attack(U64 board, int color) {
-    if (color == 0) return (northEastOne(bitmap['P']) | northWestOne(bitmap['P'])) & bitmap['0'];
-    else return (southEastOne(bitmap['p']) | southWestOne(bitmap['p'])) & bitmap['1'];
+inline Board::U64 Board::get_pawn_push(int square, int color) {
+    U64 push_1 = 0ULL;
+    U64 push_2;
+    set_bit(push_1, square);
+
+    if (!color) {
+        push_1 = northOne(push_1);
+        push_2 = northOne(push_1);
+    }
+    else {
+        push_1 = southOne(push_1);
+        push_2 = southOne(push_1);
+    }
+
+    return push_1 | push_2;
 }
 
 Board::U64 Board::get_knight_attack(int square) {
@@ -305,6 +356,7 @@ Board::U64 Board::get_rook_attack(int square) {
     return attack;
 }
 
+//this funciton is wrong
 Board::U64 Board::get_obstructed_bishop_attack(int square, U64 occupancy) {
     U64 attack = 0x0000000000000000ULL;
 
@@ -358,6 +410,7 @@ Board::U64 Board::get_obstructed_bishop_attack(int square, U64 occupancy) {
     return attack;
 }
 
+//this function is wrong
 Board::U64 Board::get_obstructed_rook_attack(int square, U64 occupancy) {
     U64 attack = 0x0000000000000000ULL;
     
@@ -406,6 +459,10 @@ void Board::get_leaping_attacks() {
     for (int i = 0; i < 64; i++) {
         knight_attacks.push_back(get_knight_attack(i));
         king_attacks.push_back(get_king_attack(i));
+        pawn_attacks[white][i] = get_pawn_attack(i, white);
+        pawn_attacks[black][i] = get_pawn_attack(i, black);
+        pawn_quiet_push[white][i] = get_pawn_push(i, white);
+        pawn_quiet_push[black][i] = get_pawn_push(i, black);
     }
 }
 
@@ -441,37 +498,101 @@ Board::U64 Board::set_occupancy(int index, int num_bits, U64 attack) {
 }
 
 void Board::populate_attack_mask_arrays() {
-    for (int file = 0; file < 8; file++) {
-        for (int rank = 0; rank < 8; rank++) {
-            //this indexing might be screwed
-            int square = rank * 8 + file;
+    for(int square = 0; square < 64; square++) {
+        U64 rook_attack = get_rook_attack(square);
+        U64 bishop_attack = get_bishop_attack(square);
 
-            U64 rook_attack = get_rook_attack(square);
-            U64 bishop_attack = get_bishop_attack(square);
+        relevant_bishop_squares[square] = bishop_attack;
+        relevant_rook_squares[square] = rook_attack;
+        
+        int bishop_bits = get_bitcount(bishop_attack);
+        int rook_bits = get_bitcount(rook_attack);
 
-            relevant_bishop_squares[square] = bishop_attack;
-            relevant_rook_squares[square] = rook_attack;
-            
-            for (int index = 0; index < 4096; index++) {
-                masked_rook_attacks[square][index] = set_occupancy(index, get_bitcount(rook_attack), rook_attack);
-            }
-            for (int index = 0; index < 512; index++) {
-                masked_bishop_attacks[square][index] = set_occupancy(index, get_bitcount(bishop_attack), bishop_attack);    
-            }
+        int bishop_occupancy = (1 << bishop_bits);
+        int rook_occupancy = (1 << rook_bits);
+
+        for (int index = 0; index < bishop_occupancy; index++) {
+            U64 occupancy = set_occupancy(index, bishop_bits, bishop_attack);
+            int magic = (occupancy * bishop_magics[square]) << (64 - bishop_bits);
+            masked_bishop_attacks[square][magic] = get_obstructed_bishop_attack(square, occupancy);
+        }
+
+        for (int index = 0; index < rook_occupancy; index++) {
+            U64 occupancy = set_occupancy(index, rook_bits, rook_attack);
+            int magic = (occupancy * rook_magics[square]) << (64 - rook_bits);
+            masked_rook_attacks[square][magic] = get_obstructed_rook_attack(square, occupancy);
         }
     }
 }
 
+//these don't seem to work, come fix them later, you can use the on the fly ones for now
 Board::U64 Board::get_magic_bishop_attacks(U64 occupancy, int square) {
     occupancy &= relevant_bishop_squares[square];
     occupancy *= bishop_magics[square];
-    occupancy >>= 64 - 9;
+    occupancy >>= 64 - get_bitcount(relevant_bishop_squares[square]);
     return masked_bishop_attacks[square][occupancy];
 }
 
+Board::U64 Board::get_magic_rook_attacks(U64 occupancy, int square) {
+    occupancy &= relevant_rook_squares[square];
+    occupancy *= rook_magics[square];
+    occupancy >>= 64 - get_bitcount(relevant_rook_squares[square]);
+    return masked_rook_attacks[square][occupancy];
+}
+
+Board::U64 Board::get_queen_attacks(int square, U64 occupancy) {
+
+    cout << square << endl;
+    U64 bishop_attack = get_obstructed_bishop_attack(square, occupancy);
+    U64 rook_attack = get_obstructed_rook_attack(square, occupancy);
+
+    return bishop_attack | rook_attack;
+}
+
+bool Board::is_square_attacked(int square) {
+    U64 super_piece = 0ULL;
+    set_bit(super_piece, square);
+    return false;
+}
+
+void Board::function_debug() {
+    cout << "full" << endl;
+    print_full_board();
+
+    cout << "bishop c5" << endl;
+    print_board(get_obstructed_bishop_attack(c5, bitmap['A']));
+    cout << "rook h3" << endl;
+    print_board(get_obstructed_rook_attack(h3, bitmap['A']));
+    cout << "queen d5";
+    print_board(get_queen_attacks(e3, bitmap['A']));
+
+    cout << "knight d3" << endl;
+    print_board(knight_attacks[d3]);
+    cout << "king e5" << endl;
+    print_board(king_attacks[e5]);
+
+    cout << "pawn attack c7" << endl;
+    print_board(pawn_attacks[black][c7]);
+    cout << "pawn attack c2" << endl;
+    print_board(pawn_attacks[white][c2]);
+
+    cout << "pawn push c7" << endl;
+    print_board(pawn_quiet_push[black][c7]);
+    cout << "pawn push c2" << endl;
+    print_board(pawn_quiet_push[white][c2]);
+
+    print_board(notHFile);
+    U64 test = 0ULL;
+    set_bit(test, d5);
+    print_board(test);
+    test = northWestOne(test);
+    print_board(test);
+
+}
+
 int main() {
-    std::string fen("");
+    std::string fen("rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1");
     Board board(fen);
-    board.print_full_board();
+    board.function_debug();
     return 0;
 }

@@ -11,16 +11,17 @@ public:
     Board(std::string fen);
     void print_full_board();
     void print_board(U64 board);
+    void function_debug();
     //generate legal moves
 private:
-    enum board {a1, b1, c1, d1, e1, f1, g1, h1,
-        a2, b2, c2, d2, e2, f2, g2, h2,
-        a3, b3, c3, d3, e3, f3, g3, h3,
-        a4, b4, c4, d4, e4, f4, g4, h4,
-        a5, b5, c5, d5, e5, f5, g5, h5,
-        a6, b6, c6, d6, e6, f6, g6, h6,
+    enum board {a8, b8, c8, d8, e8, f8, g8, h8,
         a7, b7, c7, d7, e7, f7, g7, h7,
-        a8, b8, c8, d8, e8, f8, g8, h8, temp
+        a6, b6, c6, d6, e6, f6, g6, h6,
+        a5, b5, c5, d5, e5, f5, g5, h5,
+        a4, b4, c4, d4, e4, f4, g4, h4,
+        a3, b3, c3, d3, e3, f3, g3, h3,
+        a2, b2, c2, d2, e2, f2, g2, h2,
+        a1, b1, c1, d1, e1, f1, g1, h1, temp
     };
 
     enum pieces {K, Q, R, B, N, P, k, q, r, b, n, p};
@@ -31,14 +32,14 @@ private:
     enum castle {wk = 1, wq = 2, bk = 4, bq = 8};
 
     const std::set<std::string> string_board = { 
-    "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
-    "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-    "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
-    "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
-    "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
-    "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
+    "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
     "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
-    "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8", "temp"
+    "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
+    "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+    "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
+    "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
+    "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
+    "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "temp"
     };
 
     std::string string_pieces = "KQRBNPkqrbnp";
@@ -73,6 +74,12 @@ private:
     std::vector<U64> king_attacks;
     U64 get_king_attack(int square);
 
+    U64 pawn_attacks[2][64];
+    U64 pawn_quiet_push[2][64];
+
+    inline U64 get_pawn_attack(int square, int color);
+    inline U64 get_pawn_push(int square, int color);
+
     U64 get_bishop_attack(int square);
     U64 get_rook_attack(int square);
 
@@ -104,7 +111,6 @@ private:
     //pawn pushes
     inline U64 pawn_single_push(U64 pawns, int color);
     inline U64 pawn_double_push(U64 pawns, int color);
-    inline U64 pawn_attack(U64 board, int color);
 
     //getting occupancy squares for magic bitboards
     U64 set_occupancy(int square, int num_bits, U64 attack);
@@ -255,4 +261,8 @@ private:
     //generating slider attacks
     U64 get_magic_bishop_attacks(U64 occupancy, int square);
     U64 get_magic_rook_attacks(U64 occupancy, int square);
+    U64 get_queen_attacks(int square, U64 occupancy);
+
+    //checking for square attacks
+    bool is_square_attacked(int square);
 };
