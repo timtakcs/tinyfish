@@ -141,7 +141,7 @@ void Board::print_full_board() {
     //iterate through the array and print each char in the form of a board
     for (int i = 0; i < 64; i++) {
         if (i % 8 == 0) std::cout << "\n";
-        std::cout << ' ' << b[63 - i] << ' ';
+        std::cout << ' ' << b[i] << ' ';
     }
 
     std::cout << "en passant: " << en_passant << std::endl;
@@ -161,14 +161,14 @@ inline Board::U64 Board::southWestOne(U64 &board) {return (board << 7) & notHFil
 inline Board::U64 Board::southEastOne(U64 &board){return (board << 9) & notAFile;};
 
 //knight moves
-inline Board::U64 Board::noNoEa(U64 b) {return (b << 17) & notAFile ;};
-inline Board::U64 Board::noEaEa(U64 b) {return (b << 10) & notABFile;};
-inline Board::U64 Board::soEaEa(U64 b) {return (b >>  6) & notABFile;};
-inline Board::U64 Board::soSoEa(U64 b) {return (b >> 15) & notAFile ;};
-inline Board::U64 Board::noNoWe(U64 b) {return (b << 15) & notHFile ;};
-inline Board::U64 Board::noWeWe(U64 b) {return (b <<  6) & notGHFile;};
-inline Board::U64 Board::soWeWe(U64 b) {return (b >> 10) & notGHFile;};
-inline Board::U64 Board::soSoWe(U64 b) {return (b >> 17) & notHFile ;};
+inline Board::U64 Board::soSoEa(U64 b) {return (b << 17) & notAFile ;};
+inline Board::U64 Board::soEaEa(U64 b) {return (b << 10) & notABFile;};
+inline Board::U64 Board::noEaEa(U64 b) {return (b >>  6) & notABFile;};
+inline Board::U64 Board::noNoEa(U64 b) {return (b >> 15) & notAFile ;};
+inline Board::U64 Board::soSoWe(U64 b) {return (b << 15) & notHFile ;};
+inline Board::U64 Board::soWeWe(U64 b) {return (b <<  6) & notGHFile;};
+inline Board::U64 Board::noWeWe(U64 b) {return (b >> 10) & notGHFile;};
+inline Board::U64 Board::noNoWe(U64 b) {return (b >> 17) & notHFile ;};
 
 // inline Board::U64 Board::pawn_single_push(U64 pawns, int color) {
 //     if (color == 0) return northOne(bitmap['P']) & bitmap['E'];
@@ -371,8 +371,8 @@ Board::U64 Board::get_obstructed_bishop_attack(int square, U64 occupancy) {
     f = tf + 1;
 
     while (r >= 0 && f < 8) {
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, r * 8 + f);
+        if (get_bit(occupancy, r * 8 + f)) break;
         r--;
         f++;
     }
@@ -381,18 +381,19 @@ Board::U64 Board::get_obstructed_bishop_attack(int square, U64 occupancy) {
     r = tr + 1;
     f = tf + 1;
     while (r < 8 && f < 8) {
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, r * 8 + f);
+        if (get_bit(occupancy, r * 8 + f)) break;
         r++;
         f++;
+
     }
 
     //get northwest diagonal
     r = tr + 1;
     f = tf - 1;
     while (r < 8 && f >= 0) {
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, r * 8 + f);
+        if (get_bit(occupancy, r * 8 + f)) break;
         r++;
         f--;
     }
@@ -401,8 +402,8 @@ Board::U64 Board::get_obstructed_bishop_attack(int square, U64 occupancy) {
     r = tr - 1;
     f = tf - 1;
     while (r >= 0 && f >= 0) {
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, r * 8 + f);
+        if (get_bit(occupancy, r * 8 + f)) break;
         r--;
         f--;
     }
@@ -423,32 +424,32 @@ Board::U64 Board::get_obstructed_rook_attack(int square, U64 occupancy) {
     //north
     r = tr - 1;
     while(r >= 0) {
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, r * 8 + tf);
+        if (get_bit(occupancy, r * 8 + tf)) break;
         r--;
     }
 
     //south
     r = tr + 1;
     while(r < 8){
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, r * 8 + tf);
+        if (get_bit(occupancy, r * 8 + tf)) break;
         r++;
     }
 
     //west
     f = tf + 1;
     while(f < 8) {
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, tr * 8 + f);
+        if (get_bit(occupancy, tr * 8 + f)) break;
         f++;
     }
 
     //east
     f = tf - 1;
     while (f >= 0) {
-        if (get_bit(occupancy, r * 8 + f)) break;
         set_bit(attack, tr * 8 + f);
+        if (get_bit(occupancy, tr * 8 + f)) break;
         f--;
     }
 
@@ -526,32 +527,53 @@ void Board::populate_attack_mask_arrays() {
 }
 
 //these don't seem to work, come fix them later, you can use the on the fly ones for now
-Board::U64 Board::get_magic_bishop_attacks(U64 occupancy, int square) {
+Board::U64 Board::get_magic_bishop_attack(U64 occupancy, int square) {
     occupancy &= relevant_bishop_squares[square];
     occupancy *= bishop_magics[square];
     occupancy >>= 64 - get_bitcount(relevant_bishop_squares[square]);
     return masked_bishop_attacks[square][occupancy];
 }
 
-Board::U64 Board::get_magic_rook_attacks(U64 occupancy, int square) {
+Board::U64 Board::get_magic_rook_attack(U64 occupancy, int square) {
     occupancy &= relevant_rook_squares[square];
     occupancy *= rook_magics[square];
     occupancy >>= 64 - get_bitcount(relevant_rook_squares[square]);
     return masked_rook_attacks[square][occupancy];
 }
 
-Board::U64 Board::get_queen_attacks(int square, U64 occupancy) {
-
-    cout << square << endl;
+Board::U64 Board::get_queen_attack(int square, U64 occupancy) {
     U64 bishop_attack = get_obstructed_bishop_attack(square, occupancy);
     U64 rook_attack = get_obstructed_rook_attack(square, occupancy);
 
     return bishop_attack | rook_attack;
 }
 
-bool Board::is_square_attacked(int square) {
-    U64 super_piece = 0ULL;
-    set_bit(super_piece, square);
+bool Board::is_square_attacked(int square, int color) {
+    //pawn attacks
+    
+    if (!color && pawn_attacks[!color][square] & bitmap['P']) return true;
+    if (color && pawn_attacks[!color][square] & bitmap['p']) return true;
+
+    //knight attacks
+    if (!color && knight_attacks[square] & bitmap['N']) return true;
+    if (color && knight_attacks[square] & bitmap['n']) return true;
+    
+    //bishop attacks
+    if (!color && get_obstructed_bishop_attack(square, bitmap['A']) & bitmap['B']) return true;
+    if (color && get_obstructed_bishop_attack(square, bitmap['A']) & bitmap['b']) return true;
+
+    //rook attacksz
+    if (!color && get_obstructed_rook_attack(square, bitmap['A']) & bitmap['R']) return true;
+    if (color && get_obstructed_rook_attack(square, bitmap['A']) & bitmap['r']) return true;
+    
+    //queen attacks
+    if (!color && get_queen_attack(square, bitmap['A']) & bitmap['Q']) return true;
+    if (color && get_queen_attack(square, bitmap['A']) & bitmap['q']) return true;
+
+    //king attacks
+    if (!color && king_attacks[square] & bitmap['K']) return true;
+    if (color && king_attacks[square] & bitmap['k']) return true;
+
     return false;
 }
 
@@ -564,7 +586,7 @@ void Board::function_debug() {
     cout << "rook h3" << endl;
     print_board(get_obstructed_rook_attack(h3, bitmap['A']));
     cout << "queen d5";
-    print_board(get_queen_attacks(e3, bitmap['A']));
+    print_board(get_queen_attack(e3, bitmap['A']));
 
     cout << "knight d3" << endl;
     print_board(knight_attacks[d3]);
@@ -581,13 +603,18 @@ void Board::function_debug() {
     cout << "pawn push c2" << endl;
     print_board(pawn_quiet_push[white][c2]);
 
-    print_board(notHFile);
-    U64 test = 0ULL;
-    set_bit(test, d5);
-    print_board(test);
-    test = northWestOne(test);
-    print_board(test);
-
+    cout << "pawn" << endl;
+    cout << is_square_attacked(h8, white) << endl;
+    cout << "king" << endl;
+    cout << is_square_attacked(f3, white) << endl;
+    cout << "bishop" << endl;
+    cout << is_square_attacked(g2, white) << endl;
+    cout << "queen" << endl;
+    cout << is_square_attacked(d2, white) << endl;
+    cout << "knight" << endl;
+    cout << is_square_attacked(a3, white) << endl;
+    cout << "rook" << endl;
+    cout << is_square_attacked(h4, white) << endl;
 }
 
 int main() {
