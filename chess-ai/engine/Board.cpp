@@ -5,7 +5,7 @@ using namespace std;
 
 inline void Board::set_bit(U64 &board, int square) {(board) |= (1ULL << (square));};
 inline Board::U64 Board::get_bit(U64 board, int square) {return (board & (1ULL << square));};
-inline void Board::remove_bit(U64 board, int square) {board &= ~(1ULL << square);};
+inline void Board::remove_bit(U64 &board, int square) {board &= ~(1ULL << square);};
 
 Board::Board(std::string fen) {
     gen_board(fen);
@@ -479,9 +479,8 @@ inline int Board::get_bitcount(U64 board) {
 }
 
 inline int Board::get_lsb_index(U64 board) {
-    U64 bit = board & ~(board - 1);
-    int index = log2(index);
-    return index;
+    U64 bit = (board & -board) - 1;
+    return get_bitcount(bit);
 }
 
 Board::U64 Board::set_occupancy(int index, int num_bits, U64 attack) {
@@ -549,8 +548,9 @@ Board::U64 Board::get_queen_attack(int square, U64 occupancy) {
 }
 
 bool Board::is_square_attacked(int square, int color) {
+    //rewrite the whole thing as two big if statements, i think it should be faster
+
     //pawn attacks
-    
     if (!color && pawn_attacks[!color][square] & bitmap['P']) return true;
     if (color && pawn_attacks[!color][square] & bitmap['p']) return true;
 
@@ -575,6 +575,89 @@ bool Board::is_square_attacked(int square, int color) {
     if (color && king_attacks[square] & bitmap['k']) return true;
 
     return false;
+}
+
+std::vector<int> Board::get_positions(U64 board) {
+    std::vector<int> squares;
+    int count = get_bitcount(board);
+    int bit = 0;
+
+    while (bit < count) {
+        int index = get_lsb_index(board);
+        U64 copy = board;
+        remove_bit(copy, index);
+        int square = log2(copy ^ board);
+        squares.push_back(square);
+        board = copy;
+        bit++;
+    }
+
+    return squares;
+}
+
+std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
+    //this doesn't include captures
+
+    std::vector<Board::move> moves;
+    int offset;
+    if (side) offset = 6;
+    
+    for (int piece = 0; piece < 6; piece++) {
+        char piece_char = string_pieces[piece + offset];
+        U64 board = bitmap[piece_char];
+        std::vector<int> starting_squares = get_positions(board);
+
+        for (auto square: starting_squares) {
+            U64 attack;
+            switch(piece_char) {
+                case 'P': 
+                case 'p':
+                    attack = pawn_attacks[side][square]; //| get_pawn_push(bitmap['A'], square, side);
+                    break;
+                case 'B': 
+                case 'b':
+                    attack = get_obstructed_bishop_attack(square, bitmap['A']);
+                    break;
+                case 'N': 
+                case 'n':
+                    attack = knight_attacks[square];
+                    break;
+                case 'R': 
+                case 'r':
+                    attack = get_obstructed_rook_attack(square, bitmap['A']);
+                    break;
+                case 'Q': 
+                case 'q':
+                    attack = get_queen_attack(square, bitmap['A']);
+                    break;
+                case 'K': 
+                case 'k':
+                    attack = king_attacks[square];
+                    break;
+            }
+
+            std::vector<int> target_squares = get_positions(attack);
+            for (auto t_square: target_squares) {
+                move m;
+                m.from = square;
+                m.to = t_square;
+                m.castle = 0;
+                m.en_passant = none;
+                m.capture = false;
+                m.side = side;
+                moves.push_back(m);
+            }
+        }
+    }
+
+    //iterate through all of the white pieces
+    //generate their attack masks
+    //get their current square
+    //get each of their attack squares
+    //append a move to the array
+
+    //don't worry about castling or en passant yet
+    return moves;
 }
 
 void Board::function_debug() {
@@ -615,6 +698,14 @@ void Board::function_debug() {
     cout << is_square_attacked(a3, white) << endl;
     cout << "rook" << endl;
     cout << is_square_attacked(h4, white) << endl;
+
+    cout << "squares of rooks" << endl;
+    std::vector<int> s = get_positions(bitmap['R']);
+
+    for (auto x: s) {
+        cout << x << endl;
+    }
+    
 }
 
 int main() {

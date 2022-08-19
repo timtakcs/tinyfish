@@ -21,7 +21,7 @@ private:
         a4, b4, c4, d4, e4, f4, g4, h4,
         a3, b3, c3, d3, e3, f3, g3, h3,
         a2, b2, c2, d2, e2, f2, g2, h2,
-        a1, b1, c1, d1, e1, f1, g1, h1, temp
+        a1, b1, c1, d1, e1, f1, g1, h1, none
     };
 
     enum pieces {K, Q, R, B, N, P, k, q, r, b, n, p};
@@ -39,7 +39,7 @@ private:
     "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
     "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
     "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-    "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "temp"
+    "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "none"
     };
 
     std::string string_pieces = "KQRBNPkqrbnp";
@@ -47,13 +47,13 @@ private:
     std::map<char, U64> bitmap;
 
     int side;
-    int en_passant = temp;
+    int en_passant = none;
     int castle;
 
     //bit operations
     inline void set_bit(U64 &board, int square);
     inline U64 get_bit(U64 board, int square);
-    inline void remove_bit(U64 board, int square);
+    inline void remove_bit(U64 &board, int square);
     inline int get_bitcount(U64 board);
     inline int get_lsb_index(U64 board);
 
@@ -259,10 +259,23 @@ private:
     };
 
     //generating slider attacks
-    U64 get_magic_bishop_attacks(U64 occupancy, int square);
-    U64 get_magic_rook_attacks(U64 occupancy, int square);
-    U64 get_queen_attacks(int square, U64 occupancy);
+    U64 get_magic_bishop_attack(U64 occupancy, int square);
+    U64 get_magic_rook_attack(U64 occupancy, int square);
+    U64 get_queen_attack(int square, U64 occupancy);
 
-    //checking for square attacks
-    bool is_square_attacked(int square);
+    //move generation
+    bool is_square_attacked(int square, int color);
+
+    struct move {
+        bool capture;
+        int en_passant;
+        int from;
+        int to;
+        int castle;
+        int side;
+        char piece;
+    };
+
+    std::vector<int> get_positions(U64 board);
+    std::vector<move> get_pseudo_legal_moves(int side);
 };
