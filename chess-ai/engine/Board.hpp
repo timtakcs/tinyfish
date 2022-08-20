@@ -8,6 +8,18 @@
 class Board {
 public:
     typedef unsigned long long U64; 
+
+    struct move {
+        bool capture;
+        int en_passant;
+        int from;
+        int to;
+        int castle;
+        int side;
+        char piece;
+        std::string repr;
+    };
+
     Board(std::string fen);
     void print_full_board();
     void print_board(U64 board);
@@ -31,7 +43,7 @@ private:
     //binary encoding of castling availability
     enum castle {wk = 1, wq = 2, bk = 4, bq = 8};
 
-    const std::set<std::string> string_board = { 
+    const std::vector<std::string> string_board = { 
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
     "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
     "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
@@ -266,16 +278,8 @@ private:
     //move generation
     bool is_square_attacked(int square, int color);
 
-    struct move {
-        bool capture;
-        int en_passant;
-        int from;
-        int to;
-        int castle;
-        int side;
-        char piece;
-    };
-
+    move get_move(int en_passant, int from, int to, int castle, int side, char piece, U64 opp);
+    bool is_check(int side);
     std::vector<int> get_positions(U64 board);
     std::vector<move> get_pseudo_legal_moves(int side);
 };

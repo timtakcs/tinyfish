@@ -12,10 +12,10 @@ Board::Board(std::string fen) {
 }
 
 inline void Board::update_board() {
-    bitmap['1'] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
+    bitmap['0'] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
                 | bitmap['B'] | bitmap['P']; 
 
-    bitmap['0'] = bitmap['k'] | bitmap['q'] | bitmap['r'] | bitmap['n']
+    bitmap['1'] = bitmap['k'] | bitmap['q'] | bitmap['r'] | bitmap['n']
                 | bitmap['b'] | bitmap['p']; 
 
     bitmap['A'] = bitmap['1'] | bitmap['0'];
@@ -143,11 +143,14 @@ void Board::print_full_board() {
         if (i % 8 == 0) std::cout << "\n";
         std::cout << ' ' << b[i] << ' ';
     }
+    std::cout << "\n" << std::endl;
 
     std::cout << "en passant: " << en_passant << std::endl;
     std::cout << "castling white: " << std::endl;
     std::cout << "castling black: " << std::endl;
     std::cout << "turn: " << side << std::endl;
+
+    std::cout << "\n" << std::endl;
 }
 
 //normal moves
@@ -595,12 +598,45 @@ std::vector<int> Board::get_positions(U64 board) {
     return squares;
 }
 
+bool Board::is_check(int side) {
+    U64 king = bitmap['K'];
+    if (side) king = bitmap['k'];
+
+    int square = get_positions(king)[0];
+    if (is_square_attacked(square, !side)) return true;
+
+    return false;
+}
+
+Board::move Board::get_move(int en_passant, int from, int to, int castle, int side, char piece, U64 opp) {
+    U64 sq = 0ULL;
+    set_bit(sq, to);
+    move m;
+    m.from = from;
+    m.to = to;
+    m.castle = castle;
+    m.en_passant = none;
+    if (sq & opp) m.capture = true;
+    else m.capture = false;
+    m.side = side;
+    m.piece = piece;
+    if (castle) m.repr = string_board[from] + string_board[to];
+    else {
+        if (castle == 2 || castle == 8) m.repr = "O-O";
+        else m.repr = "O-O-O";
+    }
+}
+
 std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
     //this doesn't include captures
 
     std::vector<Board::move> moves;
-    int offset;
-    if (side) offset = 6;
+    int offset = 0;
+    U64 opp = bitmap['1'];
+    if (side) {
+        offset = 6;
+        opp = bitmap['0'];
+    }
     
     for (int piece = 0; piece < 6; piece++) {
         char piece_char = string_pieces[piece + offset];
@@ -612,104 +648,112 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             switch(piece_char) {
                 case 'P': 
                 case 'p':
-                    attack = pawn_attacks[side][square]; //| get_pawn_push(bitmap['A'], square, side);
+                    attack = pawn_attacks[side][square] & opp; //| get_pawn_push(bitmap['A'], square, side);
                     break;
                 case 'B': 
                 case 'b':
-                    attack = get_obstructed_bishop_attack(square, bitmap['A']);
+                    attack = get_obstructed_bishop_attack(square, bitmap['A']) & (bitmap['E'] | opp);
                     break;
                 case 'N': 
                 case 'n':
-                    attack = knight_attacks[square];
+                    attack = knight_attacks[square] & (bitmap['E'] | opp);
                     break;
                 case 'R': 
                 case 'r':
-                    attack = get_obstructed_rook_attack(square, bitmap['A']);
+                    attack = get_obstructed_rook_attack(square, bitmap['A']) & (bitmap['E'] | opp);
                     break;
                 case 'Q': 
                 case 'q':
-                    attack = get_queen_attack(square, bitmap['A']);
+                    attack = get_queen_attack(square, bitmap['A']) & (bitmap['E'] | opp);
                     break;
                 case 'K': 
                 case 'k':
-                    attack = king_attacks[square];
+                    attack = king_attacks[square] & (bitmap['E'] | opp);
                     break;
             }
 
             std::vector<int> target_squares = get_positions(attack);
             for (auto t_square: target_squares) {
-                move m;
-                m.from = square;
-                m.to = t_square;
-                m.castle = 0;
-                m.en_passant = none;
-                m.capture = false;
-                m.side = side;
+                move m = get_move(en_passant, square, t_square, 0, side, piece_char, opp);
                 moves.push_back(m);
             }
         }
+
+        //white king side castling
+        if ((castle & 1) && !side) {
+            if (!is_square_attacked(f1, black) && 
+                !get_bit(bitmap['0'], f1) &&
+                !is_square_attacked(g1, black) && 
+                !get_bit(bitmap['0'], g1) &&
+                !is_check(white)) {
+                    move m = get_move(en_passant, none, none, 1, side, 'K', 0ULL);
+                    moves.push_back(m);
+                }
+        }
+        //white queen side castling
+        else if ((castle & 2) && !side) {
+            if (!is_square_attacked(d1, black) && 
+                !get_bit(bitmap['0'], d1) &&
+                !is_square_attacked(c1, black) && 
+                !get_bit(bitmap['0'], c1) &&
+                !is_square_attacked(b1, black) && 
+                !get_bit(bitmap['0'], b1) &&
+                !is_check(white)) {
+                    move m = get_move(en_passant, none, none, 2, side, 'K', 0ULL);
+                    moves.push_back(m);
+                }
+        }
+        //black king side castling
+        else if ((castle & 4) && side) {
+            if (!is_square_attacked(f8, white) && 
+                !get_bit(bitmap['1'], f8) &&
+                !is_square_attacked(g8, white) && 
+                !get_bit(bitmap['1'], g8) &&
+                !is_check(black)) {
+                    move m = get_move(en_passant, none, none, 4, side, 'k', 0ULL);
+                    moves.push_back(m);
+                }
+        }
+        //black queen side castling
+        else if ((castle & 8) && side) {
+            if (!is_square_attacked(d8, white) && 
+                !get_bit(bitmap['1'], d8) &&
+                !is_square_attacked(c8, white) && 
+                !get_bit(bitmap['1'], c8) &&
+                !is_square_attacked(b8, white) && 
+                !get_bit(bitmap['1'], b8) &&
+                !is_check(black)) {
+                    move m = get_move(en_passant, none, none, 8, side, 'k', 0ULL);
+                    moves.push_back(m);
+                }
+        }
+
+        //en passant capture
+        if (en_passant != 64) {
+            //this is for tomorrow
+        }
     }
 
-    //iterate through all of the white pieces
-    //generate their attack masks
-    //get their current square
-    //get each of their attack squares
-    //append a move to the array
-
-    //don't worry about castling or en passant yet
     return moves;
 }
 
 void Board::function_debug() {
-    cout << "full" << endl;
     print_full_board();
 
-    cout << "bishop c5" << endl;
-    print_board(get_obstructed_bishop_attack(c5, bitmap['A']));
-    cout << "rook h3" << endl;
-    print_board(get_obstructed_rook_attack(h3, bitmap['A']));
-    cout << "queen d5";
-    print_board(get_queen_attack(e3, bitmap['A']));
+    vector<move> moves = get_pseudo_legal_moves(black);
 
-    cout << "knight d3" << endl;
-    print_board(knight_attacks[d3]);
-    cout << "king e5" << endl;
-    print_board(king_attacks[e5]);
-
-    cout << "pawn attack c7" << endl;
-    print_board(pawn_attacks[black][c7]);
-    cout << "pawn attack c2" << endl;
-    print_board(pawn_attacks[white][c2]);
-
-    cout << "pawn push c7" << endl;
-    print_board(pawn_quiet_push[black][c7]);
-    cout << "pawn push c2" << endl;
-    print_board(pawn_quiet_push[white][c2]);
-
-    cout << "pawn" << endl;
-    cout << is_square_attacked(h8, white) << endl;
-    cout << "king" << endl;
-    cout << is_square_attacked(f3, white) << endl;
-    cout << "bishop" << endl;
-    cout << is_square_attacked(g2, white) << endl;
-    cout << "queen" << endl;
-    cout << is_square_attacked(d2, white) << endl;
-    cout << "knight" << endl;
-    cout << is_square_attacked(a3, white) << endl;
-    cout << "rook" << endl;
-    cout << is_square_attacked(h4, white) << endl;
-
-    cout << "squares of rooks" << endl;
-    std::vector<int> s = get_positions(bitmap['R']);
-
-    for (auto x: s) {
-        cout << x << endl;
+    for (auto m: moves) {
+        cout << "piece :" << m.piece << endl;
+        cout << "from :" << string_board[m.from] << endl;
+        cout << "to :" << string_board[m.to] << endl;
+        cout << "capture: " << m.capture << endl;
+        cout << "\n\n" << endl;
     }
     
 }
 
 int main() {
-    std::string fen("rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1");
+    std::string fen("");
     Board board(fen);
     board.function_debug();
     return 0;
