@@ -11,7 +11,7 @@ public:
 
     struct move {
         bool capture;
-        int en_passant;
+        bool en_passant;
         int from;
         int to;
         int castle;
@@ -278,7 +278,7 @@ private:
     //move generation
     bool is_square_attacked(int square, int color);
 
-    move get_move(int en_passant, int from, int to, int castle, int side, char piece, U64 opp);
+    move get_move(bool en_passant, int from, int to, int castle, int side, char piece, U64 opp);
     bool is_check(int side);
     std::vector<int> get_positions(U64 board);
     std::vector<move> get_pseudo_legal_moves(int side);
