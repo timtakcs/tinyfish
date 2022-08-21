@@ -282,4 +282,6 @@ private:
     bool is_check(int side);
     std::vector<int> get_positions(U64 board);
     std::vector<move> get_pseudo_legal_moves(int side);
+
+    int make_move(move m);
 };

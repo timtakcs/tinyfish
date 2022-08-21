@@ -658,7 +658,6 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
                     break;
                 case 'N': 
                 case 'n':
-                    cout << square << "dsdds" << endl;
                     attack = knight_attacks[square] & (bitmap['E'] | opp);
                     break;
                 case 'R': 
@@ -749,25 +748,78 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
     return moves;
 }
 
+//0 is for success, 1 is for failure (illegal move)
+int Board::make_move(move m) {
+    if (!m.castle) {
+        remove_bit(bitmap[m.piece], m.from);
+        set_bit(bitmap[m.piece], m.to);
+
+        //if check
+        //pop move
+        //return 1
+
+        if (m.capture) {
+            if (m.en_passant) {
+                if (!m.side) {
+                    remove_bit(bitmap['p'], m.to + 8);
+                }
+                else {
+                    remove_bit(bitmap['P'], m.to - 8);
+                }
+            }
+            int offset = 0;
+            if (!m.side) offset = 6;
+
+            for (int piece = 0; piece < 6; piece++) {
+                if (bitmap[string_pieces[piece]] & bitmap[m.piece]) remove_bit(bitmap[string_pieces[piece]], m.to);
+            }
+        }
+    }
+    //castling logic
+    else {
+        if (m.castle == 1) {
+            remove_bit(bitmap['K'], e1);
+            set_bit(bitmap['K'], g1);
+            remove_bit(bitmap['R'], h1);
+            set_bit(bitmap['R'], f1);
+        }
+        else if (m.castle == 2) {
+            remove_bit(bitmap['K'], e1);
+            set_bit(bitmap['K'], c1);
+            remove_bit(bitmap['R'], a1);
+            set_bit(bitmap['R'], d1);
+        }
+        else if (m.castle == 4) {
+            remove_bit(bitmap['k'], e8);
+            set_bit(bitmap['k'], g8);
+            remove_bit(bitmap['r'], h8);
+            set_bit(bitmap['r'], f8);
+        }
+        else if (m.castle == 8) {
+            remove_bit(bitmap['k'], e8);
+            set_bit(bitmap['k'], c8);
+            remove_bit(bitmap['r'], a8);
+            set_bit(bitmap['r'], d8);
+        }
+    }
+    update_board();
+    return 0;
+}
+
 void Board::function_debug() {
     print_full_board();
 
     vector<move> moves = get_pseudo_legal_moves(white);
 
-    for (auto m: moves) {
-        cout << "piece :" << m.piece << endl;
-        cout << "from :" << string_board[m.from] << endl;
-        cout << "to :" << string_board[m.to] << endl;
-        cout << "capture: " << m.capture << endl;
-        cout << "en passant: " << m.en_passant << endl;
-        cout << "\n\n" << endl;
-    }
+    make_move(moves[0]);
+
+    print_full_board();
     
 }
 
 int main() {
     std::string temp = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
-    std::string fen(temp);
+    std::string fen("");
     Board board(fen);
     board.function_debug();
     return 0;
