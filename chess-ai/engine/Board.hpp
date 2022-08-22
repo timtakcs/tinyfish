@@ -279,11 +279,13 @@ private:
     //move generation
     bool is_square_attacked(int square, int color);
 
-    move get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece, U64 opp);
+    move get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL);
     bool is_check(int side);
     std::vector<int> get_positions(U64 board);
-    std::vector<move> get_pseudo_legal_moves(int side);
+    std::vector<move> get_legal_moves(int side);
 
     void push_move(move m);
     void pop_move(move m);
+
+    U64 perft(int depth);
 };

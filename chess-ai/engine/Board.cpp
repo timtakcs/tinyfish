@@ -607,7 +607,7 @@ bool Board::is_check(int side) {
     return false;
 }
 
-Board::move Board::get_move(bool en_passant = false, int from, int to, int castle = 0, int side, char piece, char captured_piece = ' ', U64 opp) {
+Board::move Board::get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece, U64 opp) {
     U64 sq = 0ULL;
     set_bit(sq, to);
     move m;
@@ -629,7 +629,7 @@ Board::move Board::get_move(bool en_passant = false, int from, int to, int castl
     return m;
 }
 
-std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
+std::vector<Board::move> Board::get_legal_moves(int side) {
     std::vector<Board::move> moves;
     int offset = 0;
     U64 opp = bitmap['1'];
@@ -663,10 +663,11 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
                 case 'R': 
                 case 'r':
                     attack = get_obstructed_rook_attack(square, bitmap['A']) & (bitmap['E'] | opp);
+                    print_board(attack);
                     break;
                 case 'Q': 
                 case 'q':
-                    attack = get_queen_attack(square, bitmap['A']) & (bitmap['E'] | opp);
+                    attack = get_queen_attack(square, bitmap['A']) & (bitmap['E'] | opp);;
                     break;
                 case 'K': 
                 case 'k':
@@ -677,16 +678,18 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             std::vector<int> target_squares = get_positions(attack);
             for (auto t_square: target_squares) {
                 //get captured piece
-                char captured_piece;
+                char captured_piece = ' ';
                 U64 temp = 0ULL;
                 set_bit(temp, t_square);
+
                 for (int i = 0; i < 6;i++) {
                     if (bitmap[string_pieces[i + offset]] & temp) captured_piece = string_pieces[i + offset];
                 }
 
-                move m = get_move(square, t_square, side, piece_char, captured_piece, opp);
+                move m = get_move(false, square, t_square, 0, side, piece_char, captured_piece, opp);
                 push_move(m);
-                //checking if move is legals
+
+                //checking if move is legal
                 if (!is_check(side)) moves.push_back(m);
                 pop_move(m);
             }
@@ -700,7 +703,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(g1, black) && 
             !get_bit(bitmap['0'], g1) &&
             !is_check(white)) {
-                move m = get_move(none, none, 1, side, 'K', 0ULL);
+                move m = get_move(false, none, none, 1, side, 'K');
                 moves.push_back(m);
             }
         }
@@ -713,7 +716,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(b1, black) && 
             !get_bit(bitmap['0'], b1) &&
             !is_check(white)) {
-                move m = get_move(none, none, 2, side, 'K', 0ULL);
+                move m = get_move(false, none, none, 2, side, 'K');
                 moves.push_back(m);
             }
         }
@@ -724,7 +727,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(g8, white) && 
             !get_bit(bitmap['1'], g8) &&
             !is_check(black)) {
-                move m = get_move(none, none, 4, side, 'k', 0ULL);
+                move m = get_move(false, none, none, 4, side, 'k');
                 moves.push_back(m);
             }
         }
@@ -737,7 +740,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(b8, white) && 
             !get_bit(bitmap['1'], b8) &&
             !is_check(black)) {
-                move m = get_move(none, none, 8, side, 'k', 0ULL);
+                move m = get_move(false, none, none, 8, side, 'k');
                 moves.push_back(m);
             }
         }
@@ -750,7 +753,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             if (temp) {
                 std::vector<int> en_passant_attacks = get_positions(temp);
                 for (auto s: en_passant_attacks) {
-                    move m = get_move(true, s, en_passant, side, string_pieces[5 + offset], 0ULL);
+                    move m = get_move(true, s, en_passant, side, string_pieces[5 + offset], string_pieces[11 - offset]);
                     moves.push_back(m);
                 }
             }
@@ -815,6 +818,7 @@ void Board::push_move(move m) {
             castle ^= 8;
         }
     }
+    side ^= m.side;
     update_board();
 }
 
@@ -864,17 +868,31 @@ void Board::pop_move(move m) {
     
     default: break;
     }
+    side = m.side;
+    update_board();
+}
+
+Board::U64 Board::perft(int depth) {
+    if (depth == 0) {
+        return 1ULL;
+    }
+
+    U64 nodes = 0;
+    
+    std::vector<move> moves = get_legal_moves(side);
+
+    for(int i = 0; i < moves.size(); i++) {
+        push_move(moves[i]);
+        nodes += perft(depth - 1);
+        pop_move(moves[i]);
+    }
+    return nodes;
 }
 
 void Board::function_debug() {
     print_full_board();
 
-    vector<move> moves = get_pseudo_legal_moves(white);
-
-    push_move(moves[0]);
-
-    print_full_board();
-    
+    cout << "perft result" << perft(6) << endl;
 }
 
 int main() {
