@@ -388,7 +388,6 @@ Board::U64 Board::get_obstructed_bishop_attack(int square, U64 occupancy) {
         if (get_bit(occupancy, r * 8 + f)) break;
         r++;
         f++;
-
     }
 
     //get northwest diagonal
@@ -608,7 +607,7 @@ bool Board::is_check(int side) {
     return false;
 }
 
-Board::move Board::get_move(bool en_passant, int from, int to, int castle, int side, char piece, U64 opp) {
+Board::move Board::get_move(bool en_passant = false, int from, int to, int castle = 0, int side, char piece, char captured_piece = ' ', U64 opp) {
     U64 sq = 0ULL;
     set_bit(sq, to);
     move m;
@@ -620,11 +619,12 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
     else m.capture = false;
     m.side = side;
     m.piece = piece;
-    if (castle) m.repr = string_board[from] + string_board[to];
+    if (!castle) m.repr = string_board[from] + string_board[to];
     else {
         if (castle == 2 || castle == 8) m.repr = "O-O";
         else m.repr = "O-O-O";
     }
+    m.captured_piece = captured_piece;
 
     return m;
 }
@@ -650,7 +650,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             switch(piece_char) {
                 case 'P': 
                 case 'p':
-                    attack = pawn_attacks[side][square] & opp; //| get_pawn_push(bitmap['A'], square, side);
+                    attack = pawn_attacks[side][square] & opp; //| get_pawn_push(square, side);
                     break;
                 case 'B': 
                 case 'b':
@@ -676,8 +676,19 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
 
             std::vector<int> target_squares = get_positions(attack);
             for (auto t_square: target_squares) {
-                move m = get_move(false, square, t_square, 0, side, piece_char, opp);
-                moves.push_back(m);
+                //get captured piece
+                char captured_piece;
+                U64 temp = 0ULL;
+                set_bit(temp, t_square);
+                for (int i = 0; i < 6;i++) {
+                    if (bitmap[string_pieces[i + offset]] & temp) captured_piece = string_pieces[i + offset];
+                }
+
+                move m = get_move(square, t_square, side, piece_char, captured_piece, opp);
+                push_move(m);
+                //checking if move is legals
+                if (!is_check(side)) moves.push_back(m);
+                pop_move(m);
             }
         }
     }
@@ -689,7 +700,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(g1, black) && 
             !get_bit(bitmap['0'], g1) &&
             !is_check(white)) {
-                move m = get_move(false, none, none, 1, side, 'K', 0ULL);
+                move m = get_move(none, none, 1, side, 'K', 0ULL);
                 moves.push_back(m);
             }
         }
@@ -702,7 +713,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(b1, black) && 
             !get_bit(bitmap['0'], b1) &&
             !is_check(white)) {
-                move m = get_move(false, none, none, 2, side, 'K', 0ULL);
+                move m = get_move(none, none, 2, side, 'K', 0ULL);
                 moves.push_back(m);
             }
         }
@@ -713,7 +724,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(g8, white) && 
             !get_bit(bitmap['1'], g8) &&
             !is_check(black)) {
-                move m = get_move(false, none, none, 4, side, 'k', 0ULL);
+                move m = get_move(none, none, 4, side, 'k', 0ULL);
                 moves.push_back(m);
             }
         }
@@ -726,7 +737,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             !is_square_attacked(b8, white) && 
             !get_bit(bitmap['1'], b8) &&
             !is_check(black)) {
-                move m = get_move(false, none, none, 8, side, 'k', 0ULL);
+                move m = get_move(none, none, 8, side, 'k', 0ULL);
                 moves.push_back(m);
             }
         }
@@ -739,7 +750,7 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
             if (temp) {
                 std::vector<int> en_passant_attacks = get_positions(temp);
                 for (auto s: en_passant_attacks) {
-                    move m = get_move(true, s, en_passant, 0, side, string_pieces[5 + offset], 0ULL);
+                    move m = get_move(true, s, en_passant, side, string_pieces[5 + offset], 0ULL);
                     moves.push_back(m);
                 }
             }
@@ -748,15 +759,16 @@ std::vector<Board::move> Board::get_pseudo_legal_moves(int side) {
     return moves;
 }
 
-//0 is for success, 1 is for failure (illegal move)
-int Board::make_move(move m) {
+void Board::push_move(move m) {
     if (!m.castle) {
         remove_bit(bitmap[m.piece], m.from);
         set_bit(bitmap[m.piece], m.to);
 
-        //if check
-        //pop move
-        //return 1
+        //if pawn moved 2 squares
+        //set en passant
+
+        //if king or rook moves
+        //remove castling rights
 
         if (m.capture) {
             if (m.en_passant) {
@@ -767,11 +779,8 @@ int Board::make_move(move m) {
                     remove_bit(bitmap['P'], m.to - 8);
                 }
             }
-            int offset = 0;
-            if (!m.side) offset = 6;
-
-            for (int piece = 0; piece < 6; piece++) {
-                if (bitmap[string_pieces[piece]] & bitmap[m.piece]) remove_bit(bitmap[string_pieces[piece]], m.to);
+            else {
+                remove_bit(bitmap[m.captured_piece], m.to);
             }
         }
     }
@@ -782,28 +791,79 @@ int Board::make_move(move m) {
             set_bit(bitmap['K'], g1);
             remove_bit(bitmap['R'], h1);
             set_bit(bitmap['R'], f1);
+            castle ^= 1;
         }
         else if (m.castle == 2) {
             remove_bit(bitmap['K'], e1);
             set_bit(bitmap['K'], c1);
             remove_bit(bitmap['R'], a1);
             set_bit(bitmap['R'], d1);
+            castle ^= 2;
         }
         else if (m.castle == 4) {
             remove_bit(bitmap['k'], e8);
             set_bit(bitmap['k'], g8);
             remove_bit(bitmap['r'], h8);
             set_bit(bitmap['r'], f8);
+            castle ^= 4;
         }
         else if (m.castle == 8) {
             remove_bit(bitmap['k'], e8);
             set_bit(bitmap['k'], c8);
             remove_bit(bitmap['r'], a8);
             set_bit(bitmap['r'], d8);
+            castle ^= 8;
         }
     }
     update_board();
-    return 0;
+}
+
+void Board::pop_move(move m) {
+    remove_bit(bitmap[m.piece], m.to);
+    set_bit(bitmap[m.piece], m.from);
+
+    if (m.captured_piece != ' ') {
+        set_bit(bitmap[m.captured_piece], m.to);
+    }
+
+    if (m.en_passant) {
+        char pawn = 'p';
+        int square_dif = -8;
+        if (side) {
+            pawn = 'P';
+            square_dif = 8;
+        }
+        set_bit(bitmap[pawn], m.to + square_dif);
+    }
+
+    switch (m.castle) {
+    case 1:
+        set_bit(bitmap['K'], e1);
+        remove_bit(bitmap['K'], g1);
+        set_bit(bitmap['R'], h1);
+        remove_bit(bitmap['R'], f1);
+        break;
+    case 2:
+        set_bit(bitmap['K'], e1);
+        remove_bit(bitmap['K'], c1);
+        set_bit(bitmap['R'], a1);
+        remove_bit(bitmap['R'], d1);
+        break;
+    case 4:
+        set_bit(bitmap['k'], e8);
+        remove_bit(bitmap['k'], g8);
+        set_bit(bitmap['r'], h8);
+        remove_bit(bitmap['r'], f8);
+        break;
+    case 8:
+        set_bit(bitmap['k'], e8);
+        remove_bit(bitmap['k'], c8);
+        set_bit(bitmap['r'], a8);
+        remove_bit(bitmap['r'], d8);
+        break;
+    
+    default: break;
+    }
 }
 
 void Board::function_debug() {
@@ -811,7 +871,7 @@ void Board::function_debug() {
 
     vector<move> moves = get_pseudo_legal_moves(white);
 
-    make_move(moves[0]);
+    push_move(moves[0]);
 
     print_full_board();
     
