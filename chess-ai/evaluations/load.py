@@ -8,7 +8,7 @@ import sqlite3
 
 pgn = open('data/lichess_db_standard_rated_2017-03.pgn')
 
-connection = sqlite3.connect("data/games/bitboards.db")
+connection = sqlite3.connect("data/bitboards.db")
 
 cursor = connection.cursor()
 
@@ -27,13 +27,15 @@ connection.commit()
 
 game = chess.pgn.read_game(pgn)
 c = 0
-for i in range(500000):
-    c += 1
-    print(c)
+g = 0
+for i in range(1000000):
+    g+= 1;
+    print(g)
     for node in game.mainline():
         if node.comment != "":
             data = p.get_data_for_game(game)
             for entry in data: 
+                c += 1
                 st = ''
                 for i in range(len(entry[0])):
                     st += str(entry[0][i])

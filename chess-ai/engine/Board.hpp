@@ -287,5 +287,10 @@ private:
     void push_move(move m);
     void pop_move(move m);
 
+    int captures = 0;
+    int castles = 0;
+    int enps = 0;
+    int checks = 0;
+
     U64 perft(int depth);
 };

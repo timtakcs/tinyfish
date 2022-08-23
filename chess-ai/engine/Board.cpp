@@ -215,16 +215,16 @@ inline Board::U64 Board::get_pawn_attack(int square, int color) {
 
 inline Board::U64 Board::get_pawn_push(int square, int color) {
     U64 push_1 = 0ULL;
-    U64 push_2;
+    U64 push_2 = 0ULL;
     set_bit(push_1, square);
 
     if (!color) {
         push_1 = northOne(push_1);
-        push_2 = northOne(push_1);
-    }
+        if (square / 8 == 6) push_2 = northOne(push_1);
+    }   
     else {
         push_1 = southOne(push_1);
-        push_2 = southOne(push_1);
+        if (square / 8 == 1) push_2 = southOne(push_1);
     }
 
     return push_1 | push_2;
@@ -553,8 +553,8 @@ bool Board::is_square_attacked(int square, int color) {
     //rewrite the whole thing as two big if statements, i think it should be faster
 
     //pawn attacks
-    if (!color && pawn_attacks[!color][square] & bitmap['P']) return true;
-    if (color && pawn_attacks[!color][square] & bitmap['p']) return true;
+    if (!color && pawn_attacks[black][square] & bitmap['P']) return true;
+    if (color && pawn_attacks[white][square] & bitmap['p']) return true;
 
     //knight attacks
     if (!color && knight_attacks[square] & bitmap['N']) return true;
@@ -602,8 +602,10 @@ bool Board::is_check(int side) {
     if (side) king = bitmap['k'];
 
     int square = get_positions(king)[0];
-    if (is_square_attacked(square, !side)) return true;
-
+    if (is_square_attacked(square, !side)) {
+        cout << "fsdsdsds" << endl;
+        return true;
+    }
     return false;
 }
 
@@ -615,7 +617,7 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
     m.to = to;
     m.castle = castle;
     m.en_passant = en_passant;
-    if (sq & opp || en_passant) m.capture = true;
+    if ((sq & opp) || en_passant) m.capture = true;
     else m.capture = false;
     m.side = side;
     m.piece = piece;
@@ -650,7 +652,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             switch(piece_char) {
                 case 'P': 
                 case 'p':
-                    attack = pawn_attacks[side][square] & opp; //| get_pawn_push(square, side);
+                    attack = (pawn_attacks[side][square] & opp) | (pawn_quiet_push[side][square] & bitmap['E']);
                     break;
                 case 'B': 
                 case 'b':
@@ -663,7 +665,6 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 case 'R': 
                 case 'r':
                     attack = get_obstructed_rook_attack(square, bitmap['A']) & (bitmap['E'] | opp);
-                    print_board(attack);
                     break;
                 case 'Q': 
                 case 'q':
@@ -683,15 +684,20 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 set_bit(temp, t_square);
 
                 for (int i = 0; i < 6;i++) {
-                    if (bitmap[string_pieces[i + offset]] & temp) captured_piece = string_pieces[i + offset];
+                    if (bitmap[string_pieces[11 - i]] & temp) captured_piece = string_pieces[11 - i];
                 }
 
                 move m = get_move(false, square, t_square, 0, side, piece_char, captured_piece, opp);
+                int temp_en_passant = en_passant;
                 push_move(m);
 
                 //checking if move is legal
-                if (!is_check(side)) moves.push_back(m);
+                if (!is_check(side)) {
+                    moves.push_back(m);
+                }
+                
                 pop_move(m);
+                en_passant = temp_en_passant;
             }
         }
     }
@@ -753,8 +759,18 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             if (temp) {
                 std::vector<int> en_passant_attacks = get_positions(temp);
                 for (auto s: en_passant_attacks) {
-                    move m = get_move(true, s, en_passant, side, string_pieces[5 + offset], string_pieces[11 - offset]);
-                    moves.push_back(m);
+                    move m = get_move(true, s, en_passant, 0, side, string_pieces[5 + offset], string_pieces[11 - offset]);
+
+                    int temp_en_passant = en_passant;
+                    push_move(m);
+
+                    //checking if move is legal
+                    if (!is_check(side)) {
+                        moves.push_back(m);
+                    }
+                    
+                    pop_move(m);
+                    en_passant = temp_en_passant;
                 }
             }
         }
@@ -770,8 +786,12 @@ void Board::push_move(move m) {
         //if pawn moved 2 squares
         //set en passant
 
-        //if king or rook moves
-        //remove castling rights
+        if (m.piece == 'K' || m.piece == 'R' && (m.castle & 3)) {
+            castle ^= 3;
+        }
+        else if (m.piece == 'k' || m.piece == 'r' && (m.castle & 12)) {
+            castle ^= 12;
+        }
 
         if (m.capture) {
             if (m.en_passant) {
@@ -819,6 +839,7 @@ void Board::push_move(move m) {
         }
     }
     side ^= m.side;
+    en_passant = none;
     update_board();
 }
 
@@ -826,17 +847,14 @@ void Board::pop_move(move m) {
     remove_bit(bitmap[m.piece], m.to);
     set_bit(bitmap[m.piece], m.from);
 
-    if (m.captured_piece != ' ') {
+    if (m.captured_piece != ' ' && !m.en_passant) {
         set_bit(bitmap[m.captured_piece], m.to);
     }
 
     if (m.en_passant) {
-        char pawn = 'p';
-        int square_dif = -8;
-        if (side) {
-            pawn = 'P';
-            square_dif = 8;
-        }
+        char pawn = m.captured_piece;
+        int square_dif = 8;
+        if (side) square_dif = -8;
         set_bit(bitmap[pawn], m.to + square_dif);
     }
 
@@ -883,6 +901,10 @@ Board::U64 Board::perft(int depth) {
 
     for(int i = 0; i < moves.size(); i++) {
         push_move(moves[i]);
+        if(moves[i].capture) captures++;
+        if(moves[i].castle) castles++;
+        if(moves[i].en_passant) enps++;
+        if(is_check(!moves[i].side)) checks++;
         nodes += perft(depth - 1);
         pop_move(moves[i]);
     }
@@ -892,12 +914,36 @@ Board::U64 Board::perft(int depth) {
 void Board::function_debug() {
     print_full_board();
 
-    cout << "perft result" << perft(6) << endl;
+    cout << "perft result: " << perft(2) << endl;
+    cout << "captures: " << captures << endl;
+    cout << "castles : " << castles << endl;
+    cout << "enps    : " << enps << endl;
+    cout << "checks  : " << checks << endl;
+
+    // vector<move> ms = get_legal_moves(side);
+
+    // cout << ms.size() << "sasa" << endl;
+
+    // int c = 0;
+
+    // for (auto m: ms) {
+    //     if (m.capture){
+    //         c++;
+    //         cout << "piece: " << m.captured_piece << endl;
+    //         push_move(m);
+    //         print_full_board();
+    //         pop_move(m);
+    //         print_full_board();
+    //         cout << "-----------------------" << endl;
+    //     }
+    // }
+
+    // cout << "captures : " << c << endl; 
 }
 
 int main() {
     std::string temp = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
-    std::string fen("");
+    std::string fen("rnbqkbnr/ppp2ppp/4p3/3p4/Q2P4/2P5/PP2PPPP/RNB1KBNR b KQkq - 0 1");
     Board board(fen);
     board.function_debug();
     return 0;
