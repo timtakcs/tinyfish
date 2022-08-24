@@ -634,11 +634,11 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
 std::vector<Board::move> Board::get_legal_moves(int side) {
     std::vector<Board::move> moves;
     int offset = 0;
-    U64 opp = bitmap['1'];
+    U64 opp = bitmap['1'] ^ bitmap['k'];
 
     if (side) {
         offset = 6;
-        opp = bitmap['0'];
+        opp = bitmap['0'] ^ bitmap['K'];
     }
     
     //generate main moves
@@ -914,7 +914,7 @@ Board::U64 Board::perft(int depth) {
 void Board::function_debug() {
     print_full_board();
 
-    cout << "perft result: " << perft(2) << endl;
+    cout << "perft result: " << perft(3) << endl;
     cout << "captures: " << captures << endl;
     cout << "castles : " << castles << endl;
     cout << "enps    : " << enps << endl;
@@ -943,7 +943,7 @@ void Board::function_debug() {
 
 int main() {
     std::string temp = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
-    std::string fen("rnbqkbnr/ppp2ppp/4p3/3p4/Q2P4/2P5/PP2PPPP/RNB1KBNR b KQkq - 0 1");
+    std::string fen("");
     Board board(fen);
     board.function_debug();
     return 0;

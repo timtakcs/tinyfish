@@ -12,13 +12,10 @@ import sqlite3
 class Net(nn.Module):
     def __init__(self, input_size):
         super().__init__()
-        self.layer1 = nn.Linear(input_size, 769)
-        self.layer2 = nn.Linear(769, 769)
-        self.layer3 = nn.Linear(769, 769)
-        self.layer4 = nn.Linear(769, 769)
-        self.layer5 = nn.Linear(769, 769)
-        self.layer6 = nn.Linear(769, 769)
-        self.layer7 = nn.Linear(769, 1)
+        self.layer1 = nn.Linear(input_size, 768)
+        self.layer2 = nn.Linear(2048, 2048)
+        self.layer3 = nn.Linear(2048, 2048)
+        self.layer4 = nn.Linear(2048, 1)
         self.init_weights()
         self.optimizer = opt.Adam(self.parameters(), lr=1e-3)
         self.loss = nn.MSELoss()
@@ -27,11 +24,8 @@ class Net(nn.Module):
         data = f.relu(self.layer1(data))
         data = f.relu(self.layer2(data))
         data = f.relu(self.layer3(data))
-        data = f.relu(self.layer4(data))
-        data = f.relu(self.layer5(data))
-        data = f.relu(self.layer6(data))
 
-        return self.layer7(data)
+        return self.layer4(data)
 
     def init_weights(self):
         for m in self.modules():
@@ -42,7 +36,7 @@ class Net(nn.Module):
 class Agent():
     def __init__(self):
         self.device = torch.device("cuda")
-        self.net = Net(769).to(self.device)
+        self.net = Net(768).to(self.device)
         self.batch_size = 256
         self.epochs = 5
 
@@ -78,7 +72,6 @@ class Agent():
         loss = []
         batches = []
         count = 0
-        l = 2500000 / 1024
         for i in range(epochs):
             cur = 0
             count = 0
