@@ -603,7 +603,6 @@ bool Board::is_check(int side) {
 
     int square = get_positions(king)[0];
     if (is_square_attacked(square, !side)) {
-        cout << "fsdsdsds" << endl;
         return true;
     }
     return false;
@@ -838,7 +837,7 @@ void Board::push_move(move m) {
             castle ^= 8;
         }
     }
-    side ^= m.side;
+    side = !side;
     en_passant = none;
     update_board();
 }
@@ -900,6 +899,9 @@ Board::U64 Board::perft(int depth) {
     std::vector<move> moves = get_legal_moves(side);
 
     for(int i = 0; i < moves.size(); i++) {
+        std::string m = moves[i].repr;
+        if (divide.count(m)) divide[m]++;
+        else divide[m] = 1;
         push_move(moves[i]);
         if(moves[i].capture) captures++;
         if(moves[i].castle) castles++;
@@ -914,11 +916,21 @@ Board::U64 Board::perft(int depth) {
 void Board::function_debug() {
     print_full_board();
 
-    cout << "perft result: " << perft(3) << endl;
+    cout << "perft result: " << perft(4) << endl;
     cout << "captures: " << captures << endl;
     cout << "castles : " << castles << endl;
     cout << "enps    : " << enps << endl;
     cout << "checks  : " << checks << endl;
+
+    // for(std::map<std::string,int>::iterator iter = divide.begin(); iter != divide.end(); ++iter){
+    //     std::string k =  iter->first;
+    //     int v = iter->second;
+
+    //     cout << k << ": " << v << endl;
+    // //ignore value
+    // //Value v = iter->second;
+    // }
+
 
     // vector<move> ms = get_legal_moves(side);
 

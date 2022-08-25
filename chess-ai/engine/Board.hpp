@@ -292,5 +292,7 @@ private:
     int enps = 0;
     int checks = 0;
 
+    std::map<std::string, int> divide;
+
     U64 perft(int depth);
 };
