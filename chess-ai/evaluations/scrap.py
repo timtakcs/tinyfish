@@ -1,4 +1,12 @@
-print(len("111111110000000000000000000000000000000000000000"))
+import sqlite3
+import torch
 
+connection = sqlite3.connect("data/bitboards.db")
 
-#979-845-1031
+cursor = connection.cursor()
+
+cursor.execute("SELECT COUNT(*) FROM bitboards")
+
+num = cursor.fetchall()
+
+print(num)

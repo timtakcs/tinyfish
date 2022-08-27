@@ -40,8 +40,12 @@ for i in range(1000000):
                 for i in range(len(entry[0])):
                     st += str(entry[0][i])
                     st += ', ' 
-                eval = max(-20, entry[1])
-                eval = min(20, entry[1])
+                #scaling and normalization
+                eval = 0
+                eval = max(entry[1], -20)
+                eval = min(eval, 20)
+                eval += 20
+                eval = (eval) / 40
                 st += f'{entry[2]}, {eval}'
                 cursor.execute(f'INSERT INTO bitboards VALUES ({c}, {st})')
         break
