@@ -761,6 +761,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                     move m = get_move(true, s, en_passant, 0, side, string_pieces[5 + offset], string_pieces[11 - offset]);
 
                     int temp_en_passant = en_passant;
+                    int temp_castle = castle;
                     push_move(m);
 
                     //checking if move is legal
@@ -769,6 +770,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                     }
                     
                     pop_move(m);
+                    castle = temp_castle;
                     en_passant = temp_en_passant;
                 }
             }
@@ -916,46 +918,38 @@ Board::U64 Board::perft(int depth) {
 void Board::function_debug() {
     print_full_board();
 
-    cout << "perft result: " << perft(4) << endl;
+    int castletest = 15 ^ 12;
+
+    cout << "\n" << endl;
+
+    for (int i = 0; i < 4; i++) {
+        cout << ((castletest & (1 << 3 - i)) != 0);
+    }
+
+    cout << "\n" << endl;
+
+    cout << "perft result: " << perft(1) << endl;
     cout << "captures: " << captures << endl;
     cout << "castles : " << castles << endl;
     cout << "enps    : " << enps << endl;
     cout << "checks  : " << checks << endl;
 
-    // for(std::map<std::string,int>::iterator iter = divide.begin(); iter != divide.end(); ++iter){
-    //     std::string k =  iter->first;
-    //     int v = iter->second;
+    vector<move> moves = get_legal_moves(white);
+    
+    int count = 0;
 
-    //     cout << k << ": " << v << endl;
-    // //ignore value
-    // //Value v = iter->second;
-    // }
-
-
-    // vector<move> ms = get_legal_moves(side);
-
-    // cout << ms.size() << "sasa" << endl;
-
-    // int c = 0;
-
-    // for (auto m: ms) {
-    //     if (m.capture){
-    //         c++;
-    //         cout << "piece: " << m.captured_piece << endl;
-    //         push_move(m);
-    //         print_full_board();
-    //         pop_move(m);
-    //         print_full_board();
-    //         cout << "-----------------------" << endl;
-    //     }
-    // }
-
-    // cout << "captures : " << c << endl; 
+    for (auto move: moves) {
+        count++;
+        cout << "count: " << count << endl;
+        cout << "capture: " << move.captured_piece << endl;
+        cout << "count: " << move.castle << endl;
+        cout << "en passant: " << move.en_passant << endl;
+    }
 }
 
 int main() {
-    std::string temp = "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1";
-    std::string fen("");
+    std::string temp = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - ";
+    std::string fen(temp);
     Board board(fen);
     board.function_debug();
     return 0;

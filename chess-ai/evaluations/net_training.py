@@ -137,8 +137,8 @@ class Agent():
 # myDs = MyDataset(6700851)
 # train = torch.utils.data.DataLoader(myDs, batch_size=256)
 
-print(torch.cuda.is_available())
-agent = Agent()
-agent.train_net(10)
-torch.save(agent.net.state_dict(), 'data/eval_model.pth')
+# print(torch.cuda.is_available())
+# agent = Agent()
+# agent.train_net(10)
+# torch.save(agent.net.state_dict(), 'data/eval_model.pth')
 

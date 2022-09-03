@@ -1,3 +1,6 @@
+from cProfile import label
+from lib2to3.refactor import get_all_fix_names
+from random import random, randrange
 import torch
 import net_training as n
 
@@ -5,22 +8,27 @@ agent = n.Agent()
 agent.net.load_state_dict(torch.load('data/eval_model.pth'))
 agent.net.cuda()
 
-myDs = n.MyDataset('data/games/bitboardsss.csv')
-testset = torch.utils.data.DataLoader(myDs, batch_size=32, shuffle=True)
+import sqlite3
+import torch
+
+connection = sqlite3.connect("data/bitboards.db")
+
+cursor = connection.cursor()
+
+def get_data(id):
+    cursor.execute(f'SELECT * FROM bitboards WHERE id={id}')
+    num = cursor.fetchall() 
+    return num[0][1:769], num[0][770]
 
 loss = 0
 total = 0
 
 with torch.no_grad():
-    for data in testset:
-        total += 1
-        features, labels = data
-        features = features.cuda()
-        labels = labels.cuda()
-        out = agent.net(features)
-        print(out.size)
-        print(labels.size)
-        break
-        
+    for i in range(50):
+        id = randrange(0, 6000000)
+        feature, lbl = get_data(id)
+        feature = torch.tensor(feature).cuda()
+        lbl = torch.tensor(lbl).cuda()
+        out = agent.net(feature)
+        print("label: ", lbl, "out: ", out)
 
-print(f'AVG LOSS: {loss / total}%')
