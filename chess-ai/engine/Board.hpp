@@ -293,6 +293,8 @@ private:
     int checks = 0;
     int checkmates = 0;
 
+    std::map<char, int> debug;
+
     std::map<std::string, int> divide;
 
     U64 perft(int depth);

@@ -682,7 +682,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 U64 temp = 0ULL;
                 set_bit(temp, t_square);
 
-                for (int i = 0; i < 6;i++) {
+                for (int i = 0; i < 6; i++) {
                     if (bitmap[string_pieces[11 - (i + offset)]] & temp) captured_piece = string_pieces[11 - (i + offset)];
                 }
 
@@ -915,6 +915,8 @@ Board::U64 Board::perft(int depth) {
         if(moves[i].capture) captures++;
         if(moves[i].castle) castles++;
         if(moves[i].en_passant) enps++;
+        if(debug.count(moves[i].piece)) debug[moves[i].piece]++;
+        else debug[moves[i].piece] = 1;
         if(is_check(!moves[i].side)) checks++;
         nodes += perft(depth - 1);
         pop_move(moves[i]);
@@ -935,7 +937,7 @@ void Board::function_debug() {
 
     cout << "\n" << endl;
 
-    cout << "perft result: " << perft(4) << endl;
+    cout << "perft result: " << perft(3) << endl;
     cout << "captures: " << captures << endl;
     cout << "castles : " << castles << endl;
     cout << "enps    : " << enps << endl;
@@ -947,6 +949,14 @@ void Board::function_debug() {
     int count = 0;
 
     cout << "\n\n\n" << endl;
+
+    for (int i = 0; i < string_pieces.length(); i++) {
+        cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
+    }
+
+    for (int j = 0; j < 64; j++) {
+        print_board(pawn_quiet_push[black][j] | pawn_attacks[black][j]);
+    }
 
     // for (auto move: moves) {
     //     count++;
