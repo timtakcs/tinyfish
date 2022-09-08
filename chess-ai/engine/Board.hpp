@@ -291,6 +291,7 @@ private:
     int castles = 0;
     int enps = 0;
     int checks = 0;
+    int checkmates = 0;
 
     std::map<std::string, int> divide;
 
