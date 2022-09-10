@@ -1,13 +1,9 @@
-from random import randrange
+import random
 import matplotlib
 import torch
 from torch import nn
 import torch.optim as opt
 import torch.nn.functional as f
-from torch.utils.data import Dataset, IterableDataset, DataLoader
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 import sqlite3
 
 def get_query(idx):
@@ -44,6 +40,8 @@ class Agent():
         self.net = Net(768).to(self.device)
         self.batch_size = 256
         self.epochs = 5
+        self.connection = sqlite3.connect("data/bitboards.db")
+        self.cursor = self.connection.cursor()
 
     def train(self, x_batch, y_batch):
         self.net.optimizer.zero_grad()
@@ -73,29 +71,59 @@ class Agent():
         print(s)
         return progress
 
+    def get_index(self, arr):
+        loc = random.randint(0, len(arr))
+        idx = arr[loc]
+        del(arr[loc])
+        return idx
+
+    def get_data(self, index):
+        self.cursor.execute(f'SELECT * FROM bitboards WHERE id={index}')
+        num = self.cursor.fetchall()
+        return (num[0][1:770], num[0][770])
+
     def train_net(self, epochs):
         loss = []
         batches = []
         count = 0
-        total = 6700851 / 256
+        total = 6700851 / 1096
+
+        indeces = []
+
+        for i in range(1, 6700852):
+            indeces.append(i)
+
         for i in range(epochs):
             cur = 0
             count = 0
+            num_in_batch = 0
             print("epochs:", i + 1)
+            indeces_copy = indeces
 
-            for chunk in pd.read_sql("SELECT * FROM bitboards", sqlite3.connect("data/bitboards.db"), chunksize=2048):
-                x = chunk.iloc[:, 1:769].values
-                y = chunk['evals'].values
+            x = []
+            y = []
+            
+            while len(indeces_copy) != 0:
+                while num_in_batch < 1096 or len(indeces_copy) != 0:
+                    index = self.get_index(indeces_copy)
+                    data = self.get_data(index)
+                    x.append(data[0])
+                    y.append(data[1])
+                    num_in_batch += 1
+                    print(num_in_batch)
 
-                x_train=torch.tensor(x, dtype=torch.float32)
-                y_train=torch.tensor(y, dtype=torch.float32)
+                x_train = torch.tensor(x, dtype=torch.float32)
+                y_train = torch.tensor(y, dtype=torch.float32)
 
                 count += 1
-
                 batches.append(count)
+
+                print(count)
+
                 if int(count / total * 10) > cur:
                     cur = self.print_progress(count, total)
                 loss.append(self.train(x_train, y_train))
+
             print(sum(loss)/len(loss))
 
     # def train_net(self, epochs, train):
@@ -137,8 +165,8 @@ class Agent():
 # myDs = MyDataset(6700851)
 # train = torch.utils.data.DataLoader(myDs, batch_size=256)
 
-# print(torch.cuda.is_available())
-# agent = Agent()
-# agent.train_net(10)
-# torch.save(agent.net.state_dict(), 'data/eval_model.pth')
+print(torch.cuda.is_available())
+agent = Agent()
+agent.train_net(10)
+torch.save(agent.net.state_dict(), 'data/eval_model.pth')
 
