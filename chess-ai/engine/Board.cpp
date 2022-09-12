@@ -123,7 +123,7 @@ void Board::print_board(U64 board) {
         std::cout << ' ' << b[i] << ' ';
     }
 
-    cout << "\n\n\n";
+    std::cout << "\n\n\n";
 }
 
 void Board::print_full_board() {
@@ -173,24 +173,22 @@ inline Board::U64 Board::soWeWe(U64 b) {return (b <<  6) & notGHFile;};
 inline Board::U64 Board::noWeWe(U64 b) {return (b >> 10) & notGHFile;};
 inline Board::U64 Board::noNoWe(U64 b) {return (b >> 17) & notHFile ;};
 
-// inline Board::U64 Board::pawn_single_push(U64 pawns, int color) {
-//     if (color == 0) return northOne(bitmap['P']) & bitmap['E'];
-//     else return southOne(bitmap['p']) & bitmap['E'];
-// }
+inline Board::U64 Board::get_pawn_push(int color, int square) { 
+    U64 push_1 = 0ULL;
+    U64 push_2 = 0ULL;
+    set_bit(push_1, square);
 
-// inline Board::U64 Board::pawn_double_push(U64 pawns, int color) {
-//     if (color == 0) {
-//         const U64 rank4 = 0x000000FF00000000;
-//         U64 single_push = pawn_single_push(bitmap['P'], color);
-//         return northOne(single_push) & bitmap['E'] & rank4;
-        
-//     }
-//     else {
-//         const U64 rank5 = 0x00000000FF000000;
-//         U64 single_push = pawn_single_push(bitmap['p'], color);
-//         return southOne(single_push) & bitmap['E'] & rank5;
-//     }
-// }
+    if (!color) {
+        push_1 = northOne(push_1) & bitmap['E'];
+        if ((square / 8 == 6) && push_1) push_2 = northOne(push_1);
+    }   
+    else {
+        push_1 = southOne(push_1) & bitmap['E'];
+        if ((square / 8 == 1) && push_1) push_2 = southOne(push_1);
+    }
+
+    return push_1 | push_2;
+}
 
 inline Board::U64 Board::get_pawn_attack(int square, int color) {
     U64 attack_left = 0ULL;
@@ -211,23 +209,6 @@ inline Board::U64 Board::get_pawn_attack(int square, int color) {
     U64 attack = attack_left | attack_right;
 
     return attack;
-}
-
-inline Board::U64 Board::get_pawn_push(int square, int color) {
-    U64 push_1 = 0ULL;
-    U64 push_2 = 0ULL;
-    set_bit(push_1, square);
-
-    if (!color) {
-        push_1 = northOne(push_1);
-        if (square / 8 == 6) push_2 = northOne(push_1);
-    }   
-    else {
-        push_1 = southOne(push_1);
-        if (square / 8 == 1) push_2 = southOne(push_1);
-    }
-
-    return push_1 | push_2;
 }
 
 Board::U64 Board::get_knight_attack(int square) {
@@ -464,8 +445,6 @@ void Board::get_leaping_attacks() {
         king_attacks.push_back(get_king_attack(i));
         pawn_attacks[white][i] = get_pawn_attack(i, white);
         pawn_attacks[black][i] = get_pawn_attack(i, black);
-        pawn_quiet_push[white][i] = get_pawn_push(i, white);
-        pawn_quiet_push[black][i] = get_pawn_push(i, black);
     }
 }
 
@@ -651,7 +630,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             switch(piece_char) {
                 case 'P': 
                 case 'p':
-                    attack = (pawn_attacks[side][square] & opp) | (pawn_quiet_push[side][square] & bitmap['E']);
+                    attack = (pawn_attacks[side][square] & opp) | (get_pawn_push(side, square));
                     break;
                 case 'B': 
                 case 'b':
@@ -911,13 +890,29 @@ Board::U64 Board::perft(int depth) {
 
     for(int i = 0; i < moves.size(); i++) {
         std::string m = moves[i].repr;
+
+        if (m == "h7h5") {
+            std::cout << "-------------" << endl;
+            print_full_board();
+            push_move(moves[i]);
+            print_full_board();
+            pop_move(moves[i]);
+            std::cout << "-------------" << endl;
+        }
+
+        if(moves[i].piece == 'p') {
+            temp_pawns.push_back(m);
+        }
+
         push_move(moves[i]);
+
         if(moves[i].capture) captures++;
         if(moves[i].castle) castles++;
         if(moves[i].en_passant) enps++;
         if(debug.count(moves[i].piece)) debug[moves[i].piece]++;
         else debug[moves[i].piece] = 1;
         if(is_check(!moves[i].side)) checks++;
+
         nodes += perft(depth - 1);
         pop_move(moves[i]);
     }
@@ -925,50 +920,448 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    print_full_board();
+
+    vector<string> debug_hopes = {
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "g7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "d5e4",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "d5c4",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5"
+    };
 
     int castletest = 15 ^ 12;
 
-    cout << "\n" << endl;
+    std::cout << "\n" << endl;
 
     for (int i = 0; i < 4; i++) {
-        cout << ((castletest & (1 << 3 - i)) != 0);
+        std::cout << ((castletest & (1 << 3 - i)) != 0);
     }
 
-    cout << "\n" << endl;
+    std::cout << "\n" << endl;
 
-    cout << "perft result: " << perft(2) << endl;
-    cout << "captures: " << captures << endl;
-    cout << "castles : " << castles << endl;
-    cout << "enps    : " << enps << endl;
-    cout << "checks  : " << checks << endl;
-    cout << "checkmates:" << checkmates << endl;
+    std::cout << "perft result: " << perft(4) << endl;
+    std::cout << "captures: " << captures << endl;
+    std::cout << "castles : " << castles << endl;
+    std::cout << "enps    : " << enps << endl;
+    std::cout << "checks  : " << checks << endl;
+    std::cout << "checkmates:" << checkmates << endl;
 
-    vector<move> moves = get_legal_moves(black);
+    // std::cout << ccc << "fdhsjfhdsajfhdasjk" << endl;
+
+    // vector<move> moves = get_legal_moves(white);
     
-    int count = 0;
+    // int count = 0;
 
-    cout << "\n\n\n" << endl;
+    // std::cout << "\n\n\n" << endl;
 
-    for (int i = 0; i < string_pieces.length(); i++) {
-        cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
-    }
+    // for (int i = 0; i < string_pieces.length(); i++) {
+    //     std::cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
+    // }
 
-    // for (auto move: moves) {
-    //     count++;
-    //     cout << "count: " << count << endl;
-    //     cout << "capture: " << move.captured_piece << endl;
-    //     cout << "castle: " << move.castle << endl;
-    //     cout << "en passant: " << move.en_passant << endl;
-    //     push_move(move);
-    //     print_full_board();
-    //     pop_move(move);
+    // cout << temp_pawns.size() << "    " << debug_hopes.size() << endl;
+
+    // std::map<string, int> more_debug_hopes;
+    // std::map<string, int> more_more_debug_hopes;
+
+    // for (auto n: debug_hopes) {
+    //     more_debug_hopes[n] = 0;
+    // }
+
+    // for (auto k: debug_hopes) {
+    //     more_more_debug_hopes[k] = 0;
+    // }
+
+    // for (int s = 0; s < temp_pawns.size(); s++) {
+    //     more_debug_hopes[temp_pawns[s]]++;
+    // }
+
+    // for (int q = 0; q < debug_hopes.size(); q++) {
+    //     more_more_debug_hopes[debug_hopes[q]]++;
+    // }
+
+    // for (auto jjj: temp_pawns) {
+    //     if(more_debug_hopes[jjj] != more_more_debug_hopes[jjj]) {
+    //         cout << jjj << endl;
+    //     }
     // }
 }
 
 int main() {
-    std::string temp = "rnbqkbnr/ppp1pppp/8/3p4/8/2N5/PPPPPPPP/R1BQKBNR b KQkq - 0 1";
-    std::string fen(temp);
+    std::string temp = "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 1";
+    std::string fen("");
     Board board(fen);
     board.function_debug();
     return 0;

@@ -88,10 +88,9 @@ private:
     U64 get_king_attack(int square);
 
     U64 pawn_attacks[2][64];
-    U64 pawn_quiet_push[2][64];
 
     inline U64 get_pawn_attack(int square, int color);
-    inline U64 get_pawn_push(int square, int color);
+    inline U64 get_pawn_push(int color, int square);
 
     U64 get_bishop_attack(int square);
     U64 get_rook_attack(int square);
@@ -120,10 +119,6 @@ private:
     inline U64 noWeWe(U64 b);
     inline U64 soWeWe(U64 b);
     inline U64 soSoWe(U64 b);
-
-    //pawn pushes
-    inline U64 pawn_single_push(U64 pawns, int color);
-    inline U64 pawn_double_push(U64 pawns, int color);
 
     //getting occupancy squares for magic bitboards
     U64 set_occupancy(int square, int num_bits, U64 attack);
@@ -293,7 +288,11 @@ private:
     int checks = 0;
     int checkmates = 0;
 
+    int ccc = 0;
+
     std::map<char, int> debug;
+
+    std::vector<std::string> temp_pawns;
 
     std::map<std::string, int> divide;
 
