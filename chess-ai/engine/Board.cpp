@@ -891,7 +891,7 @@ Board::U64 Board::perft(int depth) {
     for(int i = 0; i < moves.size(); i++) {
         std::string m = moves[i].repr;
 
-        if (m == "h7h5") {
+        if (m == "g7g5") {
             std::cout << "-------------" << endl;
             print_full_board();
             push_move(moves[i]);
@@ -936,6 +936,36 @@ void Board::function_debug() {
         "c7c5",
         "b7b5",
         "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "h7h6",
+        "g7g6",
+        "f7f6",
+        "e7e6",
+        "c7c6",
+        "b7b6",
+        "a7a6",
+        "h7h5",
+        "g7g5",
+        "f7f5",
+        "e7e5",
+        "c7c5",
+        "b7b5",
+        "a7a5",
+        "c7c6",
+        "b7b5",
         "h7h6",
         "g7g6",
         "f7f6",
@@ -1088,20 +1118,7 @@ void Board::function_debug() {
         "c7c5",
         "b7b5",
         "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
+        "d5c4",
         "h7h6",
         "g7g6",
         "f7f6",
@@ -1257,21 +1274,6 @@ void Board::function_debug() {
         "c7c5",
         "b7b5",
         "a7a5",
-        "d5c4",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
         "h7h6",
         "g7g6",
         "f7f6",
@@ -1312,7 +1314,7 @@ void Board::function_debug() {
 
     std::cout << "\n" << endl;
 
-    std::cout << "perft result: " << perft(4) << endl;
+    std::cout << "perft result: " << perft(2) << endl;
     std::cout << "captures: " << captures << endl;
     std::cout << "castles : " << castles << endl;
     std::cout << "enps    : " << enps << endl;
@@ -1325,43 +1327,43 @@ void Board::function_debug() {
     
     // int count = 0;
 
-    // std::cout << "\n\n\n" << endl;
+    std::cout << "\n\n\n" << endl;
 
-    // for (int i = 0; i < string_pieces.length(); i++) {
-    //     std::cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
-    // }
+    for (int i = 0; i < string_pieces.length(); i++) {
+        std::cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
+    }
 
-    // cout << temp_pawns.size() << "    " << debug_hopes.size() << endl;
+    cout << temp_pawns.size() << "    " << debug_hopes.size() << endl;
 
-    // std::map<string, int> more_debug_hopes;
-    // std::map<string, int> more_more_debug_hopes;
+    std::map<string, int> more_debug_hopes;
+    std::map<string, int> more_more_debug_hopes;
 
-    // for (auto n: debug_hopes) {
-    //     more_debug_hopes[n] = 0;
-    // }
+    for (auto n: debug_hopes) {
+        more_debug_hopes[n] = 0;
+    }
 
-    // for (auto k: debug_hopes) {
-    //     more_more_debug_hopes[k] = 0;
-    // }
+    for (auto k: debug_hopes) {
+        more_more_debug_hopes[k] = 0;
+    }
 
-    // for (int s = 0; s < temp_pawns.size(); s++) {
-    //     more_debug_hopes[temp_pawns[s]]++;
-    // }
+    for (int s = 0; s < temp_pawns.size(); s++) {
+        more_debug_hopes[temp_pawns[s]]++;
+    }
 
-    // for (int q = 0; q < debug_hopes.size(); q++) {
-    //     more_more_debug_hopes[debug_hopes[q]]++;
-    // }
+    for (int q = 0; q < debug_hopes.size(); q++) {
+        more_more_debug_hopes[debug_hopes[q]]++;
+    }
 
-    // for (auto jjj: temp_pawns) {
-    //     if(more_debug_hopes[jjj] != more_more_debug_hopes[jjj]) {
-    //         cout << jjj << endl;
-    //     }
-    // }
+    for (auto jjj: temp_pawns) {
+        if(more_debug_hopes[jjj] != more_more_debug_hopes[jjj]) {
+            cout << jjj << endl;
+        }
+    }
 }
 
 int main() {
-    std::string temp = "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 1";
-    std::string fen("");
+    std::string temp = "rnbqkbnr/ppp1pppp/8/3p4/3P4/2P5/PP2PPPP/RNBQKBNR w KQkq - 0 1";
+    std::string fen(temp);
     Board board(fen);
     board.function_debug();
     return 0;
