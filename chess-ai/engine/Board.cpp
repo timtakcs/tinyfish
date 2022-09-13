@@ -187,7 +187,7 @@ inline Board::U64 Board::get_pawn_push(int color, int square) {
         if ((square / 8 == 1) && push_1) push_2 = southOne(push_1);
     }
 
-    return push_1 | push_2;
+    return (push_1 | push_2) & bitmap['E'];
 }
 
 inline Board::U64 Board::get_pawn_attack(int square, int color) {
@@ -763,10 +763,11 @@ void Board::push_move(move m) {
         remove_bit(bitmap[m.piece], m.from);
         set_bit(bitmap[m.piece], m.to);
 
+        
         //if pawn moved 2 squares
         //set en passant
         if ((m.piece == 'p' || m.piece == 'P') && pow(m.to - m.from, 2) == 256) {
-            en_passant = m.to;
+            en_passant = (m.piece == 'P') ? m.to - 8 : m.to + 8;
         }
 
         //remove white's castling rights if the king or rook is moved
@@ -891,14 +892,15 @@ Board::U64 Board::perft(int depth) {
     for(int i = 0; i < moves.size(); i++) {
         std::string m = moves[i].repr;
 
-        if (m == "g7g5") {
-            std::cout << "-------------" << endl;
-            print_full_board();
-            push_move(moves[i]);
-            print_full_board();
-            pop_move(moves[i]);
-            std::cout << "-------------" << endl;
-        }
+        // if (m == "g7g5") {
+        //     ccc++;
+        //     std::cout << "-------------" << endl;
+        //     print_full_board();
+        //     push_move(moves[i]);
+        //     print_full_board();
+        //     pop_move(moves[i]);
+        //     std::cout << "-------------" << endl;
+        // }
 
         if(moves[i].piece == 'p') {
             temp_pawns.push_back(m);
@@ -920,390 +922,6 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-
-    vector<string> debug_hopes = {
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "c7c6",
-        "b7b5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "g7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "d5c4",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "d5e4",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5",
-        "h7h6",
-        "g7g6",
-        "f7f6",
-        "e7e6",
-        "c7c6",
-        "b7b6",
-        "a7a6",
-        "h7h5",
-        "g7g5",
-        "f7f5",
-        "e7e5",
-        "c7c5",
-        "b7b5",
-        "a7a5"
-    };
-
     int castletest = 15 ^ 12;
 
     std::cout << "\n" << endl;
@@ -1314,7 +932,7 @@ void Board::function_debug() {
 
     std::cout << "\n" << endl;
 
-    std::cout << "perft result: " << perft(2) << endl;
+    std::cout << "perft result: " << perft(5) << endl;
     std::cout << "captures: " << captures << endl;
     std::cout << "castles : " << castles << endl;
     std::cout << "enps    : " << enps << endl;
@@ -1333,37 +951,35 @@ void Board::function_debug() {
         std::cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
     }
 
-    cout << temp_pawns.size() << "    " << debug_hopes.size() << endl;
-
     std::map<string, int> more_debug_hopes;
     std::map<string, int> more_more_debug_hopes;
 
-    for (auto n: debug_hopes) {
-        more_debug_hopes[n] = 0;
-    }
+    // for (auto n: debug_hopes) {
+    //     more_debug_hopes[n] = 0;
+    // }
 
-    for (auto k: debug_hopes) {
-        more_more_debug_hopes[k] = 0;
-    }
+    // for (auto k: debug_hopes) {
+    //     more_more_debug_hopes[k] = 0;
+    // }
 
-    for (int s = 0; s < temp_pawns.size(); s++) {
-        more_debug_hopes[temp_pawns[s]]++;
-    }
+    // for (int s = 0; s < temp_pawns.size(); s++) {
+    //     more_debug_hopes[temp_pawns[s]]++;
+    // }
 
-    for (int q = 0; q < debug_hopes.size(); q++) {
-        more_more_debug_hopes[debug_hopes[q]]++;
-    }
+    // for (int q = 0; q < debug_hopes.size(); q++) {
+    //     more_more_debug_hopes[debug_hopes[q]]++;
+    // }
 
-    for (auto jjj: temp_pawns) {
-        if(more_debug_hopes[jjj] != more_more_debug_hopes[jjj]) {
-            cout << jjj << endl;
-        }
-    }
+    // for (auto jjj: temp_pawns) {
+    //     if(more_debug_hopes[jjj] != more_more_debug_hopes[jjj]) {
+    //         cout << jjj << endl;
+    //     }
+    // }
 }
 
 int main() {
     std::string temp = "rnbqkbnr/ppp1pppp/8/3p4/3P4/2P5/PP2PPPP/RNBQKBNR w KQkq - 0 1";
-    std::string fen(temp);
+    std::string fen("");
     Board board(fen);
     board.function_debug();
     return 0;
