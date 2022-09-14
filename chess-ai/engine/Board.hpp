@@ -67,7 +67,7 @@ private:
     inline void set_bit(U64 &board, int square);
     inline U64 get_bit(U64 board, int square);
     inline void remove_bit(U64 &board, int square);
-    inline int get_bitcount(U64 board);
+    // inline int get_bitcount(U64 board);
     inline int get_lsb_index(U64 board);
 
     inline void update_board();
@@ -282,19 +282,16 @@ private:
     void push_move(move m);
     void pop_move(move m);
 
+    //debug variables
     int captures = 0;
     int castles = 0;
     int enps = 0;
     int checks = 0;
     int checkmates = 0;
 
-    int ccc = 0;
-
     std::map<char, int> debug;
 
-    std::vector<std::string> temp_pawns;
-
-    std::map<std::string, int> divide;
+    //-------------------------
 
     U64 perft(int depth);
 };

@@ -3,7 +3,7 @@ import chess
 import sys
 import random
 
-board = chess.Board()
+board = chess.Board("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - ")
 
 strpieces = 'KQRNBPkqrnbp'
 somedict = {}
@@ -32,7 +32,7 @@ def perft(d, board):
 
     return moves
 
-print(perft(5, board))
+print(perft(2, board))
     
 for piece in strpieces:
     print(piece, "->", somedict[piece])
