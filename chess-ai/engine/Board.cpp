@@ -763,11 +763,12 @@ void Board::push_move(move m) {
         remove_bit(bitmap[m.piece], m.from);
         set_bit(bitmap[m.piece], m.to);
 
+        en_passant = none;
         
         //if pawn moved 2 squares
         //set en passant
         if ((m.piece == 'p' || m.piece == 'P') && pow(m.to - m.from, 2) == 256) {
-            en_passant = (m.piece == 'P') ? m.to - 8 : m.to + 8;
+            en_passant = (m.piece == 'P') ? m.to + 8 : m.to - 8;
         }
 
         //remove white's castling rights if the king or rook is moved
@@ -826,7 +827,6 @@ void Board::push_move(move m) {
         }
     }
     side = !side;
-    en_passant = none;
     update_board();
 }
 
@@ -978,7 +978,7 @@ void Board::function_debug() {
 }
 
 int main() {
-    std::string temp = "rnbqkbnr/ppp1pppp/8/3p4/3P4/2P5/PP2PPPP/RNBQKBNR w KQkq - 0 1";
+    std::string temp = "rnbqkb1r/pppppppp/5n2/2P5/8/8/PP1PPPPP/RNBQKBNR b KQkq - 0 1";
     std::string fen("");
     Board board(fen);
     board.function_debug();
