@@ -447,8 +447,9 @@ void Board::get_leaping_attacks() {
 }
 
 inline int Board::get_lsb_index(U64 board) {
-    U64 bit = (board & -board) - 1;
-    return __popcount(bit);
+    const U64 constant = 0x03f79d71b4cb0a89;
+    assert (board != 0);
+    return index64[((board ^ (board-1)) * constant) >> 58];
 }
 
 Board::U64 Board::set_occupancy(int index, int num_bits, U64 attack) {
@@ -892,7 +893,7 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    cout << "total nodes: " << perft(2) << endl;
+    cout << "total nodes: " << perft(5) << endl;
 
     U64 b = 0ULL;
     set_bit(b, a3);
@@ -907,7 +908,7 @@ void Board::function_debug() {
 
 int main() {
     std::string temp = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - ";
-    std::string fen(temp);
+    std::string fen("");
     Board board(fen);
     board.function_debug();
     return 0;
