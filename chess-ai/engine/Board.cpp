@@ -889,7 +889,11 @@ Board::U64 Board::perft(int depth) {
         if (!debug.count(moves[i].piece)) debug[moves[i].piece] = 1;
         else debug[moves[i].piece]++;
 
-        if(moves[i].castle) castles++;
+        // if (moves[i].castle) {
+        //     castles++;
+        // }
+
+        // if(moves[i].castle) castles++;
 
         nodes += perft(depth - 1);
         pop_move(moves[i]);
@@ -903,6 +907,12 @@ void Board::function_debug() {
     print_full_board();
 
     cout << "castles: " << castles << endl;
+
+    for ( std::map<string, int>::iterator iter = debbb.begin(); iter != debbb.end(); ++iter) {
+        cout << iter->first << "->" << iter-> second << endl;
+    }
+    
+    cout << "\n\n" << endl;
 
     for (int i = 0; i < string_pieces.length(); i++) {
         std::cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;

@@ -301,6 +301,8 @@ private:
     int checks = 0;
     int checkmates = 0;
 
+    std::map<std::string, int> debbb;
+
     std::map<char, int> debug;
 
     //-------------------------

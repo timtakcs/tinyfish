@@ -14,7 +14,7 @@ for piece in strpieces:
 
 count = 0
 
-pawn_moves = []
+king_moves = []
 
 def perft(d, board):
     if d == 0:
@@ -24,9 +24,12 @@ def perft(d, board):
 
     for move in board.legal_moves:
         somedict[board.piece_at(move.from_square).symbol()] += 1
-        if board.piece_at(move.from_square).symbol() == 'p':
-            pawn_moves.append(move.uci())
+        if board.piece_at(move.from_square).symbol() == 'k':
+            king_moves.append(move.uci())
+
         board.push(move)
+        if move.uci() == "e8c8":
+            print(board, "\n---------\n")
         moves += perft(d - 1, board)
         board.pop()
 
@@ -36,6 +39,16 @@ print(perft(2, board))
     
 for piece in strpieces:
     print(piece, "->", somedict[piece])
+
+print("\n\n\n")
+
+kingd = {}
+
+for m in king_moves:
+    kingd[m] = 1 if m not in kingd else kingd[m] + 1
+
+for key in kingd.keys():
+    print(key, "->", kingd[key])
 
 
 # for i in range(1, 6700852):
