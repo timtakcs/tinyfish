@@ -282,8 +282,8 @@ private:
     };
 
     //generating slider attacks
-    U64 get_magic_bishop_attack(U64 occupancy, int square);
-    U64 get_magic_rook_attack(U64 occupancy, int square);
+    U64 get_bishop_attack(U64 occupancy, int square);
+    U64 get_rook_attack(U64 occupancy, int square);
     U64 get_queen_attack(int square, U64 occupancy);
 
     //move generation

@@ -495,14 +495,14 @@ void Board::populate_attack_mask_arrays() {
 }
 
 //these don't seem to work, come fix them later, you can use the on the fly ones for now
-Board::U64 Board::get_magic_bishop_attack(U64 occupancy, int square) {
+Board::U64 Board::get_bishop_attack(U64 occupancy, int square) {
     occupancy &= relevant_bishop_squares[square];
     occupancy *= bishop_magics[square];
     occupancy >>= 64 - __popcount(relevant_bishop_squares[square]);
     return masked_bishop_attacks[square][occupancy];
 }
 
-Board::U64 Board::get_magic_rook_attack(U64 occupancy, int square) {
+Board::U64 Board::get_rook_attack(U64 occupancy, int square) {
     occupancy &= relevant_rook_squares[square];
     occupancy *= rook_magics[square];
     occupancy >>= 64 - __popcount(relevant_rook_squares[square]);
@@ -657,7 +657,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 move m = get_move(false, square, t_square, 0, side, piece_char, captured_piece, opp);
 
                 //promotion move generation
-                if ((t_square % 8 == 8) && (piece_char == 'P')) {
+                if ((t_square / 8 == 8) && (piece_char == 'P')) {
                     push_move(m);
                     if (!is_check(side)) {
                         move promos[3];
@@ -670,7 +670,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                     pop_move(m);
                     continue;
                 }
-                else if ((t_square % 8 == 1) && (piece_char == 'p')) {
+                else if ((t_square / 8 == 1) && (piece_char == 'p')) {
                     push_move(m);
                     if (!is_check(side)) {
                         move promos[3];
@@ -944,18 +944,12 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    cout << "total nodes: " << perft(2) << endl;
+    cout << "total nodes: " << perft(4) << endl;
 
     print_full_board();
 
     cout << "castles: " << castles << endl;
-
-    for ( std::map<string, int>::iterator iter = debbb.begin(); iter != debbb.end(); ++iter) {
-        cout << iter->first << "->" << iter-> second << endl;
-    }
     
-    cout << "\n\n" << endl;
-
     for (int i = 0; i < string_pieces.length(); i++) {
         std::cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
     }
@@ -963,8 +957,8 @@ void Board::function_debug() {
 
 int main() {
     std::string temp = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -";
-    std::string fen(temp);
-    // std::string fen("");
+    // std::string fen(temp);
+    std::string fen("");
     Board board(fen);
     board.function_debug();
     return 0;
