@@ -18,6 +18,7 @@ public:
         int side;
         char piece;
         char captured_piece;
+        char promotion;
         std::string repr;
     };
 
@@ -56,6 +57,9 @@ private:
     };
 
     std::string string_pieces = "KQRBNPkqrbnp";
+
+    std::string white_promo_string = "QRKB";
+    std::string black_promo_string = "qrkb";
     
     std::map<char, U64> bitmap;
 
@@ -67,7 +71,6 @@ private:
     inline void set_bit(U64 &board, int square);
     inline U64 get_bit(U64 board, int square);
     inline void remove_bit(U64 &board, int square);
-    // inline int get_bitcount(U64 board);
     inline int get_lsb_index(U64 board);
 
     inline void update_board();
@@ -286,7 +289,7 @@ private:
     //move generation
     bool is_square_attacked(int square, int color);
 
-    move get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL);
+    move get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
     bool is_check(int side);
     std::vector<int> get_positions(U64 board);
     std::vector<move> get_legal_moves(int side);
