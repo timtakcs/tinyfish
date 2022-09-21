@@ -944,7 +944,7 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    cout << "total nodes: " << perft(4) << endl;
+    cout << "total nodes: " << perft(1) << endl;
 
     print_full_board();
 

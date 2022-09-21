@@ -26,7 +26,12 @@ public:
     void print_full_board();
     void print_board(U64 board);
     void function_debug();
+    
     //generate legal moves
+    std::vector<move> get_legal_moves(int side);
+
+    void push_move(move m);
+    void pop_move(move m);
 private:
     enum board {a8, b8, c8, d8, e8, f8, g8, h8,
         a7, b7, c7, d7, e7, f7, g7, h7,
@@ -292,10 +297,6 @@ private:
     move get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
     bool is_check(int side);
     std::vector<int> get_positions(U64 board);
-    std::vector<move> get_legal_moves(int side);
-
-    void push_move(move m);
-    void pop_move(move m);
 
     //debug variables
     int captures = 0;

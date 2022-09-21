@@ -1,13 +1,14 @@
+#include "Board.hpp"
 
 class Engine {
-    // what does it need?
-    //it needs an init method
-    //it needs a fen decoder
-    //it needs the network from torch
-    //it needs a board class and a move generator
-    //it needs a uci connection
-    //it needs the search algorithm
-
-    //potentially later an opening and end game table search
+public:
+    Engine(std::string fen);
+    Board board(std::string fen);
+    void play(); // command line playing
+    void uci(); //for chess gui connection
+private:
+    Board board(std::string fen);
+    Board::move search();
+    //Network net(); - should have an eval method
 };
 
