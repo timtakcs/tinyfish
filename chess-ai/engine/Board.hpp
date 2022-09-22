@@ -22,7 +22,7 @@ public:
         std::string repr;
     };
 
-    Board(std::string fen);
+    void gen_board(std::string &fen);
     void print_full_board();
     void print_board(U64 board);
     void function_debug();
@@ -79,8 +79,6 @@ private:
     inline int get_lsb_index(U64 board);
 
     inline void update_board();
- 
-    void gen_board(std::string &fen);
 
     //shifting bitboards operations and constants
     const U64 notAFile = 0xfefefefefefefefe;

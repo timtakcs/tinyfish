@@ -3,7 +3,7 @@
 #include <iostream>
 
 Engine::Engine(std::string fen) {
-    board(fen);
+    board.gen_board(fen);
 }
 
 int main() {
@@ -11,3 +11,6 @@ int main() {
     engine.board.function_debug();
 }
 
+Board::move Engine::search(int depth) {
+    
+}

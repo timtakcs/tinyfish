@@ -7,10 +7,6 @@ inline void Board::set_bit(U64 &board, int square) {(board) |= (1ULL << (square)
 inline Board::U64 Board::get_bit(U64 board, int square) {return (board & (1ULL << square));};
 inline void Board::remove_bit(U64 &board, int square) {board &= ~(1ULL << square);};
 
-Board::Board(std::string fen) {
-    gen_board(fen);
-}
-
 inline void Board::update_board() {
     bitmap['0'] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
                 | bitmap['B'] | bitmap['P']; 
@@ -955,11 +951,12 @@ void Board::function_debug() {
     }
 }
 
-int main() {
-    std::string temp = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -";
-    // std::string fen(temp);
-    std::string fen("");
-    Board board(fen);
-    board.function_debug();
-    return 0;
-}
+// int main() {
+//     std::string temp = "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -";
+//     // std::string fen(temp);
+//     std::string fen("");
+//     Board board;
+//     board.gen_board(fen);
+//     board.function_debug();
+//     return 0;
+// }
