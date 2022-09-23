@@ -4,13 +4,8 @@
 CMakeFiles/tinyfish.dir/Network.cpp.o
  /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Network.cpp
  /usr/include/stdc-predef.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/torch.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/all.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/cuda.h
- /home/timur/Downloads/libtorch/include/torch/csrc/Export.h
- /home/timur/Downloads/libtorch/include/c10/macros/Export.h
- /home/timur/Downloads/libtorch/include/c10/macros/cmake_macros.h
- /usr/include/c++/11/cstdint
+ /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Network.hpp
+ /usr/include/c++/11/iostream
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h
  /usr/include/features.h
@@ -22,39 +17,45 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/x86_64-linux-gnu/gnu/stubs.h
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h
- /usr/include/stdint.h
+ /usr/include/c++/11/ostream
+ /usr/include/c++/11/ios
+ /usr/include/c++/11/iosfwd
+ /usr/include/c++/11/bits/stringfwd.h
+ /usr/include/c++/11/bits/memoryfwd.h
+ /usr/include/c++/11/bits/postypes.h
+ /usr/include/c++/11/cwchar
+ /usr/include/wchar.h
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
- /usr/include/x86_64-linux-gnu/bits/types.h
- /usr/include/x86_64-linux-gnu/bits/typesizes.h
- /usr/include/x86_64-linux-gnu/bits/time64.h
- /usr/include/x86_64-linux-gnu/bits/wchar.h
- /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
- /usr/include/c++/11/cstddef
+ /usr/include/x86_64-linux-gnu/bits/floatn.h
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/base.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader_options.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/arg.h
- /usr/include/c++/11/utility
- /usr/include/c++/11/bits/stl_relops.h
- /usr/include/c++/11/bits/stl_pair.h
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h
+ /usr/include/x86_64-linux-gnu/bits/types/wint_t.h
+ /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h
+ /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
+ /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
+ /usr/include/x86_64-linux-gnu/bits/types/FILE.h
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
+ /usr/include/c++/11/exception
+ /usr/include/c++/11/bits/exception.h
+ /usr/include/c++/11/bits/exception_ptr.h
+ /usr/include/c++/11/bits/exception_defines.h
+ /usr/include/c++/11/bits/cxxabi_init_exception.h
+ /usr/include/c++/11/typeinfo
+ /usr/include/c++/11/bits/hash_bytes.h
+ /usr/include/c++/11/new
+ /usr/include/c++/11/bits/nested_exception.h
  /usr/include/c++/11/bits/move.h
  /usr/include/c++/11/type_traits
- /usr/include/c++/11/initializer_list
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/types.h
- /home/timur/Downloads/libtorch/include/ATen/ATen.h
- /home/timur/Downloads/libtorch/include/c10/core/Allocator.h
- /usr/include/c++/11/memory
+ /usr/include/c++/11/bits/char_traits.h
  /usr/include/c++/11/bits/stl_algobase.h
  /usr/include/c++/11/bits/functexcept.h
- /usr/include/c++/11/bits/exception_defines.h
  /usr/include/c++/11/bits/cpp_type_traits.h
  /usr/include/c++/11/ext/type_traits.h
  /usr/include/c++/11/ext/numeric_traits.h
+ /usr/include/c++/11/bits/stl_pair.h
  /usr/include/c++/11/bits/stl_iterator_base_types.h
  /usr/include/c++/11/bits/stl_iterator_base_funcs.h
  /usr/include/c++/11/bits/concept_check.h
@@ -63,51 +64,24 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/c++/11/bits/ptr_traits.h
  /usr/include/c++/11/debug/debug.h
  /usr/include/c++/11/bits/predefined_ops.h
- /usr/include/c++/11/bits/allocator.h
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h
- /usr/include/c++/11/ext/new_allocator.h
- /usr/include/c++/11/new
- /usr/include/c++/11/bits/exception.h
- /usr/include/c++/11/bits/memoryfwd.h
- /usr/include/c++/11/bits/stl_construct.h
- /usr/include/c++/11/bits/stl_uninitialized.h
- /usr/include/c++/11/ext/alloc_traits.h
- /usr/include/c++/11/bits/alloc_traits.h
- /usr/include/c++/11/bits/stl_tempbuf.h
- /usr/include/c++/11/bits/stl_raw_storage_iter.h
- /usr/include/c++/11/bits/align.h
- /usr/include/c++/11/bit
- /usr/include/c++/11/bits/uses_allocator.h
- /usr/include/c++/11/bits/unique_ptr.h
- /usr/include/c++/11/tuple
- /usr/include/c++/11/array
- /usr/include/c++/11/bits/range_access.h
- /usr/include/c++/11/bits/invoke.h
- /usr/include/c++/11/bits/stl_function.h
- /usr/include/c++/11/backward/binders.h
- /usr/include/c++/11/bits/functional_hash.h
- /usr/include/c++/11/bits/hash_bytes.h
- /usr/include/c++/11/bits/shared_ptr.h
- /usr/include/c++/11/iosfwd
- /usr/include/c++/11/bits/stringfwd.h
- /usr/include/c++/11/bits/postypes.h
- /usr/include/c++/11/cwchar
- /usr/include/wchar.h
- /usr/include/x86_64-linux-gnu/bits/floatn.h
- /usr/include/x86_64-linux-gnu/bits/floatn-common.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h
- /usr/include/x86_64-linux-gnu/bits/types/wint_t.h
- /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h
- /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h
- /usr/include/x86_64-linux-gnu/bits/types/__FILE.h
- /usr/include/x86_64-linux-gnu/bits/types/FILE.h
- /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
- /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
- /usr/include/c++/11/bits/shared_ptr_base.h
- /usr/include/c++/11/typeinfo
- /usr/include/c++/11/bits/allocated_ptr.h
- /usr/include/c++/11/bits/refwrap.h
- /usr/include/c++/11/ext/aligned_buffer.h
+ /usr/include/c++/11/cstdint
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h
+ /usr/include/stdint.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/time64.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
+ /usr/include/c++/11/bits/localefwd.h
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h
+ /usr/include/c++/11/clocale
+ /usr/include/locale.h
+ /usr/include/x86_64-linux-gnu/bits/locale.h
+ /usr/include/c++/11/cctype
+ /usr/include/ctype.h
+ /usr/include/x86_64-linux-gnu/bits/endian.h
+ /usr/include/x86_64-linux-gnu/bits/endianness.h
+ /usr/include/c++/11/bits/ios_base.h
  /usr/include/c++/11/ext/atomicity.h
  /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h
  /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h
@@ -115,8 +89,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/sched.h
  /usr/include/x86_64-linux-gnu/bits/types/time_t.h
  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
- /usr/include/x86_64-linux-gnu/bits/endian.h
- /usr/include/x86_64-linux-gnu/bits/endianness.h
  /usr/include/x86_64-linux-gnu/bits/sched.h
  /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h
  /usr/include/x86_64-linux-gnu/bits/cpu-set.h
@@ -141,37 +113,21 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h
  /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h
  /usr/include/x86_64-linux-gnu/sys/single_threaded.h
- /usr/include/c++/11/ext/concurrence.h
- /usr/include/c++/11/exception
- /usr/include/c++/11/bits/exception_ptr.h
- /usr/include/c++/11/bits/cxxabi_init_exception.h
- /usr/include/c++/11/bits/nested_exception.h
- /usr/include/c++/11/bits/shared_ptr_atomic.h
- /usr/include/c++/11/bits/atomic_base.h
- /usr/include/c++/11/bits/atomic_lockfree_defines.h
- /usr/include/c++/11/backward/auto_ptr.h
- /home/timur/Downloads/libtorch/include/c10/core/Device.h
- /home/timur/Downloads/libtorch/include/c10/core/DeviceType.h
- /home/timur/Downloads/libtorch/include/c10/macros/Macros.h
- /usr/include/c++/11/cassert
- /usr/include/assert.h
- /usr/include/c++/11/sstream
- /usr/include/c++/11/istream
- /usr/include/c++/11/ios
- /usr/include/c++/11/bits/char_traits.h
- /usr/include/c++/11/bits/localefwd.h
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h
- /usr/include/c++/11/clocale
- /usr/include/locale.h
- /usr/include/x86_64-linux-gnu/bits/locale.h
- /usr/include/c++/11/cctype
- /usr/include/ctype.h
- /usr/include/c++/11/bits/ios_base.h
  /usr/include/c++/11/bits/locale_classes.h
  /usr/include/c++/11/string
+ /usr/include/c++/11/bits/allocator.h
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h
+ /usr/include/c++/11/ext/new_allocator.h
  /usr/include/c++/11/bits/ostream_insert.h
  /usr/include/c++/11/bits/cxxabi_forced.h
+ /usr/include/c++/11/bits/stl_function.h
+ /usr/include/c++/11/backward/binders.h
+ /usr/include/c++/11/bits/range_access.h
+ /usr/include/c++/11/initializer_list
  /usr/include/c++/11/bits/basic_string.h
+ /usr/include/c++/11/ext/alloc_traits.h
+ /usr/include/c++/11/bits/alloc_traits.h
+ /usr/include/c++/11/bits/stl_construct.h
  /usr/include/c++/11/ext/string_conversions.h
  /usr/include/c++/11/cstdlib
  /usr/include/stdlib.h
@@ -203,6 +159,7 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/asm-generic/errno-base.h
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h
  /usr/include/c++/11/bits/charconv.h
+ /usr/include/c++/11/bits/functional_hash.h
  /usr/include/c++/11/bits/basic_string.tcc
  /usr/include/c++/11/bits/locale_classes.tcc
  /usr/include/c++/11/system_error
@@ -220,9 +177,48 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h
  /usr/include/c++/11/bits/locale_facets.tcc
  /usr/include/c++/11/bits/basic_ios.tcc
- /usr/include/c++/11/ostream
  /usr/include/c++/11/bits/ostream.tcc
+ /usr/include/c++/11/istream
  /usr/include/c++/11/bits/istream.tcc
+ /usr/include/c++/11/vector
+ /usr/include/c++/11/bits/stl_uninitialized.h
+ /usr/include/c++/11/bits/stl_vector.h
+ /usr/include/c++/11/bits/stl_bvector.h
+ /usr/include/c++/11/bits/vector.tcc
+ /home/timur/Downloads/libtorch/include/torch/script.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/types.h
+ /home/timur/Downloads/libtorch/include/ATen/ATen.h
+ /home/timur/Downloads/libtorch/include/c10/core/Allocator.h
+ /usr/include/c++/11/memory
+ /usr/include/c++/11/bits/stl_tempbuf.h
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h
+ /usr/include/c++/11/bits/align.h
+ /usr/include/c++/11/bit
+ /usr/include/c++/11/bits/uses_allocator.h
+ /usr/include/c++/11/bits/unique_ptr.h
+ /usr/include/c++/11/utility
+ /usr/include/c++/11/bits/stl_relops.h
+ /usr/include/c++/11/tuple
+ /usr/include/c++/11/array
+ /usr/include/c++/11/bits/invoke.h
+ /usr/include/c++/11/bits/shared_ptr.h
+ /usr/include/c++/11/bits/shared_ptr_base.h
+ /usr/include/c++/11/bits/allocated_ptr.h
+ /usr/include/c++/11/bits/refwrap.h
+ /usr/include/c++/11/ext/aligned_buffer.h
+ /usr/include/c++/11/ext/concurrence.h
+ /usr/include/c++/11/bits/shared_ptr_atomic.h
+ /usr/include/c++/11/bits/atomic_base.h
+ /usr/include/c++/11/bits/atomic_lockfree_defines.h
+ /usr/include/c++/11/backward/auto_ptr.h
+ /home/timur/Downloads/libtorch/include/c10/core/Device.h
+ /home/timur/Downloads/libtorch/include/c10/core/DeviceType.h
+ /home/timur/Downloads/libtorch/include/c10/macros/Macros.h
+ /usr/include/c++/11/cassert
+ /usr/include/assert.h
+ /home/timur/Downloads/libtorch/include/c10/macros/cmake_macros.h
+ /home/timur/Downloads/libtorch/include/c10/macros/Export.h
+ /usr/include/c++/11/sstream
  /usr/include/c++/11/bits/sstream.tcc
  /usr/include/c++/11/functional
  /usr/include/c++/11/bits/std_function.h
@@ -244,10 +240,7 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/string.h
  /usr/include/strings.h
  /usr/include/c++/11/limits
- /usr/include/c++/11/vector
- /usr/include/c++/11/bits/stl_vector.h
- /usr/include/c++/11/bits/stl_bvector.h
- /usr/include/c++/11/bits/vector.tcc
+ /usr/include/c++/11/cstddef
  /home/timur/Downloads/libtorch/include/c10/util/ThreadLocalDebugInfo.h
  /usr/include/c++/11/unordered_map
  /usr/include/c++/11/bits/hashtable.h
@@ -4168,6 +4161,7 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /home/timur/Downloads/libtorch/include/ATen/core/grad_mode.h
  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/detail/TensorDataContainer.h
  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/variable.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/Export.h
  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/edge.h
  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/function_hook.h
  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/cpp_hook.h
@@ -4184,7 +4178,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /home/timur/Downloads/libtorch/include/ATen/core/operator_name.h
  /home/timur/Downloads/libtorch/include/ATen/core/dispatch/OperatorOptions.h
  /home/timur/Downloads/libtorch/include/ATen/core/function_schema_inl.h
- /usr/include/c++/11/iostream
  /home/timur/Downloads/libtorch/include/ATen/core/op_registration/op_allowlist.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/function_schema_parser.h
  /home/timur/Downloads/libtorch/include/c10/util/either.h
@@ -4222,30 +4215,23 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /usr/include/c++/11/thread
  /usr/include/c++/11/bits/std_thread.h
  /usr/include/c++/11/bits/this_thread_sleep.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/data_shuttle.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/queue.h
- /usr/include/c++/11/queue
- /usr/include/c++/11/bits/stl_queue.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/sequencers.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/iterator.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/InferenceMode.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/custom_function.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/function.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/grad_mode.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/anomaly_mode.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable_hooks.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/autograd/input_metadata.h
  /home/timur/Downloads/libtorch/include/torch/csrc/utils/variadic.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/random.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/base.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/worker_exception.h
- /home/timur/Downloads/libtorch/include/torch/csrc/utils/memory.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/stateless.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/base.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/example.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/chunk.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/stateful.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/custom_batch_request.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/distributed.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/sequential.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/serialize.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/archive.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/input-archive.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/custom_operator.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator_options.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/import.h
+ /home/timur/Downloads/libtorch/include/caffe2/serialize/inline_container.h
+ /home/timur/Downloads/libtorch/include/caffe2/serialize/istream_adapter.h
+ /home/timur/Downloads/libtorch/include/caffe2/serialize/read_adapter_interface.h
+ /home/timur/Downloads/libtorch/include/caffe2/serialize/versions.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/module.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/object.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/method.h
@@ -4258,8 +4244,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/source_range.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/ir/constants.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/ir/scope.h
- /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator.h
- /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator_options.h
  /home/timur/Downloads/libtorch/include/torch/csrc/utils/disallow_copy.h
  /home/timur/Downloads/libtorch/include/ATen/core/enum_type.h
  /home/timur/Downloads/libtorch/include/ATen/core/interned_strings.h
@@ -4276,240 +4260,22 @@ CMakeFiles/tinyfish.dir/Network.cpp.o
  /home/timur/Downloads/libtorch/include/ATen/PythonTorchFunctionTLS.h
  /home/timur/Downloads/libtorch/include/c10/core/SafePyObject.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/variable_tensor_list.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/utils/memory.h
  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/ordered_dict.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/compilation_unit.h
  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/name_mangler.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/output-archive.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/stream.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/tensor.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/map.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/mnist.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/shared.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/tensor.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/base.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/collate.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/lambda.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/stack.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/tensor.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/enum.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/fft.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/jit.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/linalg.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/cloneable.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/module.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any_module_holder.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any_value.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/detail/static.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/pimpl.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/pimpl-inl.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/utils.h
- /home/timur/Downloads/libtorch/include/ATen/Parallel.h
- /home/timur/Downloads/libtorch/include/ATen/Config.h
- /home/timur/Downloads/libtorch/include/ATen/ParallelOpenMP.h
- /home/timur/Downloads/libtorch/include/ATen/Parallel-inl.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/grad_mode.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler_legacy.h
- /usr/include/c++/11/forward_list
- /usr/include/c++/11/bits/forward_list.h
- /usr/include/c++/11/bits/forward_list.tcc
- /home/timur/Downloads/libtorch/include/torch/csrc/profiler/util.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/x86gprintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/ia32intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/adxintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/bmiintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/bmi2intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/cetintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/cldemoteintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/clflushoptintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/clwbintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/clzerointrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/enqcmdintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/fxsrintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/lzcntintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/lwpintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/movdirintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitxintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/pconfigintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/popcntintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/pkuintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/rdseedintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/rtmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/serializeintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/sgxintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/tbmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/tsxldtrkintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/uintrintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/waitpkgintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/wbnoinvdintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xsaveintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xsavecintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xsaveoptintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xsavesintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xtestintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/hresetintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h
- /usr/include/c++/11/stdlib.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/pmmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/tmmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/smmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/wmmintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avxvnniintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx2intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512fintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512erintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512pfintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512cdintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bwintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512dqintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlbwintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vldqintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmaintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmavlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmivlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124fmapsintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124vnniwintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2vlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnniintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnnivlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bitalgintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectvlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/shaintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/f16cintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/gfniintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/vaesintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/vpclmulqdqintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16vlintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/amxtileintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/amxint8intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/amxbf16intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/prfchwintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/keylockerintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mm3dnow.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/fma4intrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/ammintrin.h
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xopintrin.h
- /home/timur/Downloads/libtorch/include/torch/csrc/profiler/api.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler_kineto.h
- /home/timur/Downloads/libtorch/include/torch/csrc/profiler/kineto_shim.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/batchnorm.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/batchnorm.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/conv.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/conv.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/expanding_array.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/distance.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/distance.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/dropout.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/dropout.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/embedding.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/embedding.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/fold.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/fold.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/linear.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/loss.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/activation.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/activation.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/linear.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/loss.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/normalization.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/normalization.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/padding.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/padding.h
- /home/timur/Downloads/libtorch/include/ATen/native/PadNd.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/pooling.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/pooling.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/utils.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/pixelshuffle.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/pixelshuffle.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/upsampling.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/upsampling.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/vision.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/vision.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/instancenorm.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/instancenorm.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/init.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/common.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/functional.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/moduledict.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/modulelist.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/named_any.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/sequential.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/parameterdict.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/parameterlist.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/adaptive.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/linear.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/adaptive.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/batchnorm.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/instancenorm.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/conv.h
- /home/timur/Downloads/libtorch/include/c10/util/overloaded.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/dropout.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/distance.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/embedding.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/fold.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/loss.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/padding.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/pooling.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/rnn.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/rnn.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/rnn.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/pixelshuffle.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/upsampling.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/activation.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/normalization.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/_functions.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/custom_function.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/function.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/anomaly_mode.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable_hooks.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/input_metadata.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformerlayer.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformerlayer.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformercoder.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformercoder.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformer.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformer.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/clip_grad.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/convert_parameters.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adagrad.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/optimizer.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/serialize.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adam.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adamw.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/lbfgs.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/rmsprop.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/sgd.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/schedulers/lr_scheduler.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/schedulers/step_lr.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/sparse.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/special.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/autograd.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/autograd.h
- /home/timur/Downloads/libtorch/include/torch/csrc/autograd/autograd_not_implemented_fallback.h
- /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/version.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/unpickler.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/script_type_parser.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/resolver.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/sugared_value.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/error_report.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/tree.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/lexer.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/parser_constants.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/strtod.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/schema_matching.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/versioned_symbols.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/tree_views.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/pickler.h
+ /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/pickle.h
 

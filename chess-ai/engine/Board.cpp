@@ -106,6 +106,10 @@ void Board::gen_board(std::string& fen) {
     }
 }  
 
+std::vector<float> get_state() {
+    
+}
+
 void Board::print_board(U64 board) {
     std::vector<char> b(64, '.');
 

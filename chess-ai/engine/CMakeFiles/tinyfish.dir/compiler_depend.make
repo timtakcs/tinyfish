@@ -3,13 +3,8 @@
 
 CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/stdc-predef.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/torch.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/all.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/cuda.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/Export.h \
-  /home/timur/Downloads/libtorch/include/c10/macros/Export.h \
-  /home/timur/Downloads/libtorch/include/c10/macros/cmake_macros.h \
-  /usr/include/c++/11/cstdint \
+  Network.hpp \
+  /usr/include/c++/11/iostream \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
   /usr/include/features.h \
@@ -21,39 +16,45 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h \
-  /usr/include/stdint.h \
+  /usr/include/c++/11/ostream \
+  /usr/include/c++/11/ios \
+  /usr/include/c++/11/iosfwd \
+  /usr/include/c++/11/bits/stringfwd.h \
+  /usr/include/c++/11/bits/memoryfwd.h \
+  /usr/include/c++/11/bits/postypes.h \
+  /usr/include/c++/11/cwchar \
+  /usr/include/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
-  /usr/include/x86_64-linux-gnu/bits/types.h \
-  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
-  /usr/include/x86_64-linux-gnu/bits/time64.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
-  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-  /usr/include/c++/11/cstddef \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/base.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader_options.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/arg.h \
-  /usr/include/c++/11/utility \
-  /usr/include/c++/11/bits/stl_relops.h \
-  /usr/include/c++/11/bits/stl_pair.h \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+  /usr/include/x86_64-linux-gnu/bits/wchar.h \
+  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/c++/11/exception \
+  /usr/include/c++/11/bits/exception.h \
+  /usr/include/c++/11/bits/exception_ptr.h \
+  /usr/include/c++/11/bits/exception_defines.h \
+  /usr/include/c++/11/bits/cxxabi_init_exception.h \
+  /usr/include/c++/11/typeinfo \
+  /usr/include/c++/11/bits/hash_bytes.h \
+  /usr/include/c++/11/new \
+  /usr/include/c++/11/bits/nested_exception.h \
   /usr/include/c++/11/bits/move.h \
   /usr/include/c++/11/type_traits \
-  /usr/include/c++/11/initializer_list \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/types.h \
-  /home/timur/Downloads/libtorch/include/ATen/ATen.h \
-  /home/timur/Downloads/libtorch/include/c10/core/Allocator.h \
-  /usr/include/c++/11/memory \
+  /usr/include/c++/11/bits/char_traits.h \
   /usr/include/c++/11/bits/stl_algobase.h \
   /usr/include/c++/11/bits/functexcept.h \
-  /usr/include/c++/11/bits/exception_defines.h \
   /usr/include/c++/11/bits/cpp_type_traits.h \
   /usr/include/c++/11/ext/type_traits.h \
   /usr/include/c++/11/ext/numeric_traits.h \
+  /usr/include/c++/11/bits/stl_pair.h \
   /usr/include/c++/11/bits/stl_iterator_base_types.h \
   /usr/include/c++/11/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/11/bits/concept_check.h \
@@ -62,51 +63,24 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/c++/11/bits/ptr_traits.h \
   /usr/include/c++/11/debug/debug.h \
   /usr/include/c++/11/bits/predefined_ops.h \
-  /usr/include/c++/11/bits/allocator.h \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
-  /usr/include/c++/11/ext/new_allocator.h \
-  /usr/include/c++/11/new \
-  /usr/include/c++/11/bits/exception.h \
-  /usr/include/c++/11/bits/memoryfwd.h \
-  /usr/include/c++/11/bits/stl_construct.h \
-  /usr/include/c++/11/bits/stl_uninitialized.h \
-  /usr/include/c++/11/ext/alloc_traits.h \
-  /usr/include/c++/11/bits/alloc_traits.h \
-  /usr/include/c++/11/bits/stl_tempbuf.h \
-  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/11/bits/align.h \
-  /usr/include/c++/11/bit \
-  /usr/include/c++/11/bits/uses_allocator.h \
-  /usr/include/c++/11/bits/unique_ptr.h \
-  /usr/include/c++/11/tuple \
-  /usr/include/c++/11/array \
-  /usr/include/c++/11/bits/range_access.h \
-  /usr/include/c++/11/bits/invoke.h \
-  /usr/include/c++/11/bits/stl_function.h \
-  /usr/include/c++/11/backward/binders.h \
-  /usr/include/c++/11/bits/functional_hash.h \
-  /usr/include/c++/11/bits/hash_bytes.h \
-  /usr/include/c++/11/bits/shared_ptr.h \
-  /usr/include/c++/11/iosfwd \
-  /usr/include/c++/11/bits/stringfwd.h \
-  /usr/include/c++/11/bits/postypes.h \
-  /usr/include/c++/11/cwchar \
-  /usr/include/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/floatn.h \
-  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
-  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
-  /usr/include/c++/11/bits/shared_ptr_base.h \
-  /usr/include/c++/11/typeinfo \
-  /usr/include/c++/11/bits/allocated_ptr.h \
-  /usr/include/c++/11/bits/refwrap.h \
-  /usr/include/c++/11/ext/aligned_buffer.h \
+  /usr/include/c++/11/cstdint \
+  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h \
+  /usr/include/stdint.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+  /usr/include/c++/11/bits/localefwd.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
+  /usr/include/c++/11/clocale \
+  /usr/include/locale.h \
+  /usr/include/x86_64-linux-gnu/bits/locale.h \
+  /usr/include/c++/11/cctype \
+  /usr/include/ctype.h \
+  /usr/include/x86_64-linux-gnu/bits/endian.h \
+  /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/c++/11/bits/ios_base.h \
   /usr/include/c++/11/ext/atomicity.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h \
@@ -114,8 +88,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/sched.h \
   /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
-  /usr/include/x86_64-linux-gnu/bits/endian.h \
-  /usr/include/x86_64-linux-gnu/bits/endianness.h \
   /usr/include/x86_64-linux-gnu/bits/sched.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
   /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
@@ -140,37 +112,21 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
   /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
-  /usr/include/c++/11/ext/concurrence.h \
-  /usr/include/c++/11/exception \
-  /usr/include/c++/11/bits/exception_ptr.h \
-  /usr/include/c++/11/bits/cxxabi_init_exception.h \
-  /usr/include/c++/11/bits/nested_exception.h \
-  /usr/include/c++/11/bits/shared_ptr_atomic.h \
-  /usr/include/c++/11/bits/atomic_base.h \
-  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
-  /usr/include/c++/11/backward/auto_ptr.h \
-  /home/timur/Downloads/libtorch/include/c10/core/Device.h \
-  /home/timur/Downloads/libtorch/include/c10/core/DeviceType.h \
-  /home/timur/Downloads/libtorch/include/c10/macros/Macros.h \
-  /usr/include/c++/11/cassert \
-  /usr/include/assert.h \
-  /usr/include/c++/11/sstream \
-  /usr/include/c++/11/istream \
-  /usr/include/c++/11/ios \
-  /usr/include/c++/11/bits/char_traits.h \
-  /usr/include/c++/11/bits/localefwd.h \
-  /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
-  /usr/include/c++/11/clocale \
-  /usr/include/locale.h \
-  /usr/include/x86_64-linux-gnu/bits/locale.h \
-  /usr/include/c++/11/cctype \
-  /usr/include/ctype.h \
-  /usr/include/c++/11/bits/ios_base.h \
   /usr/include/c++/11/bits/locale_classes.h \
   /usr/include/c++/11/string \
+  /usr/include/c++/11/bits/allocator.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h \
+  /usr/include/c++/11/ext/new_allocator.h \
   /usr/include/c++/11/bits/ostream_insert.h \
   /usr/include/c++/11/bits/cxxabi_forced.h \
+  /usr/include/c++/11/bits/stl_function.h \
+  /usr/include/c++/11/backward/binders.h \
+  /usr/include/c++/11/bits/range_access.h \
+  /usr/include/c++/11/initializer_list \
   /usr/include/c++/11/bits/basic_string.h \
+  /usr/include/c++/11/ext/alloc_traits.h \
+  /usr/include/c++/11/bits/alloc_traits.h \
+  /usr/include/c++/11/bits/stl_construct.h \
   /usr/include/c++/11/ext/string_conversions.h \
   /usr/include/c++/11/cstdlib \
   /usr/include/stdlib.h \
@@ -202,6 +158,7 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
   /usr/include/c++/11/bits/charconv.h \
+  /usr/include/c++/11/bits/functional_hash.h \
   /usr/include/c++/11/bits/basic_string.tcc \
   /usr/include/c++/11/bits/locale_classes.tcc \
   /usr/include/c++/11/system_error \
@@ -219,9 +176,48 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_inline.h \
   /usr/include/c++/11/bits/locale_facets.tcc \
   /usr/include/c++/11/bits/basic_ios.tcc \
-  /usr/include/c++/11/ostream \
   /usr/include/c++/11/bits/ostream.tcc \
+  /usr/include/c++/11/istream \
   /usr/include/c++/11/bits/istream.tcc \
+  /usr/include/c++/11/vector \
+  /usr/include/c++/11/bits/stl_uninitialized.h \
+  /usr/include/c++/11/bits/stl_vector.h \
+  /usr/include/c++/11/bits/stl_bvector.h \
+  /usr/include/c++/11/bits/vector.tcc \
+  /home/timur/Downloads/libtorch/include/torch/script.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/types.h \
+  /home/timur/Downloads/libtorch/include/ATen/ATen.h \
+  /home/timur/Downloads/libtorch/include/c10/core/Allocator.h \
+  /usr/include/c++/11/memory \
+  /usr/include/c++/11/bits/stl_tempbuf.h \
+  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/11/bits/align.h \
+  /usr/include/c++/11/bit \
+  /usr/include/c++/11/bits/uses_allocator.h \
+  /usr/include/c++/11/bits/unique_ptr.h \
+  /usr/include/c++/11/utility \
+  /usr/include/c++/11/bits/stl_relops.h \
+  /usr/include/c++/11/tuple \
+  /usr/include/c++/11/array \
+  /usr/include/c++/11/bits/invoke.h \
+  /usr/include/c++/11/bits/shared_ptr.h \
+  /usr/include/c++/11/bits/shared_ptr_base.h \
+  /usr/include/c++/11/bits/allocated_ptr.h \
+  /usr/include/c++/11/bits/refwrap.h \
+  /usr/include/c++/11/ext/aligned_buffer.h \
+  /usr/include/c++/11/ext/concurrence.h \
+  /usr/include/c++/11/bits/shared_ptr_atomic.h \
+  /usr/include/c++/11/bits/atomic_base.h \
+  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/11/backward/auto_ptr.h \
+  /home/timur/Downloads/libtorch/include/c10/core/Device.h \
+  /home/timur/Downloads/libtorch/include/c10/core/DeviceType.h \
+  /home/timur/Downloads/libtorch/include/c10/macros/Macros.h \
+  /usr/include/c++/11/cassert \
+  /usr/include/assert.h \
+  /home/timur/Downloads/libtorch/include/c10/macros/cmake_macros.h \
+  /home/timur/Downloads/libtorch/include/c10/macros/Export.h \
+  /usr/include/c++/11/sstream \
   /usr/include/c++/11/bits/sstream.tcc \
   /usr/include/c++/11/functional \
   /usr/include/c++/11/bits/std_function.h \
@@ -243,10 +239,7 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/include/c++/11/limits \
-  /usr/include/c++/11/vector \
-  /usr/include/c++/11/bits/stl_vector.h \
-  /usr/include/c++/11/bits/stl_bvector.h \
-  /usr/include/c++/11/bits/vector.tcc \
+  /usr/include/c++/11/cstddef \
   /home/timur/Downloads/libtorch/include/c10/util/ThreadLocalDebugInfo.h \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/bits/hashtable.h \
@@ -4167,6 +4160,7 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /home/timur/Downloads/libtorch/include/ATen/core/grad_mode.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/detail/TensorDataContainer.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/autograd/variable.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/Export.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/autograd/edge.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/autograd/function_hook.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/autograd/cpp_hook.h \
@@ -4183,7 +4177,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /home/timur/Downloads/libtorch/include/ATen/core/operator_name.h \
   /home/timur/Downloads/libtorch/include/ATen/core/dispatch/OperatorOptions.h \
   /home/timur/Downloads/libtorch/include/ATen/core/function_schema_inl.h \
-  /usr/include/c++/11/iostream \
   /home/timur/Downloads/libtorch/include/ATen/core/op_registration/op_allowlist.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/function_schema_parser.h \
   /home/timur/Downloads/libtorch/include/c10/util/either.h \
@@ -4221,30 +4214,23 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /usr/include/c++/11/thread \
   /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/this_thread_sleep.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/data_shuttle.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/queue.h \
-  /usr/include/c++/11/queue \
-  /usr/include/c++/11/bits/stl_queue.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/sequencers.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/iterator.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/InferenceMode.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/custom_function.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/function.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/grad_mode.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/anomaly_mode.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable_hooks.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/input_metadata.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/utils/variadic.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/random.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/base.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/worker_exception.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/utils/memory.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/stateless.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/base.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/example.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/chunk.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/stateful.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/custom_batch_request.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/distributed.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/sequential.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/serialize.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/archive.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/input-archive.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/custom_operator.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator_options.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/import.h \
+  /home/timur/Downloads/libtorch/include/caffe2/serialize/inline_container.h \
+  /home/timur/Downloads/libtorch/include/caffe2/serialize/istream_adapter.h \
+  /home/timur/Downloads/libtorch/include/caffe2/serialize/read_adapter_interface.h \
+  /home/timur/Downloads/libtorch/include/caffe2/serialize/versions.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/module.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/object.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/method.h \
@@ -4257,8 +4243,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/source_range.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/ir/constants.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/ir/scope.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/operator_options.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/utils/disallow_copy.h \
   /home/timur/Downloads/libtorch/include/ATen/core/enum_type.h \
   /home/timur/Downloads/libtorch/include/ATen/core/interned_strings.h \
@@ -4275,419 +4259,39 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
   /home/timur/Downloads/libtorch/include/ATen/PythonTorchFunctionTLS.h \
   /home/timur/Downloads/libtorch/include/c10/core/SafePyObject.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/variable_tensor_list.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/utils/memory.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/ordered_dict.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/compilation_unit.h \
   /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/name_mangler.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/output-archive.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/stream.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/tensor.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/map.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/mnist.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/shared.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/tensor.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/base.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/collate.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/lambda.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/stack.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/tensor.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/enum.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/fft.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/jit.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/linalg.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/cloneable.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/module.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any_module_holder.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any_value.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/detail/static.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/pimpl.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/pimpl-inl.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/utils.h \
-  /home/timur/Downloads/libtorch/include/ATen/Parallel.h \
-  /home/timur/Downloads/libtorch/include/ATen/Config.h \
-  /home/timur/Downloads/libtorch/include/ATen/ParallelOpenMP.h \
-  /home/timur/Downloads/libtorch/include/ATen/Parallel-inl.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/grad_mode.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler_legacy.h \
-  /usr/include/c++/11/forward_list \
-  /usr/include/c++/11/bits/forward_list.h \
-  /usr/include/c++/11/bits/forward_list.tcc \
-  /home/timur/Downloads/libtorch/include/torch/csrc/profiler/util.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/x86gprintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/ia32intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/adxintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/bmiintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/bmi2intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/cetintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/cldemoteintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/clflushoptintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/clwbintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/clzerointrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/enqcmdintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/fxsrintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/lzcntintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/lwpintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/movdirintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitxintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/pconfigintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/popcntintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/pkuintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/rdseedintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/rtmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/serializeintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/sgxintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/tbmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/tsxldtrkintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/uintrintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/waitpkgintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/wbnoinvdintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/xsaveintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/xsavecintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/xsaveoptintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/xsavesintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/xtestintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/hresetintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
-  /usr/include/c++/11/stdlib.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/pmmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/tmmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/smmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/wmmintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avxvnniintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx2intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512fintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512erintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512pfintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512cdintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bwintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512dqintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlbwintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vldqintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmaintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmavlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmivlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124fmapsintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124vnniwintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2vlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnniintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnnivlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bitalgintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectvlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/shaintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/f16cintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/gfniintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/vaesintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/vpclmulqdqintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16vlintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/amxtileintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/amxint8intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/amxbf16intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/prfchwintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/keylockerintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/mm3dnow.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/fma4intrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/ammintrin.h \
-  /usr/lib/gcc/x86_64-linux-gnu/11/include/xopintrin.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/profiler/api.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler_kineto.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/profiler/kineto_shim.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/batchnorm.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/batchnorm.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/conv.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/conv.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/expanding_array.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/distance.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/distance.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/dropout.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/dropout.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/embedding.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/embedding.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/fold.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/fold.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/linear.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/loss.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/activation.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/activation.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/linear.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/loss.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/normalization.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/normalization.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/padding.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/padding.h \
-  /home/timur/Downloads/libtorch/include/ATen/native/PadNd.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/pooling.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/pooling.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/utils.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/pixelshuffle.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/pixelshuffle.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/upsampling.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/upsampling.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/vision.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/vision.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/instancenorm.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/instancenorm.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/init.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/common.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/functional.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/moduledict.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/modulelist.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/named_any.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/sequential.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/parameterdict.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/parameterlist.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/adaptive.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/linear.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/adaptive.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/batchnorm.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/instancenorm.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/conv.h \
-  /home/timur/Downloads/libtorch/include/c10/util/overloaded.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/dropout.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/distance.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/embedding.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/fold.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/loss.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/padding.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/pooling.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/rnn.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/rnn.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/rnn.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/pixelshuffle.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/upsampling.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/activation.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/normalization.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/_functions.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/custom_function.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/function.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/anomaly_mode.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/saved_variable_hooks.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/input_metadata.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformerlayer.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformerlayer.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformercoder.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformercoder.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformer.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformer.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/clip_grad.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/convert_parameters.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adagrad.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/optimizer.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/serialize.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adam.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adamw.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/lbfgs.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/rmsprop.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/sgd.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/schedulers/lr_scheduler.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/schedulers/step_lr.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/sparse.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/special.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/autograd.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/autograd.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/autograd/autograd_not_implemented_fallback.h \
-  /home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/version.h
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/unpickler.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/script_type_parser.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/resolver.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/sugared_value.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/error_report.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/tree.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/lexer.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/parser_constants.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/strtod.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/schema_matching.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/versioned_symbols.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/tree_views.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/pickler.h \
+  /home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/pickle.h
 
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/version.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/pickle.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/autograd.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/versioned_symbols.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/sparse.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/schema_matching.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/schedulers/lr_scheduler.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/lexer.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/lbfgs.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/tree.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/serialize.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/script_type_parser.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/optimizer.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adagrad.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/convert_parameters.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/clip_grad.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformercoder.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/anomaly_mode.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/_functions.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/rnn.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/rnn.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/pooling.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/padding.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/fold.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/adaptive.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/adaptive.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/functional.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/instancenorm.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/instancenorm.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/vision.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/utils.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/pooling.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/pooling.h:
-
-/home/timur/Downloads/libtorch/include/ATen/native/PadNd.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/padding.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/padding.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/linear.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/activation.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/activation.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/linear.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/fold.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/embedding.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/dropout.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/conv.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/batchnorm.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/profiler/api.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformerlayer.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/xopintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/keylockerintrin.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/conv.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/amxtileintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16intrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/fmaintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bitalgintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2vlintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124fmapsintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmivlintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmiintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmavlintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avxvnniintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/pmmintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h:
-
-/usr/include/c++/11/stdlib.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/immintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/xtestintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/xsaveoptintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/waitpkgintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/tbmintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitxintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/movdirintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/adxintrin.h:
-
-/usr/include/c++/11/bits/forward_list.tcc:
-
-/usr/include/c++/11/forward_list:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler_legacy.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/grad_mode.h:
-
-/home/timur/Downloads/libtorch/include/ATen/Parallel-inl.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ParallelOpenMP.h:
-
-/home/timur/Downloads/libtorch/include/ATen/Parallel.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any_module_holder.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/linalg.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/fft.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/tensor.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/lambda.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/collate.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/tensor.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/shared.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/tensor.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/stream.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/unpickler.h:
 
 /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/compilation_unit.h:
 
@@ -4705,6 +4309,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/core/aten_interned_strings.h:
 
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/parser_constants.h:
+
 /home/timur/Downloads/libtorch/include/ATen/core/enum_type.h:
 
 /home/timur/Downloads/libtorch/include/torch/csrc/jit/ir/named_value.h:
@@ -4717,25 +4323,19 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/torch/csrc/jit/api/object.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/distributed.h:
+/home/timur/Downloads/libtorch/include/caffe2/serialize/read_adapter_interface.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/serializeintrin.h:
+/home/timur/Downloads/libtorch/include/caffe2/serialize/istream_adapter.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/custom_batch_request.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/import.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/autograd/anomaly_mode.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/chunk.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/autograd/grad_mode.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/stateless.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/base.h:
-
-/usr/include/c++/11/queue:
+/home/timur/Downloads/libtorch/include/torch/csrc/autograd/InferenceMode.h:
 
 /usr/include/c++/11/bits/this_thread_sleep.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/example.h:
 
 /usr/include/c++/11/bits/std_thread.h:
 
@@ -4748,8 +4348,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /usr/include/c++/11/bits/stl_list.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/Bitset.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/instancenorm.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/dispatch/DispatchKeyExtractor.h:
 
@@ -4769,8 +4367,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/c10/util/either.h:
 
-/usr/include/c++/11/iostream:
-
 /home/timur/Downloads/libtorch/include/ATen/core/operator_name.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/IListRef.h:
@@ -4778,6 +4374,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/TensorNames.h:
 
 /home/timur/Downloads/libtorch/include/torch/csrc/autograd/cpp_hook.h:
+
+/home/timur/Downloads/libtorch/include/torch/csrc/Export.h:
 
 /home/timur/Downloads/libtorch/include/torch/csrc/autograd/variable.h:
 
@@ -4798,8 +4396,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/core/Dict_inl.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/dynamic_type.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/cloneable.h:
 
 /usr/include/c++/11/typeindex:
 
@@ -4883,8 +4479,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/true_divide_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/sgd.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/triangular_solve_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/boxing/KernelFunction_impl.h:
@@ -4937,8 +4531,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/squeeze_native.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512ifmaintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/sqrt_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/split_with_sizes_copy_native.h:
@@ -4946,8 +4538,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/split_copy_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/split_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/profiler/kineto_shim.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/special_zeta_native.h:
 
@@ -5033,8 +4623,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/slow_conv3d_forward_native.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/enqcmdintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/slice_scatter_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/slice_backward_native.h:
@@ -5099,15 +4687,11 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/repeat_interleave_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/expanding_array.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/repeat_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/renorm_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/rename_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/utils.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/relu6_native.h:
 
@@ -5116,8 +4700,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/reflection_pad3d_backward_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/reflection_pad3d_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/loss.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/reflection_pad3d_meta.h:
 
@@ -5131,15 +4713,11 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/ravel_native.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/tsxldtrkintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/range_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/randperm_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/randn_native.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vbmi2intrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/rad2deg_native.h:
 
@@ -5190,8 +4768,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/nonzero_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/nll_loss_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/new_ones_native.h:
 
@@ -5269,8 +4845,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/miopen_convolution_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/sequencers.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/miopen_batch_norm_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/reciprocal_meta.h:
@@ -5280,8 +4854,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/minimum_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/min_meta.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/data_shuttle.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/randn_like_native.h:
 
@@ -5318,6 +4890,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/matrix_exp_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/matrix_exp_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/masked_select_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/masked_fill_native.h:
 
@@ -5513,17 +5087,11 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/hsplit_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/distance.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/replication_pad1d_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/histogramdd_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/histc_native.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/x86intrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/heaviside_meta.h:
 
@@ -5581,8 +5149,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/gather_meta.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vp2intersectvlintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/gather_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fused_moving_avg_obs_fake_quant_native.h:
@@ -5627,8 +5193,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fix_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformerlayer.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/fill_diagonal_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fill_native.h:
@@ -5642,8 +5206,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_rfftfreq_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_rfft2_native.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx5124vnniwintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/ATenOpList.h:
 
@@ -5660,8 +5222,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_ifftshift_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_ifftn_native.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/clflushoptintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/ivalue_inl.h:
 
@@ -5706,8 +5266,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/exponential_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/exp_meta.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/mm3dnow.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/exp_native.h:
 
@@ -5758,8 +5316,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/diag_embed_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/diag_backward_native.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/wbnoinvdintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/diag_native.h:
 
@@ -5861,6 +5417,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/clone_native.h:
 
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/strtod.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/segment_reduce_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/ne_native.h:
@@ -5911,8 +5469,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/bitwise_not_meta.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vpopcntdqvlintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/bitwise_left_shift_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/bitwise_and_native.h:
@@ -5948,8 +5504,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/baddbmm_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/baddbmm_native.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512fintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/avg_pool3d_meta.h:
 
@@ -6035,8 +5589,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/addcmul_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/worker_exception.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/addcdiv_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/quantized_max_pool1d_native.h:
@@ -6089,13 +5641,9 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_use_cudnn_ctc_loss_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/moduledict.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_upsample_nearest_exact3d_backward_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_upsample_nearest_exact3d_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/base.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_upsample_nearest_exact2d_backward_meta.h:
 
@@ -6133,8 +5681,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_to_cpu_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/embedding.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_lstm_cell_backward_impl_native.h:
 
 /home/timur/Downloads/libtorch/include/torch/csrc/autograd/function.h:
@@ -6144,6 +5690,10 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_lstm_cell_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_lstm_cell_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/feature_dropout_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_gru_cell_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_differentiable_lstm_cell_backward_native.h:
 
@@ -6189,8 +5739,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sobol_engine_draw_native.h:
 
-/usr/include/c++/11/bits/forward_list.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_slow_conv2d_forward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/lstm_native.h:
@@ -6198,6 +5746,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_segment_reduce_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_saturate_weight_to_fp16_native.h:
+
+/home/timur/Downloads/libtorch/include/caffe2/serialize/versions.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sample_dirichlet_native.h:
 
@@ -6214,6 +5764,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_reshape_alias_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_remove_batch_dim_native.h:
+
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/sugared_value.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_pdist_backward_native.h:
 
@@ -6252,8 +5804,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_log_softmax_backward_data_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_linalg_svd_meta.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/serialize.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_linalg_svd_native.h:
 
@@ -6309,10 +5859,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_round_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_nearest_exact1d_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_norm_native.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/mm_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/det_native.h:
@@ -6363,11 +5909,7 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_fake_quantize_learnable_per_channel_affine_native.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/named_any.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_euclidean_dist_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/distance.h:
 
 /home/timur/Downloads/libtorch/include/c10/core/Event.h:
 
@@ -6461,13 +6003,9 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /usr/include/c++/11/bitset:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/module.h:
-
 /home/timur/Downloads/libtorch/include/ATen/core/Range.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/FunctionRef.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/loss.h:
 
 /home/timur/Downloads/libtorch/include/ATen/TensorIterator.h:
 
@@ -6541,8 +6079,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/values.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/output-archive.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/value_selecting_reduction_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/value_selecting_reduction_backward.h:
@@ -6555,15 +6091,11 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest3d.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/enum.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest2d_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest2d.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest1d_backward.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms/stack.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_linear1d_backward_ops.h:
 
@@ -6602,6 +6134,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/unique_dim.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/unique_consecutive.h:
+
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/tree_views.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/uniform.h:
 
@@ -6648,8 +6182,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/transpose_copy.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/transpose.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/wmmintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/trace_backward.h:
 
@@ -6710,6 +6242,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/symeig.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/swapaxes.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/svd.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sum.h:
 
@@ -6825,13 +6359,9 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/special_gammainc.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/batchnorm.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/kl_div_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/special_expm1_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/normalization.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/special_exp2.h:
 
@@ -6991,8 +6521,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/select.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adam.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/segment_reduce_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/segment_reduce.h:
@@ -7023,9 +6551,9 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/rrelu_with_noise_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/cldemoteintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/rrelu_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/row_stack_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/row_stack.h:
 
@@ -7043,8 +6571,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/rnn_tanh_cell.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils/rnn.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/qr_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sparse_csr_tensor.h:
@@ -7059,8 +6585,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/retain_grad.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/shaintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/result_type_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/resize_as_sparse.h:
@@ -7072,8 +6596,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/reshape_as.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/replication_pad3d_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/vision.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/replication_pad3d_backward.h:
 
@@ -7111,8 +6633,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/relu6_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/bmi2intrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest2d_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/reflection_pad3d_backward_ops.h:
@@ -7143,13 +6663,9 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/real_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/real.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/log1p_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/replication_pad2d_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/randperm.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/random.h:
+/usr/include/c++/11/algorithm:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_log_softmax.h:
 
@@ -7163,8 +6679,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_histogramdd_bin_edges_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512erintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_has_same_storage_numel.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cumprod_meta.h:
@@ -7174,8 +6688,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_fused_moving_avg_obs_fq_helper_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_nested_from_padded_and_nested_example_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512pfintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_fused_dropout_ops.h:
 
@@ -7196,8 +6708,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/from_file_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sobol_engine_draw.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/autograd.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_trilinear3d_backward.h:
 
@@ -7247,6 +6757,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/row_indices_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_logcumsumexp_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_div.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_erf_native.h:
@@ -7269,6 +6781,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_pin_memory_ops.h:
 
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/serialization/pickler.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_asin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/result_type.h:
@@ -7276,8 +6790,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/mkldnn_max_pool2d.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_addcmul.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/modulelist.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/prelu.h:
 
@@ -7298,8 +6810,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest3d_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_abs.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/archive.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/ceil_meta.h:
 
@@ -7369,11 +6879,15 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/avg_pool1d_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_cummin_helper.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/le.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/masked_select_backward.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/symeig_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cufft_get_plan_cache_size_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avxintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/adjoint_ops.h:
 
@@ -7471,13 +6985,21 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_solve.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/base.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/ge_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_conv_depthwise2d_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/normalization.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool3d_backward_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_lstm_mps.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/to_padded_tensor_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_cufft_get_plan_cache_max_size_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_test_serialization_subcmul_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_bilinear2d_aa_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_sum_backward_native.h:
 
@@ -7493,8 +7015,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cdist_forward.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/vpclmulqdqintrin.h:
-
 /usr/include/linux/errno.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_weight_norm_interface_ops.h:
@@ -7502,12 +7022,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/lstsq_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/one_hot.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/sequential.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/pixelshuffle.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/gfniintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cast_Long_ops.h:
 
@@ -7520,8 +7034,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/threshold_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cast_Half_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any_value.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cast_Float_ops.h:
 
@@ -7557,6 +7069,12 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_batch_norm_impl_index_backward_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/permute_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_logcumsumexp.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_embedding_bag_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_atan.h:
@@ -7568,8 +7086,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/to_mkldnn.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/divide_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/xsavecintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/isclose_native.h:
 
@@ -7737,18 +7253,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cufft_get_plan_cache_max_size_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/to_padded_tensor_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool3d_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_lstm_mps.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_cufft_get_plan_cache_max_size_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_test_serialization_subcmul_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_bilinear2d_aa_backward_ops.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/tile_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/frac_meta.h:
@@ -7792,8 +7296,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/values_copy.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/swapaxes_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/vaesintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/svd_ops.h:
 
@@ -7890,8 +7392,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/renorm_ops.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/profiler_kineto.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_softmax_backward_data_native.h:
 
@@ -7997,18 +7497,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/conv_depthwise3d.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log10.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/tan_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cosine_embedding_loss_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/bucketize_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/new_ones_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_lstsq_ops.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_upsample_bicubic2d_aa_backward_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cufft_clear_plan_cache.h:
@@ -8077,6 +7565,12 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/is_inference.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/slow_conv_transpose2d_meta.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_lstm_mps_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_svdvals.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/select_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_linalg_inv_out_helper.h:
@@ -8115,6 +7609,10 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/logical_not_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_tensorinv_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/logical_and_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/log_softmax_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/abs.h:
@@ -8132,10 +7630,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/special_i1e_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/put_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/log1p_ops.h:
-
-/usr/include/c++/11/algorithm:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_fft_r2c.h:
 
@@ -8155,8 +7649,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cast_Double_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformer.h:
-
 /usr/include/c++/11/bits/streambuf_iterator.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/Dimname.h:
@@ -8164,10 +7656,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/choose_qparams_optimized.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/isneginf_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnnivlintrin.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/tmmintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/mvlgamma_native.h:
 
@@ -8184,8 +7672,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_mkldnn_reshape_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_embedding_bag_forward_only_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/parameterlist.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sinc_native.h:
 
@@ -8204,6 +7690,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/is_inference_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/is_complex_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/is_coalesced_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/clamp_max.h:
 
@@ -8239,8 +7727,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/polar.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/smmintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/rand_like.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/unsqueeze_ops.h:
@@ -8251,19 +7737,23 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/log_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_sigmoid.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/blackman_window_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_linear1d.h:
 
 /home/timur/Downloads/libtorch/include/c10/macros/cmake_macros.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_sigmoid.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_mm_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_coo_tensor_with_dims_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/conv_depthwise3d_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/clip_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_log_softmax_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/index_put_ops.h:
 
@@ -8332,6 +7822,14 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_neg_view.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/heaviside_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_aminmax.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/tensor.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/histc_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hardshrink_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/hardshrink_backward_ops.h:
 
@@ -8425,10 +7923,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/empty_strided.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/tensor.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_aminmax.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/floor_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fmin_ops.h:
@@ -8457,33 +7951,25 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fix_ops.h:
 
+/usr/include/c++/11/bits/unique_lock.h:
+
+/usr/include/c++/11/bits/uses_allocator.h:
+
+/home/timur/Downloads/libtorch/include/caffe2/serialize/inline_container.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/upsample_linear1d_native.h:
+
+/home/timur/Downloads/libtorch/include/c10/core/OptionalRef.h:
+
+/home/timur/Downloads/libtorch/include/ATen/core/DeprecatedTypeProperties.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_mm.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/replication_pad3d_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fill_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_inv_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fill_diagonal_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-
-/home/timur/Downloads/libtorch/include/ATen/NamedTensorUtils.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_det_lu_based_helper_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/expm1_ops.h:
-
-/usr/include/c++/11/fstream:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool2d_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/to_mkldnn_backward.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/resolve_neg_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/set_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/coalesce_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/Generator.h:
 
@@ -8511,10 +7997,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sgn_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/expand_ops.h:
-
-/usr/include/c++/11/bits/enable_special_members.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_csr_tensor_unsafe_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_mps_max_pool2d.h:
@@ -8539,16 +8021,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/c10/util/qint32.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/from_blob.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_masked_softmax_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/row_stack_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/base.h:
-
 /usr/include/c++/11/limits:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cudnn_convolution_transpose_ops.h:
@@ -8569,6 +8041,42 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_nnpack_spatial_convolution_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/unsafe_split_with_sizes_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/lu_unpack_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/adjoint_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/is_distributed_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/unsafe_split_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_coalesce.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/quantized_rnn_relu_cell_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_test_string_default.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/ldexp_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_slow_conv2d_backward_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_grid_sampler_2d_cpu_fallback_backward_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/logspace_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_eigh_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/rnn_tanh.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_householder_product_ops.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/Metaprogramming.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/nextafter_native.h:
+
+/usr/include/c++/11/cstring:
+
 /usr/include/c++/11/bits/std_abs.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_lu_meta.h:
@@ -8587,19 +8095,149 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/align_as.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/batch_norm_backward_reduce_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_bilinear2d_aa_backward_meta.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_asin_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool2d_backward_native.h:
 
-/usr/include/c++/11/bits/hashtable.h:
+/usr/include/c++/11/bits/stl_algo.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/allclose_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_fft_r2c_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/diagonal_copy.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/fmin_meta.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/gt_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/set_data.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/nll_loss_nd.h:
+/home/timur/Downloads/libtorch/include/c10/util/flat_hash_map.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hstack.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_norm_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/type_as_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/abs_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/reshape_as_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_neg_view_ops.h:
+
+/usr/include/c++/11/array:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cumprod.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_expm1.h:
+
+/home/timur/Downloads/libtorch/include/c10/core/impl/PyInterpreter.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_init_dropout_state.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/argmax.h:
+
+/usr/include/c++/11/bits/stl_relops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/threshold_backward_meta.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/transpose_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_log_softmax_backward_data_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/logical_and_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/alias_copy_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/batch_norm.h:
+
+/usr/include/c++/11/bits/stl_raw_storage_iter.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/select_native.h:
+
+/usr/include/c++/11/memory:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hinge_embedding_loss_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_addcmul_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/from_blob.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_masked_softmax_backward_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/Tensor.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/prod_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/combinations_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/unfold_copy.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_neg_view_copy.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cumsum_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/chalf_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/unique_consecutive_ops.h:
+
+/home/timur/Downloads/libtorch/include/c10/core/QEngine.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/Half.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_not_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/Context.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linear_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/numpy_T_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/max_pool2d_with_indices.h:
+
+/usr/include/c++/11/vector:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/pow_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_differentiable_gru_cell_backward_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/to_sparse_csr_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_lstm_cell_backward_impl.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/multilabel_margin_loss_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_grid_sampler_2d_cpu_fallback_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_bsr_tensor_unsafe_native.h:
+
+/usr/include/c++/11/clocale:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool2d_backward_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/diff.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/subtract.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/special_sinc.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/sinh_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/grid_sampler_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/as_strided_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/argmin_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_norm.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log2.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_values_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_init_dropout_state_native.h:
+
+/usr/include/c++/11/istream:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cumprod_native.h:
 
@@ -8609,17 +8247,59 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/c10/core/Backend.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/range_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cholesky_solve.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_eigvals_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/mkldnn_adaptive_avg_pool2d_ops.h:
+
+/usr/include/inttypes.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fmod_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/arccosh_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/mm_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/acos_meta.h:
+
+/usr/include/c++/11/ostream:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/conv_transpose2d.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/unsqueeze_copy_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_gather_sparse_backward_ops.h:
+
+/usr/include/c++/11/cwctype:
+
+/usr/include/c++/11/bits/unordered_map.h:
+
+/home/timur/Downloads/libtorch/include/c10/core/StreamGuard.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_ceil.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_softmax_backward_data.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/acosh_native.h:
+
+/usr/include/c++/11/bits/locale_facets.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/replication_pad3d_backward_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_acos.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bmm.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_rnn_flatten_weight_ops.h:
+
+/usr/include/c++/11/bits/exception.h:
+
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/rref_interface.h:
 
 /usr/include/c++/11/bits/uniform_int_dist.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/linear.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/slow_conv_dilated3d_native.h:
 
@@ -8628,6 +8308,10 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/grid_sampler_2d_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/gru_cell_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/sparse_csc_tensor.h:
+
+/usr/include/c++/11/bits/atomic_lockfree_defines.h:
 
 /usr/include/c++/11/stdexcept:
 
@@ -8649,9 +8333,11 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/where_ops.h:
 
-/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+/home/timur/Downloads/libtorch/include/ATen/ATen.h:
 
-/usr/include/c++/11/bits/exception.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/copy_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/pixel_shuffle_ops.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
 
@@ -8717,6 +8403,12 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/arccosh.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/resolve_neg_native.h:
+
+/home/timur/Downloads/libtorch/include/c10/core/Allocator.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/nonzero.h:
+
 /usr/include/x86_64-linux-gnu/c++/11/bits/ctype_base.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/convolution_backward.h:
@@ -8749,29 +8441,35 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/diagonal.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/nan_to_num_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/roll.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_xor_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest1d_backward_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/glu_backward_jvp_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/rad2deg.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cholesky_solve_helper.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_irfft.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_vander_native.h:
 
 /home/timur/Downloads/libtorch/include/c10/core/Scalar.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_log_softmax_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/tanh_meta.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool3d_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/rot90_ops.h:
 
-/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_tensorinv.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_sobol_engine_ff.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/expand_copy_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_lu_factor_ex.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool3d.h:
+/usr/include/c++/11/chrono:
 
 /usr/include/c++/11/bits/locale_classes.tcc:
 
@@ -8785,6 +8483,8 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_solve_triangular.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool3d.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_trilinear_native.h:
 
 /usr/include/stdlib.h:
@@ -8793,47 +8493,23 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/diagonal_scatter.h:
 
-/usr/include/c++/11/string:
+/home/timur/Downloads/libtorch/include/ATen/ops/addmv_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_broadcast_to_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/div_meta.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_fft_r2c_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/exponential_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_bilinear2d_aa_backward_meta.h:
+/usr/include/endian.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool2d_backward_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/tensordot.h:
 
-/usr/include/c++/11/bits/stl_algo.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/mT.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/fmin_meta.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/addmv_meta.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/set_data.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/normal.h:
 
-/home/timur/Downloads/libtorch/include/c10/util/flat_hash_map.h:
-
-/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/clzerointrin.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_norm_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/pimpl-inl.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_local_scalar_dense_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/amin_ops.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/SymIntArrayRef.h:
-
-/usr/include/c++/11/bits/locale_classes.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/remainder_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_masked_softmax_backward.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_validate_sparse_bsr_tensor_args.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/blackman_window.h:
+/usr/include/c++/11/bits/cpp_type_traits.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/batch_norm_gather_stats_with_counts_native.h:
 
@@ -8841,9 +8517,13 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_sqrt_ops.h:
 
-/usr/include/c++/11/bits/cpp_type_traits.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/complex.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/Optional.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/convolution_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_round_ops.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/TypeSafeSignMath.h:
 
@@ -8873,129 +8553,29 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/amax_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_conj_physical.h:
+/usr/include/limits.h:
 
-/usr/include/c++/11/cctype:
+/usr/include/c++/11/initializer_list:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/silu_backward_meta.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/unique_dim_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/miopen_convolution_transpose.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_ihfftn_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_conv_depthwise2d.h:
+/usr/include/c++/11/iosfwd:
 
-/usr/include/c++/11/iomanip:
+/home/timur/Downloads/libtorch/include/ATen/ops/prelu_backward_ops.h:
 
-/usr/include/c++/11/bits/shared_ptr_atomic.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/diagonal_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_slow_conv2d_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_grid_sampler_2d_cpu_fallback_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/ldexp_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logspace_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_eigh_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/rnn_tanh.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_householder_product_ops.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/sum_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fbgemm_linear_int8_weight_fp32_activation.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_assert_async_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/arcsin_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/multilabel_margin_loss_backward.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/chunk_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_init_dropout_state_native.h:
-
-/usr/include/c++/11/istream:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/ravel.h:
+/usr/include/c++/11/streambuf:
 
 /usr/include/c++/11/cassert:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/hstack.h:
-
-/usr/include/c++/11/cwctype:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/mm_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/acos_meta.h:
-
-/usr/include/c++/11/ostream:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/conv_transpose2d.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/unsqueeze_copy_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_gather_sparse_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/type_as_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/abs_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/sparse_csc_tensor.h:
-
-/usr/include/c++/11/bits/atomic_lockfree_defines.h:
-
-/usr/include/c++/11/bits/nested_exception.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/transformer.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/TypeIndex.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/arctan2_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/arctanh_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_histogramdd_from_bin_cts.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
-
-/home/timur/Downloads/libtorch/include/ATen/core/TensorBase.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/normalization.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_coalesced_ops.h:
-
-/usr/include/time.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/pconfigintrin.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_unpack_dual_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_round.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/amin_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_new_zeros_with_same_feature_meta_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/le_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/bincount_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/hardsigmoid_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/ravel.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cosh_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_addmm_native.h:
 
 /usr/include/c++/11/bits/concept_check.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/detail/static.h:
 
 /usr/include/c++/11/bits/char_traits.h:
 
@@ -9009,8 +8589,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /home/timur/Downloads/libtorch/include/ATen/ops/select_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/pixelshuffle.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_masked_scale_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/requires_grad_ops.h:
@@ -9018,46 +8596,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/_fw_primal_copy_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/nonzero_numpy_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/select_native.h:
-
-/usr/include/c++/11/memory:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/pimpl.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/soft_margin_loss_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
-
-/usr/include/x86_64-linux-gnu/bits/setjmp.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/slow_conv_dilated2d.h:
-
-/home/timur/Downloads/libtorch/include/ATen/detail/HIPHooksInterface.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_lgamma_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/contiguous_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/glu.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/t_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/rnn_relu_cell_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/broadcast_to_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/alias_copy_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logaddexp2_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/detach_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/output_nr_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/prelu_backward_ops.h:
-
-/usr/include/c++/11/streambuf:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_index_put_impl_ops.h:
 
@@ -9068,352 +8606,6 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 /home/timur/Downloads/libtorch/include/ATen/ops/ger_native.h:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/StreamGuard.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_ceil.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_softmax_backward_data.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/utils.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/acosh_native.h:
-
-/usr/include/c++/11/bits/locale_facets.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/replication_pad3d_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_acos.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/bmm.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_rnn_flatten_weight_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/expand_as_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/argmax_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/resolve_neg_native.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/Allocator.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/nonzero.h:
-
-/usr/include/c++/11/bits/unordered_map.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/tanh_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_tensorinv.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/rot90_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_eigvals_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/mkldnn_adaptive_avg_pool2d_ops.h:
-
-/usr/include/inttypes.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fmod_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/arccosh_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/svd.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/arg.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_rfft2_ops.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_affine_grid_generator_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/less_equal.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/is_coalesced_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/tensor_split.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/int_repr_ops.h:
-
-/usr/include/c++/11/initializer_list:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/unique_dim_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_ihfftn_ops.h:
-
-/usr/include/c++/11/iosfwd:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/copy_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/pixel_shuffle_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ATen.h:
-
-/usr/include/c++/11/bits/stl_relops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/threshold_backward_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/transpose_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_log_softmax_backward_data_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logical_and_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/alias_copy_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/batch_norm.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/histc_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/hardshrink_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/Export.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/float_power_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/log.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_dim_arange_ops.h:
-
-/usr/include/c++/11/bits/unique_ptr.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_convolution_ops.h:
-
-/usr/include/strings.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/special_entr.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/block_diag_ops.h:
-
-/usr/include/c++/11/bits/sstream.tcc:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/as_strided_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/var_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/upsample_bilinear2d_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/inverse_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/equal_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_euclidean_dist.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/vdot_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/exp.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/unbind_copy_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/poisson_nll_loss_ops.h:
-
-/usr/include/c++/11/climits:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/gru.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/igammac_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/hypot.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/matmul_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_linalg_check_errors_ops.h:
-
-/usr/include/string.h:
-
-/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_is_zerotensor.h:
-
-/usr/include/c++/11/debug/debug.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_nearest_exact3d_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_fft_c2r_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/relu.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logdet.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/Backtrace.h:
-
-/usr/include/c++/11/bits/basic_string.tcc:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_indices_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader/stateful.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_add_native.h:
-
-/usr/include/features.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/nll_loss.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/mkldnn_reorder_conv3d_weight_ops.h:
-
-/usr/include/c++/11/bits/atomic_base.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/addmv_ops.h:
-
-/usr/include/c++/11/ext/numeric_traits.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/exp2_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/nan_to_num_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/roll.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_xor_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest1d_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/glu_backward_jvp_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/div_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/exponential_ops.h:
-
-/usr/include/endian.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/tensordot.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/mT.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/mwaitintrin.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/addmv_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/normal.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/Optional.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/convolution_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_round_ops.h:
-
-/usr/include/stdint.h:
-
-/usr/include/c++/11/ext/new_allocator.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cumsum_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/chalf_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/unique_consecutive_ops.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/QEngine.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/Half.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cross_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/size_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/igamma_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_transformer_encoder_layer_fwd_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/sigmoid_backward_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/q_per_channel_scales_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_shape_as_tensor.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/miopen_convolution_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/sched.h:
-
-/home/timur/Downloads/libtorch/include/ATen/detail/ORTHooksInterface.h:
-
-/usr/include/c++/11/ext/alloc_traits.h:
-
-/usr/include/c++/11/ext/type_traits.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/multilabel_margin_loss_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_grid_sampler_2d_cpu_fallback_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_bsr_tensor_unsafe_native.h:
-
-/usr/include/c++/11/clocale:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool2d_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/diff.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/subtract.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/special_sinc.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/sinh_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/grid_sampler_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/as_strided_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/argmin_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_norm.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log2.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_values_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/nextafter_native.h:
-
-/usr/include/c++/11/cstring:
-
-/home/timur/Downloads/libtorch/include/ATen/Tensor.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/prod_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/combinations_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/unfold_copy.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_neg_view_copy.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_cummin_helper.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/le.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/masked_select_backward.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/masked_select_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_assert_async.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cosh_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/zeros_like_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/data_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/binary_cross_entropy_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/randperm_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
-
-/usr/include/c++/11/chrono:
-
-/usr/include/c++/11/bits/move.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/new_zeros_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/subtract_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/affine_grid_generator_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/glu_jvp_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/vsplit_ops.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 
@@ -9427,55 +8619,31 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /usr/include/c++/11/bits/hash_bytes.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/profiler/util.h:
+/usr/include/c++/11/bits/move.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/all.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/new_zeros_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_hfft2_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/subtract_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/core/NamedTensor.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/affine_grid_generator_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/special_gammaincc_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/nansum_ops.h:
 
-/usr/include/c++/11/bits/stl_function.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/quantized_max_pool2d.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/ones_like_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/randint_like_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/copysign.h:
+/usr/include/c++/11/typeinfo:
 
-/usr/include/errno.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_lstm_cell.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/hsplit.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_ctc_loss_ops.h:
 
-/usr/include/limits.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/pdist_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/feature_dropout_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/lstsq_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_gru_cell_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/torch.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/special_entr_ops.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/Deprecated.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_matrix_norm.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/to_dense_ops.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/impl/VirtualGuardImpl.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/col_indices_copy_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/resolve_neg.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logaddexp_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_bsr_tensor_unsafe_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/batch_norm_gather_stats.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/greater_equal.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/logit_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/hardsigmoid_meta.h:
 
@@ -9483,25 +8651,101 @@ CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp \
 
 /usr/include/alloca.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/cuda.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_rfft2_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/custom_class_detail.h:
+/usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/selu_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_affine_grid_generator_backward_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/rsqrt_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/less_equal.h:
 
-Network.cpp:
+/home/timur/Downloads/libtorch/include/ATen/ops/_assert_async.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_fftshift.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/cosh_ops.h:
 
-/usr/include/c++/11/ext/atomicity.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/zeros_like_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_version_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/data_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/slice_copy_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/binary_cross_entropy_backward_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_mps_linear_backward_weights.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_convolution_relu_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_make_dual_copy.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/log.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/inverse_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log1p_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/orgqr_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_tan.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/conj_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_cast_Int_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/lt_meta.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/log_sigmoid_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cond_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/rshift_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cross_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cholesky_ex_native.h:
+
+/usr/include/c++/11/bit:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/reshape_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_matrix_power.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_rnn_backward.h:
+
+/usr/include/c++/11/cstdlib:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_ifft2_ops.h:
+
+/usr/include/c++/11/bits/stl_iterator_base_types.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/atleast_1d_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/soft_margin_loss_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log10.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/tan_ops.h:
+
+/usr/include/c++/11/ratio:
+
+/home/timur/Downloads/libtorch/include/c10/util/complex_utils.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cosine_embedding_loss_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bucketize_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/new_ones_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_lstsq_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_nearest_exact1d_backward_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_norm_native.h:
+
+/home/timur/Downloads/libtorch/include/torch/script.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_conv_depthwise2d_native.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/Type.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/UniqueVoidPtr.h:
 
@@ -9533,6 +8777,98 @@ Network.cpp:
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_dim_arange_ops.h:
+
+/usr/include/c++/11/bits/unique_ptr.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_convolution_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/core/dispatch/CppSignature.h:
+
+/home/timur/Downloads/libtorch/include/c10/core/impl/LocalDispatchKeySet.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/special_log_ndtr_meta.h:
+
+/home/timur/Downloads/libtorch/include/ATen/DimVector.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/geometric.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
+
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fill_diagonal_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/logcumsumexp_ops.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/sum_meta.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fbgemm_linear_int8_weight_fp32_activation.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_assert_async_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/arcsin_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/multilabel_margin_loss_backward.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/chunk_ops.h:
+
+/usr/include/c++/11/atomic:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/slow_conv3d_forward_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fractional_max_pool3d_backward_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_floor.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cholesky_native.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/ExclusivelyOwned.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/smm_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/isreal_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/dot_ops.h:
+
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/error_report.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/istft_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sample_dirichlet.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/trapezoid_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/neg_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_to_dense_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/conv1d_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_add_native.h:
+
+/usr/include/features.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/nll_loss.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/vsplit_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/glu_jvp_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/mkldnn_reorder_conv3d_weight_ops.h:
+
+/usr/include/c++/11/bits/atomic_base.h:
+
+/usr/include/c++/11/ext/numeric_traits.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/exp2_ops.h:
+
+/usr/include/c++/11/ext/type_traits.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_fft_c2c_ops.h:
 
 /usr/include/c++/11/bits/stl_heap.h:
@@ -9542,6 +8878,26 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/baddbmm_ops.h:
 
 /usr/include/c++/11/system_error:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_csc_tensor_unsafe_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_add_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_cosh.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/acos.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/ormqr_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/kron_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_batch_norm_impl_index_backward.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/log10.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/choose_qparams_optimized_native.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/TypeCast.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/silu_backward_native.h:
 
@@ -9577,6 +8933,14 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/native_channel_shuffle.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_histogramdd_from_bin_cts.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/home/timur/Downloads/libtorch/include/ATen/core/TensorBase.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_coalesced_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/hardshrink_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool2d_ops.h:
@@ -9593,8 +8957,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fliplr.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/jit.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/triu_indices.h:
 
 /usr/include/c++/11/debug/assertions.h:
@@ -9609,8 +8971,6 @@ Network.cpp:
 
 /usr/include/linux/limits.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/distance.h:
-
 /usr/include/c++/11/cmath:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/huber_loss_backward_native.h:
@@ -9621,333 +8981,119 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/Device.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cross.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/batch_norm_backward_reduce_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/not_equal_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_asin_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/xor_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/allclose_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_batch_norm_backward.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/diagonal_copy.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_fft2.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/gt_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/reflection_pad2d_backward.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/nll_loss_nd.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/argwhere_ops.h:
+/usr/include/c++/11/bits/hashtable.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/unfold_backward_native.h:
+Network.hpp:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/atan2_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/fake_quantize_per_tensor_affine_native.h:
 
-/home/timur/Downloads/libtorch/include/c10/util/Logging.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/nan_to_num.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/sequential.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/special_gammaincc_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/diag_embed_ops.h:
+/usr/include/c++/11/bits/stl_function.h:
 
-/usr/include/x86_64-linux-gnu/bits/time.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/ones_like_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/view_as_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/copysign.h:
 
-/usr/include/x86_64-linux-gnu/bits/select.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/resolve_neg.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_not.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/logaddexp_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_to_copy_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_bsr_tensor_unsafe_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/less.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/batch_norm_gather_stats.h:
 
-/usr/include/c++/11/bits/range_access.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/greater_equal.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+/home/timur/Downloads/libtorch/include/torch/custom_class_detail.h:
 
-/home/timur/Downloads/libtorch/include/ATen/core/ATen_fwd.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/selu_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/bincount.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/rsqrt_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/conv.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/rnn_relu_cell_ops.h:
 
-/usr/include/c++/11/bits/stl_algobase.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/broadcast_to_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/t_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/alias_copy_ops.h:
+
+Network.cpp:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_fftshift.h:
+
+/usr/include/c++/11/ext/atomicity.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_version_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/slice_copy_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_mps_linear_backward_weights.h:
+
+/usr/include/errno.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hsplit.h:
+
+/usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/slow_conv_dilated2d.h:
+
+/home/timur/Downloads/libtorch/include/ATen/detail/HIPHooksInterface.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_lgamma_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/contiguous_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/glu.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/logaddexp2_meta.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/detach_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/output_nr_ops.h:
+
+/usr/include/c++/11/bits/nested_exception.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/TypeIndex.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_convolution_relu_native.h:
+/usr/include/c++/11/bits/stl_algobase.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_make_dual_copy.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/to_dense_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_csc_tensor_unsafe_native.h:
+/home/timur/Downloads/libtorch/include/c10/core/impl/VirtualGuardImpl.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_add_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/col_indices_copy_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_cosh.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/special_entr_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/acos.h:
+/home/timur/Downloads/libtorch/include/c10/util/Deprecated.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/ormqr_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/kron_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_batch_norm_impl_index_backward.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/log10.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/choose_qparams_optimized_native.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/TypeCast.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/ccol_indices.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cosh.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/IdWrapper.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cauchy_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cholesky_ex.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/to_mkldnn_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader_options.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
-
-/home/timur/Downloads/libtorch/include/ATen/record_function.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool3d_native.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_matrix_exp_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest1d_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_nnz_ops.h:
-
-/usr/include/c++/11/array:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cumprod.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_expm1.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/impl/PyInterpreter.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_init_dropout_state.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/argmax.h:
-
-/usr/include/c++/11/bits/cxxabi_forced.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_acos_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_right_shift_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/nansum_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/quantized_max_pool2d.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/randint_like_ops.h:
-
-/usr/include/c++/11/typeinfo:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/rtmintrin.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_lstm_cell.h:
-
-/usr/include/c++/11/bits/charconv.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/imag.h:
-
-/usr/include/c++/11/bits/exception_ptr.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/trunc_native.h:
-
-/usr/include/math.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/im2col_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/diagonal_backward_native.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_ctc_loss_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/pdist_ops.h:
-
-/usr/include/c++/11/bits/stl_raw_storage_iter.h:
-
-/usr/include/c++/11/vector:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/pow_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_differentiable_gru_cell_backward_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/to_sparse_csr_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_lstm_cell_backward_impl.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linear_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/numpy_T_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/clwbintrin.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/max_pool2d_with_indices.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/reshape_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_matrix_power.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_rnn_backward.h:
-
-/usr/include/c++/11/cstdlib:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_ifft2_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/inverse_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log1p_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/orgqr_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_tan.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/conj_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_cast_Int_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/lt_meta.h:
-
-/usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/log_sigmoid_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cond_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/rshift_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/cross_ops.h:
-
-/usr/include/c++/11/bits/stl_iterator_base_types.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/atleast_1d_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cholesky_ex_native.h:
-
-/usr/include/c++/11/bit:
-
-/usr/include/c++/11/bits/uses_allocator.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/upsample_linear1d_native.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/OptionalRef.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/rmsprop.h:
-
-/usr/include/c++/11/bits/unique_lock.h:
-
-/home/timur/Downloads/libtorch/include/ATen/core/DeprecatedTypeProperties.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_mm.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_ifft_ops.h:
-
-/usr/include/c++/11/backward/binders.h:
-
-/usr/include/c++/11/bits/postypes.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/square_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/lerp_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/scatter_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/quantized_max_pool2d_native.h:
-
-/usr/include/c++/11/bits/invoke.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/ccol_indices_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_embedding_bag_dense_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_test_optional_filled_intlist.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/istft_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_sample_dirichlet.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/kron_ops.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/special_i1e.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_pdist_backward.h:
-
-/usr/include/wchar.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/sqrt_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/kl_div.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_rfft.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_matrix_norm.h:
 
 /usr/include/c++/11/bits/stl_iterator.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/Exception.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/xsaveintrin.h:
-
-/usr/include/c++/11/atomic:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/slow_conv3d_forward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fractional_max_pool3d_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_floor.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cholesky_native.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/ExclusivelyOwned.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/smm_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/isreal_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/serialize/input-archive.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/dot_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/trapezoid_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/neg_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/embedding.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_to_dense_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/conv1d_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/cetintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/sub_meta.h:
 
 /usr/include/c++/11/bits/stringfwd.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/range.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logdet_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/affine_grid_generator_native.h:
 
@@ -9971,125 +9117,75 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/mkldnn_reorder_conv2d_weight.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/logcumsumexp_ops.h:
+/home/timur/Downloads/libtorch/include/torch/csrc/autograd/input_metadata.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/threshold_backward.h:
 
 /usr/include/features-time64.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/input_metadata.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_is_zerotensor.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+/usr/include/c++/11/debug/debug.h:
 
-/usr/include/c++/11/bits/shared_ptr_base.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_upsample_nearest_exact3d_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/digamma.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_fft_c2r_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_transform_bias_rescale_qkv_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/relu.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/tril_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/logdet.h:
 
-/usr/include/c++/11/bits/basic_string.h:
+/home/timur/Downloads/libtorch/include/c10/util/Backtrace.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/unsafe_split_native.h:
+/usr/include/c++/11/bits/basic_string.tcc:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_coalesce.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_indices_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/quantized_rnn_relu_cell_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/sigmoid_backward_meta.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_test_string_default.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/q_per_channel_scales_ops.h:
 
-/usr/include/c++/11/bits/allocated_ptr.h:
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
-/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_shape_as_tensor.h:
 
-/home/timur/Downloads/libtorch/include/ATen/core/dispatch/CppSignature.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/miopen_convolution_ops.h:
 
-/home/timur/Downloads/libtorch/include/c10/core/impl/LocalDispatchKeySet.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cross_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/special_log_ndtr_meta.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/size_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/DimVector.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/igamma_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/geometric.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_transformer_encoder_layer_fwd_ops.h:
 
-/home/timur/Downloads/libtorch/include/c10/util/AlignOf.h:
+/usr/include/c++/11/bits/postypes.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_rnn_flatten_weight.h:
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/less_equal_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/square_ops.h:
 
-/usr/include/c++/11/ext/concurrence.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/lerp_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/conv_tbc_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/scatter_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/log_sigmoid_forward_native.h:
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
-/usr/include/c++/11/bits/exception_defines.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/quantized_max_pool2d_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/unflatten_ops.h:
+/usr/include/c++/11/bits/invoke.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/column_stack_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/ccol_indices_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/clamp_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_embedding_bag_dense_backward_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/median_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_test_optional_filled_intlist.h:
 
-/usr/include/c++/11/bits/stl_deque.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/arctan2_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/nanmedian.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/lstsq_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logit_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/unsafe_split_with_sizes_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/lu_unpack_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/adjoint_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/is_distributed_ops.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/complex_utils.h:
-
-/usr/include/c++/11/ratio:
-
-/home/timur/Downloads/libtorch/include/c10/util/Metaprogramming.h:
-
-/home/timur/Downloads/libtorch/include/ATen/Context.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_not_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/dense_dim_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/hstack_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bwintrin.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_frac.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_autocast_to_reduced_precision.h:
-
-/usr/include/c++/11/ctime:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/hinge_embedding_loss_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_addcmul_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/masked_select_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/equal_native.h:
-
-/home/timur/Downloads/libtorch/include/c10/core/TensorOptions.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/sigmoid_ops.h:
-
-/usr/include/c++/11/bits/basic_ios.tcc:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/reshape_as_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_neg_view_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/arctanh_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/slow_conv3d_ops.h:
 
@@ -10119,7 +9215,319 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/quantize_per_tensor_dynamic_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512bf16vlintrin.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/sqrt_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/masked_select_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/equal_native.h:
+
+/usr/include/c++/11/bits/basic_ios.tcc:
+
+/home/timur/Downloads/libtorch/include/c10/core/TensorOptions.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/sigmoid_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/kl_div.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_rfft.h:
+
+/usr/include/c++/11/string:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_broadcast_to_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_local_scalar_dense_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/amin_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/kron_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/special_i1e.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_pdist_backward.h:
+
+/usr/include/wchar.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cross.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/matmul_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_linalg_check_errors_ops.h:
+
+/usr/include/string.h:
+
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/to_mkldnn_backward_native.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+
+/home/timur/Downloads/libtorch/include/ATen/record_function.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool3d_native.h:
+
+/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_matrix_exp_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/upsample_nearest1d_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_nnz_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/as_strided_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/var_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/upsample_bilinear2d_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/inverse_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/equal_ops.h:
+
+/usr/include/c++/11/bits/sstream.tcc:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_euclidean_dist.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/vdot_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/exp.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/unbind_copy_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/poisson_nll_loss_ops.h:
+
+/usr/include/c++/11/climits:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/gru.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/igammac_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hypot.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cauchy_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_cholesky_ex.h:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/home/timur/Downloads/libtorch/include/ATen/detail/ORTHooksInterface.h:
+
+/usr/include/c++/11/ext/alloc_traits.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_frac.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_autocast_to_reduced_precision.h:
+
+/usr/include/c++/11/ctime:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/dense_dim_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hstack_ops.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/Exception.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_to_copy_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/less.h:
+
+/usr/include/c++/11/bits/range_access.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+
+/home/timur/Downloads/libtorch/include/ATen/core/ATen_fwd.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bincount.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_conj_physical.h:
+
+/usr/include/c++/11/cctype:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/silu_backward_meta.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/miopen_convolution_transpose.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_conv_depthwise2d.h:
+
+/usr/include/c++/11/iomanip:
+
+/usr/include/c++/11/bits/shared_ptr_atomic.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/diagonal_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/ccol_indices.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cosh.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/IdWrapper.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_round.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/amin_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_new_zeros_with_same_feature_meta_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/le_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bincount_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hardsigmoid_ops.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/AlignOf.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_rnn_flatten_weight.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/less_equal_ops.h:
+
+/usr/include/c++/11/ext/concurrence.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/conv_tbc_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/log_sigmoid_forward_native.h:
+
+/usr/include/c++/11/bits/exception_defines.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/unflatten_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/column_stack_ops.h:
+
+/usr/include/time.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_unpack_dual_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/not_equal_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/xor_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cudnn_batch_norm_backward.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_fft2.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/reflection_pad2d_backward.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/argwhere_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/unfold_backward_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/atan2_native.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/Logging.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/diag_embed_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/view_as_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/select.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_not.h:
+
+/usr/include/c++/11/bits/allocated_ptr.h:
+
+/usr/include/stdint.h:
+
+/usr/include/c++/11/ext/new_allocator.h:
+
+/usr/include/c++/11/bits/shared_ptr_base.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/digamma.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_transform_bias_rescale_qkv_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/tril_ops.h:
+
+/usr/include/c++/11/bits/basic_string.h:
+
+/usr/include/strings.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/special_entr.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/block_diag_ops.h:
+
+/home/timur/Downloads/libtorch/include/c10/core/SymIntArrayRef.h:
+
+/usr/include/c++/11/bits/locale_classes.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/remainder_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_masked_softmax_backward.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_validate_sparse_bsr_tensor_args.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/blackman_window.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/trunc_native.h:
+
+/usr/include/math.h:
+
+/usr/include/c++/11/bits/charconv.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/imag.h:
+
+/usr/include/c++/11/bits/exception_ptr.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/im2col_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/diagonal_backward_native.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++allocator.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_ifft_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sparse_log_softmax_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool3d_native.h:
+
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_sobol_engine_ff.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/expand_copy_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/linalg_lu_factor_ex.h:
+
+/usr/include/c++/11/iostream:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/is_pinned_ops.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_test_optional_filled_intlist_ops.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/prelu_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/addbmm_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/index_select_backward.h:
+
+/usr/include/c++/11/bits/stl_multiset.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool1d.h:
+
+/usr/include/c++/11/backward/binders.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/clamp_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/median_ops.h:
+
+/usr/include/c++/11/bits/stl_deque.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/nanmedian.h:
+
+/usr/include/c++/11/bits/cxxabi_forced.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_acos_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/bitwise_right_shift_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/empty_strided_native.h:
 
@@ -10163,8 +9571,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/c10/core/DefaultDtype.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/popcntintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/trunc_ops.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/SmallVector.h:
@@ -10173,11 +9579,17 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/conj_physical_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/set_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/coalesce_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/argmax_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/expand_as_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/kl_div_native.h:
 
 /usr/include/c++/11/complex:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/any.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
@@ -10199,25 +9611,7 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/is_same_size.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vnniintrin.h:
-
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
-
-/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_test_optional_filled_intlist_ops.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/prelu_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/addbmm_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/index_select_backward.h:
-
-/usr/include/c++/11/bits/stl_multiset.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool1d.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
@@ -10232,8 +9626,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/cumulative_trapezoid_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/outer_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/adamw.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/arccosh_native.h:
 
@@ -10285,29 +9677,15 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/convolution_overrideable.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/permute_native.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_logcumsumexp.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/logical_and_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_tensorinv_ops.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/adaptive_avg_pool3d_native.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/Functions.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/bucketize.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/miopen_batch_norm_backward.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/optim/schedulers/step_lr.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/Flags.h:
 
@@ -10316,12 +9694,6 @@ Network.cpp:
 /usr/include/c++/11/cstdint:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_ctc_loss_backward.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/col_indices_copy.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool2d.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/batchnorm.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/mkldnn_linear.h:
 
@@ -10343,13 +9715,7 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/c10/core/SymInt.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512dqintrin.h:
-
 /home/timur/Downloads/libtorch/include/c10/util/complex_math.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/lgamma.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/Half-inl.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cast_Short_ops.h:
 
@@ -10362,8 +9728,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/isposinf_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/diagonal_copy_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/lwpintrin.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/quint4x2.h:
 
@@ -10415,8 +9779,6 @@ Network.cpp:
 
 /usr/include/c++/11/bits/unordered_set.h:
 
-/usr/include/c++/11/bits/stl_queue.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/values_copy_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_lu_native.h:
@@ -10434,6 +9796,10 @@ Network.cpp:
 /usr/include/c++/11/bits/quoted_string.h:
 
 /home/timur/Downloads/libtorch/include/c10/core/WrapDimMinimal.h:
+
+/usr/include/c++/11/fstream:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/expm1_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cudnn_ctc_loss_ops.h:
 
@@ -10458,8 +9824,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/special_i1_ops.h:
 
 /usr/include/c++/11/bits/locale_facets_nonio.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/upsampling.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/new_full_native.h:
 
@@ -10487,13 +9851,17 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_mul.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/float_power_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool2d.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/col_indices_copy.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_sum_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/CPUGeneratorImpl.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linear.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/transforms.h:
 
 /home/timur/Downloads/libtorch/include/c10/core/DeviceGuard.h:
 
@@ -10510,16 +9878,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_ldl_factor_ex.h:
 
 /usr/include/c++/11/bits/locale_conv.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/transformercoder.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/function_schema_parser.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/triu_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/mps_max_pool2d_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/triangular_solve_ops.h:
 
 /usr/include/c++/11/bits/stl_tree.h:
 
@@ -10543,8 +9901,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/is_leaf_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/mnist.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/permute_copy_native.h:
@@ -10562,8 +9918,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/rnn_tanh_native.h:
 
 /usr/include/c++/11/set:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sparse_csc_tensor_native.h:
 
@@ -10609,10 +9963,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_cdist_backward_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/is_pinned_ops.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/copysign_ops.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/BFloat16.h:
@@ -10631,13 +9981,13 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/indices.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/ia32intrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/core/Variadic.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/nll_loss2d_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/CheckMemoryFormat.h:
+
+/home/timur/Downloads/libtorch/include/ATen/core/NamedTensor.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_is_zerotensor_ops.h:
 
@@ -10698,8 +10048,6 @@ Network.cpp:
 /usr/include/stdc-predef.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/full.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/fma4intrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_to_dense_ops.h:
 
@@ -10781,11 +10129,9 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/any_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/real.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/signbit_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_conv_depthwise2d_native.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/Type.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_pack_padded_sequence_backward_ops.h:
 
@@ -10827,8 +10173,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/ceil_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h:
-
 /usr/include/c++/11/bits/istream.tcc:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fbgemm_pack_quantized_matrix.h:
@@ -10837,13 +10181,15 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/chalf_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/NamedTensorUtils.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_det_lu_based_helper_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_nested_tensor_layer_norm.h:
 
 /home/timur/Downloads/libtorch/include/c10/util/irange.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cholesky_solve_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/rdseedintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/col_indices_ops.h:
 
@@ -10879,6 +10225,10 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/resize_as_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/tensor_split.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/int_repr_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_sin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/pinverse_ops.h:
@@ -10897,19 +10247,15 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/erf_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/clip_native.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool2d_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_log_softmax_ops.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/to_mkldnn_backward.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/fft_irfft.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/resolve_neg_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_logcumsumexp_ops.h:
+/usr/include/c++/11/bits/enable_special_members.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/slow_conv_transpose2d_meta.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_lstm_mps_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/linalg_svdvals.h:
+/home/timur/Downloads/libtorch/include/ATen/ops/expand_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_lu_with_info.h:
 
@@ -10924,8 +10270,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/log_sigmoid_forward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_make_dual_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/ammintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/SequenceNumber.h:
 
@@ -11023,9 +10367,9 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/upsample_linear1d_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/hardswish_backward.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/einsum_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/hardswish_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_nnz.h:
 
@@ -11035,13 +10379,9 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/max_pool3d_with_indices_backward.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/xsavesintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_ifft_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_pad_circular.h:
-
-/home/timur/Downloads/libtorch/include/c10/util/overloaded.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/im2col.h:
 
@@ -11088,6 +10428,8 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/_reshape_from_tensor.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_reshape_from_tensor_ops.h:
+
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/runtime/custom_operator.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/aminmax.h:
 
@@ -11151,8 +10493,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_softmax.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/pixelshuffle.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_addmm_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_broadcast_to.h:
@@ -11173,8 +10513,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_bsc_tensor_unsafe.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/special.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_bsc_tensor_unsafe_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/max_pool1d_native.h:
@@ -11193,8 +10531,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_ihfft2_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/stateful.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/special_erfinv_native.h:
 
 /usr/include/locale.h:
@@ -11207,9 +10543,9 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_foreach_maximum_native.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_has_compatible_shallow_copy_type_ops.h:
-
 /home/timur/Downloads/libtorch/include/c10/util/python_stub.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_has_compatible_shallow_copy_type_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_csc_tensor_unsafe_ops.h:
 
@@ -11226,6 +10562,10 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/nll_loss2d_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fractional_max_pool2d_backward.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/randperm_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_sparse_csr_tensor_unsafe.h:
 
@@ -11287,10 +10627,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_stack.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/isfinite.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/_standard_gamma.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_addmm_activation_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/full_like_ops.h:
@@ -11351,8 +10687,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_test_string_default_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vlbwintrin.h:
-
 /usr/include/c++/11/bits/stl_construct.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_test_warn_in_autograd_ops.h:
@@ -11360,8 +10694,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_differentiable_gru_cell_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_differentiable_lstm_cell_backward.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/f16cintrin.h:
 
 /home/timur/Downloads/libtorch/include/torch/csrc/autograd/forward_grad.h:
 
@@ -11374,8 +10706,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/_nnpack_available_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_differentiable_lstm_cell_backward_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/activation.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_thnn_fused_gru_cell.h:
 
@@ -11595,8 +10925,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/erfc.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/fxsrintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_tensorsolve_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_weight_norm_interface_backward_ops.h:
@@ -11625,13 +10953,9 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/adaptive_avg_pool3d_backward.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/container/parameterdict.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_linalg_svd_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool1d_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/amxint8intrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/adaptive_max_pool2d_backward.h:
 
@@ -11833,11 +11157,13 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/batch_norm_elemt.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/diff_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_log.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/batch_norm_elemt_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/random.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/max_pool2d_with_indices_backward_ops.h:
 
@@ -11878,8 +11204,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/bitwise_and.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_fftn_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/uintrintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/eq_native.h:
 
@@ -11961,8 +11285,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/ccol_indices_copy.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/detail/queue.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/rot90.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fbgemm_linear_fp16_weight.h:
@@ -11984,8 +11306,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/maximum.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/celu_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/common.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/chain_matmul.h:
 
@@ -12022,8 +11342,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/special_erfcx.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/clone.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/iterator.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/col2im.h:
 
@@ -12123,8 +11441,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/ctc_loss.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/upsampling.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/ctc_loss_ops.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h:
@@ -12145,9 +11461,9 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cudnn_convolution_add_relu.h:
 
-/usr/include/x86_64-linux-gnu/bits/locale.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/empty_quantized.h:
+
+/usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cudnn_convolution_add_relu_ops.h:
 
@@ -12193,8 +11509,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/max_pool3d_with_indices.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512vldqintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/cumprod_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/put.h:
@@ -12203,15 +11517,11 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cumprod_backward_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/bmiintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/lstm_cell.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/log1p_meta.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cumsum.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/amxbf16intrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_irfft_native.h:
 
@@ -12224,8 +11534,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/_embedding_bag_per_sample_weights_backward.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/detach.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/hresetintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_ifft.h:
 
@@ -12363,8 +11671,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/new_ones.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/fold.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/fake_quantize_per_tensor_affine_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fake_quantize_per_tensor_affine_cachemask_ops.h:
@@ -12388,8 +11694,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_fft_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fbgemm_linear_fp16_weight_fp32_activation.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules/dropout.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_diagonal.h:
 
@@ -12439,8 +11743,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_fft.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/init.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/_convolution_double_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_fft2_ops.h:
@@ -12454,6 +11756,10 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/tril_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_hfft2.h:
+
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/resolver.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/fft_hfft2_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_hfftn.h:
 
@@ -12518,8 +11824,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_rfftn.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_rfftn_ops.h:
-
-/home/timur/Downloads/libtorch/include/ATen/Config.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/corrcoef_ops.h:
 
@@ -12737,8 +12041,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/igamma.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/dropout.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/hardsigmoid_backward_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/embedding_backward_native.h:
@@ -12769,8 +12071,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/index_select_backward_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/functional/loss.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/infinitely_differentiable_gelu_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/cudnn_affine_grid_generator_backward_native.h:
@@ -12782,10 +12082,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/instance_norm_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/is_complex.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/autograd/autograd_not_implemented_fallback.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/samplers/random.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sign_native.h:
 
@@ -12813,6 +12109,10 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/is_vulkan_available_ops.h:
 
+/home/timur/Downloads/libtorch/include/ATen/ops/_standard_gamma.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/isfinite.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/hamming_window_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/nanquantile_ops.h:
@@ -12839,8 +12139,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/kaiser_window.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/dataloader.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/kl_div_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sub.h:
@@ -12864,6 +12162,10 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/addcmul_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/layer_norm_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/replication_pad2d_native.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/randperm.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/_adaptive_avg_pool3d_backward_native.h:
 
@@ -12898,6 +12200,10 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/leaky_relu_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/lerp.h:
+
+/home/timur/Downloads/libtorch/include/c10/util/Half-inl.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/lgamma.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sparse_sampled_addmm_ops.h:
 
@@ -12946,8 +12252,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/copy_sparse_to_sparse_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linalg_ldl_solve_ops.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/x86gprintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/core/TensorAccessor.h:
 
@@ -13025,8 +12329,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/linspace_ops.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/pkuintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/inverse.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/log1p.h:
@@ -13064,8 +12366,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/is_nonzero.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/logit.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx2intrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/std_native.h:
 
@@ -13255,6 +12555,14 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/mps_linear_backward.h:
 
+/home/timur/Downloads/libtorch/include/torch/csrc/jit/frontend/function_schema_parser.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/triu_meta.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/triangular_solve_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/mps_max_pool2d_backward_ops.h:
+
 /home/timur/Downloads/libtorch/include/ATen/ops/mul.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sparse_bsc_tensor.h:
@@ -13264,8 +12572,6 @@ Network.cpp:
 /usr/include/c++/11/cerrno:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/multi_margin_loss_ops.h:
-
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/modules.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/poisson_nll_loss.h:
 
@@ -13292,10 +12598,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/mv.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/mvlgamma.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/fake_quantize_per_tensor_affine_native.h:
-
-/home/timur/Downloads/libtorch/include/ATen/ops/nan_to_num.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/argwhere.h:
 
@@ -13337,9 +12639,9 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/native_layer_norm_ops.h:
 
-/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_sinh.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/quantized_rnn_relu_cell_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/_foreach_sinh.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/native_layer_norm_backward.h:
 
@@ -13357,8 +12659,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/negative.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/avx512cdintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/hardtanh_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/nested_tensor.h:
@@ -13368,8 +12668,6 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/new_empty_strided.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/new_zeros.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/11/include/sgxintrin.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/nll_loss_ops.h:
 
@@ -13421,8 +12719,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/outer.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/data/datasets/map.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/replication_pad2d_backward_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/output_nr.h:
@@ -13457,8 +12753,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/polar_ops.h:
 
-/home/timur/Downloads/libtorch/include/torch/csrc/api/include/torch/nn/options/upsampling.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/fft_ihfft_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/polygamma.h:
@@ -13489,8 +12783,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/q_zero_point.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/prfchwintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/fbgemm_linear_int8_weight_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/sum_to_size_ops.h:
@@ -13519,8 +12811,6 @@ Network.cpp:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/randint_like.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/11/include/lzcntintrin.h:
-
 /home/timur/Downloads/libtorch/include/ATen/ops/cov_native.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/multinomial_ops.h:
@@ -13532,3 +12822,11 @@ Network.cpp:
 /home/timur/Downloads/libtorch/include/ATen/ops/choose_qparams_optimized_ops.h:
 
 /home/timur/Downloads/libtorch/include/ATen/ops/randn_like_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/logdet_ops.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/range.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/cholesky_solve.h:
+
+/home/timur/Downloads/libtorch/include/ATen/ops/range_ops.h:
