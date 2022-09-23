@@ -10,6 +10,6 @@ public:
     Net net;
     Board board;
 private:
-    Board::move search(int depth);
+    float minimax(int depth, int max_player);
 };
 

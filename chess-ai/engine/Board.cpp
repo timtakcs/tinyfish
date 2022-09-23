@@ -106,8 +106,21 @@ void Board::gen_board(std::string& fen) {
     }
 }  
 
-std::vector<float> get_state() {
-    
+std::vector<float> Board::get_state() {
+    std::vector<float> state;
+
+    for (int piece = 0; piece < string_pieces.length(); piece++) {
+        float fact = (piece < 6) ? 1.0 : -1.0;
+        
+        U64 cur_piece = bitmap[string_pieces[piece]];
+
+        for (int square = 0; square < 64; square++) {
+            if (get_bit(cur_piece, square)) state.push_back(1.0 * fact);
+            else state.push_back(0.0);
+        }
+    }
+
+    return state;
 }
 
 void Board::print_board(U64 board) {

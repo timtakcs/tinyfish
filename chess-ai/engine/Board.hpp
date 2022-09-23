@@ -63,7 +63,8 @@ private:
     "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "none"
     };
 
-    std::string string_pieces = "KQRBNPkqrbnp";
+    // std::string string_pieces = "KQRBNPkqrbnp";
+    std::string string_pieces = "PRKBQKprkbqk";
 
     std::string white_promo_string = "QRKB";
     std::string black_promo_string = "qrkb";
