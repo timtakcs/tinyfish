@@ -9,17 +9,6 @@ Engine::Engine(std::string fen) {
 
 //minimax search
 float Engine::minimax(int depth, int max_player) {
-    // if depth is 1 return the static eval
-    //
-    //if max_player
-    //  for each child
-        //  set eval to infinity
-        //  get the eval for the currect position
-        //  compare initial eval with last eval
-        //  return the greater
-    //else
-    //  do the opposite
-
     if (depth == 0) { //should also check for checkmate and stalemate
         return net.eval(board.get_state());
     }
@@ -47,4 +36,31 @@ float Engine::minimax(int depth, int max_player) {
         }
         return min_eval;
     }
+}
+
+Board::move Engine::minimax_root(int depth, int max_player) {
+    int best_move_index;
+    float best_eval = 0;
+
+    std::vector<Board::move> moves = board.get_legal_moves(!max_player);
+
+    for (int move_index = 0; move_index < moves.size(); move_index++) {
+        board.push_move(moves[move_index]);
+        float eval = minimax(depth - 1, !max_player);
+        board.pop_move(moves[move_index]);
+        if (max_player && eval < best_eval) best_move_index = move_index;
+        else if (!max_player && eval > best_eval) best_move_index = move_index;
+    }
+
+    return moves[best_move_index];
+}
+
+void Engine::play() {
+    //user plays as white
+    int max_player = 0;
+
+    std::string uci_move;
+    std::cout << "User move (uci): " << std::endl;
+    std::cin >> uci_move;
+    //parse uci
 }

@@ -10,6 +10,9 @@ public:
     Net net;
     Board board;
 private:
+    //tree search to get evaluations
     float minimax(int depth, int max_player);
+    //getting the actual best move
+    Board::move minimax_root(int depth, int max_player);
 };
 
