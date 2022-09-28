@@ -11,5 +11,7 @@ float Net::eval(std::vector<float> state) {
     inp.push_back(input);
 
     torch::Tensor out = eval_net.forward(inp).toTensor();
-    return out[0].item<float>();
+    float eval = out[0].item<float>();
+    float unscaled = (eval * 40) - 20;
+    return unscaled;
 }

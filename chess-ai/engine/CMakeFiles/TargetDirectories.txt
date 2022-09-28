@@ -1,3 +1,0 @@
-/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles/tinyfish.dir
-/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles/edit_cache.dir
-/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles/rebuild_cache.dir
