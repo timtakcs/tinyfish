@@ -719,7 +719,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !is_square_attacked(g1, black) && 
             !get_bit(bitmap['0'], g1) &&
             !is_check(white)) {
-                move m = get_move(false, none, none, 1, side, 'K');
+                move m = get_move(false, e1, g1, 1, side, 'K');
                 moves.push_back(m);
         }
     }
@@ -732,7 +732,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !is_square_attacked(b1, black) && 
             !get_bit(bitmap['0'], b1) &&
             !is_check(white)) {
-                move m = get_move(false, none, none, 2, side, 'K');
+                move m = get_move(false, e1, c1, 2, side, 'K');
                 moves.push_back(m);
         }
     }
@@ -743,7 +743,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !is_square_attacked(g8, white) && 
             !get_bit(bitmap['1'], g8) &&
             !is_check(black)) {
-                move m = get_move(false, none, none, 4, side, 'k');
+                move m = get_move(false, e8, c8, 4, side, 'k');
                 moves.push_back(m);
         }
     }
@@ -756,7 +756,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !is_square_attacked(b8, white) && 
             !get_bit(bitmap['1'], b8) &&
             !is_check(black)) {
-                move m = get_move(false, none, none, 8, side, 'k');
+                move m = get_move(false, e8, g8, 8, side, 'k');
                 moves.push_back(m);
         }
     }
@@ -927,6 +927,24 @@ void Board::pop_move(move m) {
     update_board();
 }
 
+Board::move Board::parse_move(std::string uci) {
+    int source = (uci[0] - 'a') + (8 - (uci[1] - '0')) * 8;
+    int target = (uci[2] - 'a') + (8 - (uci[3] - '0')) * 8;
+    char promotion = ' ';
+
+    if(uci.length() == 5) promotion = uci[4];
+
+    std::vector<move> moves = get_legal_moves(side);
+
+    for (int move = 0; move < moves.size(); move++) {
+        if (moves[move].from == source && moves[move].to == target) {
+            if (promotion = ' ' && promotion == moves[move].promotion) {
+                return moves[move];
+            }
+        }
+    }
+}
+
 Board::U64 Board::perft(int depth) {
     if (depth == 0) {
         return 1ULL;
@@ -943,13 +961,6 @@ Board::U64 Board::perft(int depth) {
 
         if (!debug.count(moves[i].piece)) debug[moves[i].piece] = 1;
         else debug[moves[i].piece]++;
-
-        // if (moves[i].castle) {
-        //     castles++;
-        // }
-
-        // if(moves[i].castle) castles++;
-
         nodes += perft(depth - 1);
         pop_move(moves[i]);
     }
@@ -957,15 +968,7 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    cout << "total nodes: " << perft(1) << endl;
-
-    print_full_board();
-
-    cout << "castles: " << castles << endl;
-    
-    for (int i = 0; i < string_pieces.length(); i++) {
-        std::cout << string_pieces[i] << "->" << debug[string_pieces[i]] << endl;
-    }
+    parse_move("d2d4");
 }
 
 // int main() {

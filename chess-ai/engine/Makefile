@@ -129,6 +129,54 @@ tinyfish/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/build
 .PHONY : tinyfish/fast
 
+Board.o: Board.cpp.o
+.PHONY : Board.o
+
+# target to build an object file
+Board.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Board.cpp.o
+.PHONY : Board.cpp.o
+
+Board.i: Board.cpp.i
+.PHONY : Board.i
+
+# target to preprocess a source file
+Board.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Board.cpp.i
+.PHONY : Board.cpp.i
+
+Board.s: Board.cpp.s
+.PHONY : Board.s
+
+# target to generate assembly for a file
+Board.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Board.cpp.s
+.PHONY : Board.cpp.s
+
+Engine.o: Engine.cpp.o
+.PHONY : Engine.o
+
+# target to build an object file
+Engine.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Engine.cpp.o
+.PHONY : Engine.cpp.o
+
+Engine.i: Engine.cpp.i
+.PHONY : Engine.i
+
+# target to preprocess a source file
+Engine.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Engine.cpp.i
+.PHONY : Engine.cpp.i
+
+Engine.s: Engine.cpp.s
+.PHONY : Engine.s
+
+# target to generate assembly for a file
+Engine.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Engine.cpp.s
+.PHONY : Engine.cpp.s
+
 Network.o: Network.cpp.o
 .PHONY : Network.o
 
@@ -153,6 +201,30 @@ Network.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Network.cpp.s
 .PHONY : Network.cpp.s
 
+main.o: main.cpp.o
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +234,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... tinyfish"
+	@echo "... Board.o"
+	@echo "... Board.i"
+	@echo "... Board.s"
+	@echo "... Engine.o"
+	@echo "... Engine.i"
+	@echo "... Engine.s"
 	@echo "... Network.o"
 	@echo "... Network.i"
 	@echo "... Network.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

@@ -69,10 +69,38 @@ include CMakeFiles/tinyfish.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/tinyfish.dir/flags.make
 
+CMakeFiles/tinyfish.dir/main.cpp.o: CMakeFiles/tinyfish.dir/flags.make
+CMakeFiles/tinyfish.dir/main.cpp.o: main.cpp
+CMakeFiles/tinyfish.dir/main.cpp.o: CMakeFiles/tinyfish.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tinyfish.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tinyfish.dir/main.cpp.o -MF CMakeFiles/tinyfish.dir/main.cpp.o.d -o CMakeFiles/tinyfish.dir/main.cpp.o -c /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/main.cpp
+
+CMakeFiles/tinyfish.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tinyfish.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/main.cpp > CMakeFiles/tinyfish.dir/main.cpp.i
+
+CMakeFiles/tinyfish.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tinyfish.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/main.cpp -o CMakeFiles/tinyfish.dir/main.cpp.s
+
+CMakeFiles/tinyfish.dir/Engine.cpp.o: CMakeFiles/tinyfish.dir/flags.make
+CMakeFiles/tinyfish.dir/Engine.cpp.o: Engine.cpp
+CMakeFiles/tinyfish.dir/Engine.cpp.o: CMakeFiles/tinyfish.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/tinyfish.dir/Engine.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tinyfish.dir/Engine.cpp.o -MF CMakeFiles/tinyfish.dir/Engine.cpp.o.d -o CMakeFiles/tinyfish.dir/Engine.cpp.o -c /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Engine.cpp
+
+CMakeFiles/tinyfish.dir/Engine.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tinyfish.dir/Engine.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Engine.cpp > CMakeFiles/tinyfish.dir/Engine.cpp.i
+
+CMakeFiles/tinyfish.dir/Engine.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tinyfish.dir/Engine.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Engine.cpp -o CMakeFiles/tinyfish.dir/Engine.cpp.s
+
 CMakeFiles/tinyfish.dir/Network.cpp.o: CMakeFiles/tinyfish.dir/flags.make
 CMakeFiles/tinyfish.dir/Network.cpp.o: Network.cpp
 CMakeFiles/tinyfish.dir/Network.cpp.o: CMakeFiles/tinyfish.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/tinyfish.dir/Network.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/tinyfish.dir/Network.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tinyfish.dir/Network.cpp.o -MF CMakeFiles/tinyfish.dir/Network.cpp.o.d -o CMakeFiles/tinyfish.dir/Network.cpp.o -c /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Network.cpp
 
 CMakeFiles/tinyfish.dir/Network.cpp.i: cmake_force
@@ -83,14 +111,34 @@ CMakeFiles/tinyfish.dir/Network.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tinyfish.dir/Network.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Network.cpp -o CMakeFiles/tinyfish.dir/Network.cpp.s
 
+CMakeFiles/tinyfish.dir/Board.cpp.o: CMakeFiles/tinyfish.dir/flags.make
+CMakeFiles/tinyfish.dir/Board.cpp.o: Board.cpp
+CMakeFiles/tinyfish.dir/Board.cpp.o: CMakeFiles/tinyfish.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/tinyfish.dir/Board.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tinyfish.dir/Board.cpp.o -MF CMakeFiles/tinyfish.dir/Board.cpp.o.d -o CMakeFiles/tinyfish.dir/Board.cpp.o -c /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Board.cpp
+
+CMakeFiles/tinyfish.dir/Board.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tinyfish.dir/Board.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Board.cpp > CMakeFiles/tinyfish.dir/Board.cpp.i
+
+CMakeFiles/tinyfish.dir/Board.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tinyfish.dir/Board.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Board.cpp -o CMakeFiles/tinyfish.dir/Board.cpp.s
+
 # Object files for target tinyfish
 tinyfish_OBJECTS = \
-"CMakeFiles/tinyfish.dir/Network.cpp.o"
+"CMakeFiles/tinyfish.dir/main.cpp.o" \
+"CMakeFiles/tinyfish.dir/Engine.cpp.o" \
+"CMakeFiles/tinyfish.dir/Network.cpp.o" \
+"CMakeFiles/tinyfish.dir/Board.cpp.o"
 
 # External object files for target tinyfish
 tinyfish_EXTERNAL_OBJECTS =
 
+tinyfish: CMakeFiles/tinyfish.dir/main.cpp.o
+tinyfish: CMakeFiles/tinyfish.dir/Engine.cpp.o
 tinyfish: CMakeFiles/tinyfish.dir/Network.cpp.o
+tinyfish: CMakeFiles/tinyfish.dir/Board.cpp.o
 tinyfish: CMakeFiles/tinyfish.dir/build.make
 tinyfish: /home/timur/Downloads/libtorch/lib/libtorch.so
 tinyfish: /home/timur/Downloads/libtorch/lib/libc10.so
@@ -109,7 +157,7 @@ tinyfish: /usr/local/cuda-11.7/lib64/libcudnn.so
 tinyfish: /usr/local/cuda-11.7/lib64/libnvToolsExt.so
 tinyfish: /usr/local/cuda-11.7/lib64/libcudart.so
 tinyfish: CMakeFiles/tinyfish.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable tinyfish"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable tinyfish"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tinyfish.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

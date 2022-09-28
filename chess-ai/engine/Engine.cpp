@@ -59,8 +59,17 @@ void Engine::play() {
     //user plays as white
     int max_player = 0;
 
-    std::string uci_move;
-    std::cout << "User move (uci): " << std::endl;
-    std::cin >> uci_move;
-    //parse uci
+    board.print_full_board();
+
+    while (1==1) {
+        std::string uci_move;
+        std::cout << "\n" << "User move (uci): " << std::endl;
+        std::cin >> uci_move;
+        Board::move user_m = board.parse_move(uci_move);
+        board.push_move(user_m);
+        board.print_full_board();
+        Board::move engine_m = minimax_root(3, 0);
+        board.push_move(engine_m);
+        board.print_full_board();
+    }
 }

@@ -8,7 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Board.cpp" "CMakeFiles/tinyfish.dir/Board.cpp.o" "gcc" "CMakeFiles/tinyfish.dir/Board.cpp.o.d"
+  "/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Engine.cpp" "CMakeFiles/tinyfish.dir/Engine.cpp.o" "gcc" "CMakeFiles/tinyfish.dir/Engine.cpp.o.d"
   "/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/Network.cpp" "CMakeFiles/tinyfish.dir/Network.cpp.o" "gcc" "CMakeFiles/tinyfish.dir/Network.cpp.o.d"
+  "/home/timur/Programming/tinyfish/tinyfish/chess-ai/engine/main.cpp" "CMakeFiles/tinyfish.dir/main.cpp.o" "gcc" "CMakeFiles/tinyfish.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links.

@@ -34,6 +34,9 @@ public:
     void pop_move(move m);
 
     std::vector<float> get_state();
+
+    move parse_move(std::string uci);
+
 private:
     enum board {a8, b8, c8, d8, e8, f8, g8, h8,
         a7, b7, c7, d7, e7, f7, g7, h7,
@@ -64,7 +67,7 @@ private:
     };
 
     // std::string string_pieces = "KQRBNPkqrbnp";
-    std::string string_pieces = "PRKBQKprkbqk";
+    std::string string_pieces = "PRNBQKprnbqk";
 
     std::string white_promo_string = "QRKB";
     std::string black_promo_string = "qrkb";
