@@ -5,6 +5,7 @@ from torch import nn
 import torch.optim as opt
 import torch.nn.functional as f
 import sqlite3
+import numpy as np
 
 def get_query(idx):
     return f'SELECT * FROM bitboard WHERE id={idx}'
@@ -45,10 +46,10 @@ class Agent():
 
     def train(self, x_batch, y_batch):
         self.net.optimizer.zero_grad()
-        if y_batch.shape == torch.Size([2048]):
-            y_batch.resize_(2048, 1)
-        else:
-            y_batch.resize_(1843, 1)
+        # if y_batch.shape == torch.Size([1096]):
+        #     y_batch.resize_(1096, 1)
+        # else:
+        #     y_batch.resize_(1843, 1)
         x_batch = x_batch.to(self.device)
         y_batch = y_batch.to(self.device)
 
@@ -78,9 +79,9 @@ class Agent():
         return idx
 
     def get_data(self, index):
-        self.cursor.execute(f'SELECT * FROM bitboards WHERE id={index}')
+        self.cursor.execute(f'SELECT * FROM bitboards WHERE id in {index}')
         num = self.cursor.fetchall()
-        return (num[0][1:770], num[0][770])
+        return np.array(num)
 
     def train_net(self, epochs):
         loss = []
@@ -104,21 +105,27 @@ class Agent():
             y = []
             
             while len(indeces_copy) != 0:
-                while num_in_batch < 1096 or len(indeces_copy) != 0:
+                indices = "("
+                for number in range(1096):
+                    if len(indeces_copy) == 0:
+                        break
+
                     index = self.get_index(indeces_copy)
-                    data = self.get_data(index)
-                    x.append(data[0])
-                    y.append(data[1])
-                    num_in_batch += 1
-                    print(num_in_batch)
+                    indices += str(index)
+
+                    if number != 1095:
+                        indices += ", " 
+
+                indices += ")"
+                data = self.get_data(indices)
+                x = data[:, 1:769]
+                y = data[:, 770]
 
                 x_train = torch.tensor(x, dtype=torch.float32)
                 y_train = torch.tensor(y, dtype=torch.float32)
 
                 count += 1
                 batches.append(count)
-
-                print(count)
 
                 if int(count / total * 10) > cur:
                     cur = self.print_progress(count, total)
@@ -165,8 +172,8 @@ class Agent():
 # myDs = MyDataset(6700851)
 # train = torch.utils.data.DataLoader(myDs, batch_size=256)
 
-# print(torch.cuda.is_available())
-# agent = Agent()
-# agent.train_net(10)
-# torch.save(agent.net.state_dict(), 'data/eval_model.pth')
+print(torch.cuda.is_available())
+agent = Agent()
+agent.train_net(10)
+torch.save(agent.net.state_dict(), 'data/eval_model.pth')
 
