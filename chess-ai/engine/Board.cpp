@@ -156,6 +156,7 @@ void Board::print_full_board() {
         if (i % 8 == 0) std::cout << "\n";
         std::cout << ' ' << b[i] << ' ';
     }
+
     std::cout << "\n" << std::endl;
 
     std::cout << "en passant: " << string_board[en_passant] << std::endl;
@@ -262,7 +263,7 @@ Board::U64 Board::get_king_attack(int square) {
     return attack;
 }
 
-Board::U64 Board::get_bishop_attack(int square) {
+Board::U64 Board::mask_bishop_attacks(int square) {
     U64 attack = 0x0000000000000000ULL;
 
     int r;
@@ -308,10 +309,12 @@ Board::U64 Board::get_bishop_attack(int square) {
         f--;
     }
 
+    bishop_relevant_bits[square] = __popcount(attack);
+
     return attack;
 }
 
-Board::U64 Board::get_rook_attack(int square) {
+Board::U64 Board::mask_rook_attacks(int square) {
     U64 attack = 0x0000000000000000ULL;
     
     int r;
@@ -347,6 +350,8 @@ Board::U64 Board::get_rook_attack(int square) {
         set_bit(attack, tr * 8 + f);
         f--;
     }
+
+    rook_relevant_bits[square] = __popcount(attack);
 
     return attack;
 }
@@ -481,8 +486,8 @@ Board::U64 Board::set_occupancy(int index, int num_bits, U64 attack) {
 
 void Board::populate_attack_mask_arrays() {
     for(int square = 0; square < 64; square++) {
-        U64 rook_attack = get_rook_attack(square);
-        U64 bishop_attack = get_bishop_attack(square);
+        U64 rook_attack = mask_rook_attacks(square);
+        U64 bishop_attack = mask_bishop_attacks(square);
 
         relevant_bishop_squares[square] = bishop_attack;
         relevant_rook_squares[square] = rook_attack;
@@ -495,36 +500,36 @@ void Board::populate_attack_mask_arrays() {
 
         for (int index = 0; index < bishop_occupancy; index++) {
             U64 occupancy = set_occupancy(index, bishop_bits, bishop_attack);
-            int magic = (occupancy * bishop_magics[square]) << (64 - bishop_bits);
+            int magic = (occupancy * bishop_magics[square]) >> (64 - bishop_bits);
             masked_bishop_attacks[square][magic] = get_obstructed_bishop_attack(square, occupancy);
         }
 
         for (int index = 0; index < rook_occupancy; index++) {
             U64 occupancy = set_occupancy(index, rook_bits, rook_attack);
-            int magic = (occupancy * rook_magics[square]) << (64 - rook_bits);
+            int magic = (occupancy * rook_magics[square]) >> (64 - rook_bits);
             masked_rook_attacks[square][magic] = get_obstructed_rook_attack(square, occupancy);
         }
     }
 }
 
 //these don't seem to work, come fix them later, you can use the on the fly ones for now
-Board::U64 Board::get_bishop_attack(U64 occupancy, int square) {
+Board::U64 Board::get_bishop_attack(int square, U64 occupancy) {
     occupancy &= relevant_bishop_squares[square];
     occupancy *= bishop_magics[square];
-    occupancy >>= 64 - __popcount(relevant_bishop_squares[square]);
+    occupancy >>= 64 - bishop_relevant_bits[square];
     return masked_bishop_attacks[square][occupancy];
 }
 
-Board::U64 Board::get_rook_attack(U64 occupancy, int square) {
+Board::U64 Board::get_rook_attack(int square, U64 occupancy) {
     occupancy &= relevant_rook_squares[square];
     occupancy *= rook_magics[square];
-    occupancy >>= 64 - __popcount(relevant_rook_squares[square]);
+    occupancy >>= 64 - rook_relevant_bits[square];
     return masked_rook_attacks[square][occupancy];
 }
 
 Board::U64 Board::get_queen_attack(int square, U64 occupancy) {
-    U64 bishop_attack = get_obstructed_bishop_attack(square, occupancy);
-    U64 rook_attack = get_obstructed_rook_attack(square, occupancy);
+    U64 bishop_attack = get_bishop_attack(square, occupancy);
+    U64 rook_attack = get_rook_attack(square, occupancy);
 
     return bishop_attack | rook_attack;
 }
@@ -541,12 +546,12 @@ bool Board::is_square_attacked(int square, int color) {
     if (color && knight_attacks[square] & bitmap['n']) return true;
     
     //bishop attacks
-    if (!color && get_obstructed_bishop_attack(square, bitmap['A']) & bitmap['B']) return true;
-    if (color && get_obstructed_bishop_attack(square, bitmap['A']) & bitmap['b']) return true;
+    if (!color && get_bishop_attack(square, bitmap['A']) & bitmap['B']) return true;
+    if (color && get_bishop_attack(square, bitmap['A']) & bitmap['b']) return true;
 
     //rook attacksz
-    if (!color && get_obstructed_rook_attack(square, bitmap['A']) & bitmap['R']) return true;
-    if (color && get_obstructed_rook_attack(square, bitmap['A']) & bitmap['r']) return true;
+    if (!color && get_rook_attack(square, bitmap['A']) & bitmap['R']) return true;
+    if (color && get_rook_attack(square, bitmap['A']) & bitmap['r']) return true;
     
     //queen attacks
     if (!color && get_queen_attack(square, bitmap['A']) & bitmap['Q']) return true;
@@ -968,6 +973,26 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    parse_move("d2d4");
+    U64 b = 0ULL;
+
+    set_bit(b, d7);
+    set_bit(b, b4);
+    set_bit(b, d1);
+    set_bit(b, f2);
+
+    //generate attacks from e4 square
+
+    U64 attack = get_rook_attack(d4, b);
+
+    print_board(b);
+    print_board(attack);
+
+    cout << perft(5) << endl;
 }
 
+int main() {
+    Board board;
+    std::string fen("");
+    board.gen_board(fen);
+    board.function_debug();
+}

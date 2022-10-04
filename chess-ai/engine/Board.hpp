@@ -104,8 +104,11 @@ private:
     inline U64 get_pawn_attack(int square, int color);
     inline U64 get_pawn_push(int color, int square);
 
-    U64 get_bishop_attack(int square);
-    U64 get_rook_attack(int square);
+    U64 mask_bishop_attacks(int square);
+    U64 mask_rook_attacks(int square);
+
+    U64 get_bishop_attack(int square, U64 occupancy);
+    U64 get_rook_attack(int square, U64 occupancy);
 
     U64 get_obstructed_bishop_attack(int square, U64 occupancy);
     U64 get_obstructed_rook_attack(int square, U64 occupancy);
@@ -137,6 +140,9 @@ private:
 
     U64 relevant_bishop_squares[64];
     U64 relevant_rook_squares[64];
+
+    U64 bishop_relevant_bits[64];
+    U64 rook_relevant_bits[64];
 
     U64 masked_bishop_attacks[64][512];
     U64 masked_rook_attacks[64][4096];

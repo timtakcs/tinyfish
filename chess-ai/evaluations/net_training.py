@@ -106,15 +106,16 @@ class Agent():
             
             while len(indeces_copy) != 0:
                 indices = "("
-                for number in range(1096):
+                for number in range(1096 * 10):
                     if len(indeces_copy) == 0:
                         break
 
                     index = self.get_index(indeces_copy)
                     indices += str(index)
 
-                    if number != 1095:
-                        indices += ", " 
+                    if number != 1096 * 10 - 1:
+                        indices += ", "
+                            
 
                 indices += ")"
                 data = self.get_data(indices)
