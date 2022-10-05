@@ -115,6 +115,8 @@ private:
 
     void get_leaping_attacks();
 
+    inline U64 enemy_or_empty(int side);
+
     //sliding pieces
     inline U64 southOne(U64 &board);
     inline U64 northOne(U64 &board);

@@ -593,6 +593,11 @@ bool Board::is_check(int side) {
     return false;
 }
 
+inline Board::U64 Board::enemy_or_empty(int side) {
+    if (side) return ~bitmap['1'] ^ bitmap['K'];
+    return ~bitmap['0'] ^ bitmap['k'];
+}
+
 Board::move Board::get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece, U64 opp, char promotion) {
     U64 sq = 0ULL;
     set_bit(sq, to);
@@ -601,8 +606,6 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
     m.to = to;
     m.castle = castle;
     m.en_passant = en_passant;
-    if ((sq & opp) || en_passant) m.capture = true;
-    else m.capture = false;
     m.side = side;
     m.piece = piece;
     if (!castle) m.repr = string_board[from] + string_board[to];
@@ -619,12 +622,9 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
 std::vector<Board::move> Board::get_legal_moves(int side) {
     std::vector<Board::move> moves;
     int offset = 0;
-    U64 opp = bitmap['1'] ^ bitmap['k'];
+    U64 opp = enemy_or_empty(side);
 
-    if (side) {
-        offset = 6;
-        opp = bitmap['0'] ^ bitmap['K'];
-    }
+    if (side) offset = 6;
     
     //generate main moves
     for (int piece = 0; piece < 6; piece++) {
@@ -637,11 +637,11 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             switch(piece_char) {
                 case 'P': 
                 case 'p':
-                    attack = (pawn_attacks[side][square] & opp) | (get_pawn_push(side, square));
+                    attack = (pawn_attacks[side][square] & (opp ^ bitmap['E'])) | (get_pawn_push(side, square));
                     break;
                 case 'B': 
                 case 'b':
-                    attack = get_obstructed_bishop_attack(square, bitmap['A']) & (bitmap['E'] | opp);
+                    attack = get_bishop_attack(square, bitmap['A']) & (bitmap['E'] | opp);
                     break;
                 case 'N': 
                 case 'n':
@@ -649,7 +649,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                     break;
                 case 'R': 
                 case 'r':
-                    attack = get_obstructed_rook_attack(square, bitmap['A']) & (bitmap['E'] | opp);
+                    attack = get_rook_attack(square, bitmap['A']) & (bitmap['E'] | opp);
                     break;
                 case 'Q': 
                 case 'q':
@@ -769,12 +769,12 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
         //en passant captures
         if (en_passant != none) {
             U64 temp = pawn_attacks[!side][en_passant];
-            temp &= bitmap[string_pieces[5 + offset]];
+            temp &= bitmap[string_pieces[offset]];
 
             if (temp) {
                 std::vector<int> en_passant_attacks = get_positions(temp);
                 for (auto s: en_passant_attacks) {
-                    move m = get_move(true, s, en_passant, 0, side, string_pieces[5 + offset], string_pieces[11 - offset]);
+                    move m = get_move(true, s, en_passant, 0, side, string_pieces[offset], string_pieces[6 - offset]);
 
                     int temp_en_passant = en_passant;
                     int temp_castle = castle;
@@ -929,6 +929,7 @@ void Board::pop_move(move m) {
     default: break;
     }
     side = m.side;
+    en_passant = m.en_passant;
     update_board();
 }
 
@@ -973,20 +974,6 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    U64 b = 0ULL;
-
-    set_bit(b, d7);
-    set_bit(b, b4);
-    set_bit(b, d1);
-    set_bit(b, f2);
-
-    //generate attacks from e4 square
-
-    U64 attack = get_rook_attack(d4, b);
-
-    print_board(b);
-    print_board(attack);
-
     cout << perft(5) << endl;
 }
 

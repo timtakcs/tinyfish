@@ -97,40 +97,44 @@ class Agent():
         for i in range(epochs):
             cur = 0
             count = 0
-            num_in_batch = 0
+            num_batches = 0
             print("epochs:", i + 1)
             indeces_copy = indeces
+            random.shuffle(indeces_copy)
 
             x = []
             y = []
             
-            while len(indeces_copy) != 0:
+            #loading 100 batches into memory at once 60 times per epoch for a total of 6000 batches. ~90% of the dataset
+            for _ in range(60):
                 indices = "("
-                for number in range(1096 * 10):
+                for number in range(1096 * 100):
                     if len(indeces_copy) == 0:
                         break
 
-                    index = self.get_index(indeces_copy)
+                    index = indeces_copy[number + num_batches]
                     indices += str(index)
 
-                    if number != 1096 * 10 - 1:
+                    if number != 1096 * 100 - 1:
                         indices += ", "
-                            
-
+                        
                 indices += ")"
+                num_batches += 1
+
                 data = self.get_data(indices)
                 x = data[:, 1:769]
                 y = data[:, 770]
 
-                x_train = torch.tensor(x, dtype=torch.float32)
-                y_train = torch.tensor(y, dtype=torch.float32)
+                for i in range(100):
+                    x_train = torch.tensor(x[i * 1096:(i + 1) * 1096], dtype=torch.float32)
+                    y_train = torch.tensor(y[i * 1096:(i + 1) * 1096], dtype=torch.float32)
 
-                count += 1
-                batches.append(count)
+                    count += 1
+                    batches.append(count)
 
-                if int(count / total * 10) > cur:
-                    cur = self.print_progress(count, total)
-                loss.append(self.train(x_train, y_train))
+                    if int(count / total * 10) > cur:
+                        cur = self.print_progress(count, total)
+                    loss.append(self.train(x_train, y_train))
 
             print(sum(loss)/len(loss))
 
@@ -175,6 +179,6 @@ class Agent():
 
 print(torch.cuda.is_available())
 agent = Agent()
-agent.train_net(10)
+agent.train_net(5)
 torch.save(agent.net.state_dict(), 'data/eval_model.pth')
 
