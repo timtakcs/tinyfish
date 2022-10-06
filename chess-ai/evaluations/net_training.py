@@ -112,7 +112,7 @@ class Agent():
                     if len(indeces_copy) == 0:
                         break
 
-                    index = indeces_copy[number + num_batches]
+                    index = indeces_copy[number + (num_batches * 1096 * 10)]
                     indices += str(index)
 
                     if number != 1096 * 100 - 1:
@@ -177,8 +177,8 @@ class Agent():
 # myDs = MyDataset(6700851)
 # train = torch.utils.data.DataLoader(myDs, batch_size=256)
 
-print(torch.cuda.is_available())
-agent = Agent()
-agent.train_net(5)
-torch.save(agent.net.state_dict(), 'data/eval_model.pth')
+# print(torch.cuda.is_available())
+# agent = Agent()
+# agent.train_net(5)
+# torch.save(agent.net.state_dict(), 'data/eval_model.pth')
 
