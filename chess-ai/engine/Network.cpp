@@ -1,7 +1,7 @@
 #include "Network.hpp"
 
 void Net::load_net() {
-    eval_net = torch::jit::load("../evaluations/data/traced_eval_model_test.pth");
+    eval_net = torch::jit::load("../evaluations/data/traced_eval_model.pth");
 }
 
 float Net::eval(std::vector<float> state) {

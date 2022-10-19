@@ -945,6 +945,7 @@ Board::move Board::parse_move(std::string uci) {
     for (int move = 0; move < moves.size(); move++) {
         if (moves[move].from == source && moves[move].to == target) {
             if (promotion = ' ' && promotion == moves[move].promotion) {
+                std::cout << moves[move].captured_piece << std::endl;
                 return moves[move];
             }
         }

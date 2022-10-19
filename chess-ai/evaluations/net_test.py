@@ -5,7 +5,7 @@ import torch
 import net_training as n
 
 agent = n.Agent()
-agent.net.load_state_dict(torch.load('data/eval_model_test.pth'))
+agent.net.load_state_dict(torch.load('data/eval_model.pth'))
 agent.net.cuda()
 
 import sqlite3
