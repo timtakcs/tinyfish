@@ -13,8 +13,9 @@ float Engine::minimax(int depth, int max_player) {
         return net.eval(board.get_state());
     }
 
-    if (max_player) {
-        std::vector<Board::move> moves = board.get_legal_moves(!max_player);
+    std::vector<Board::move> moves = board.get_legal_moves(max_player);
+
+    if (max_player) { // white
         float max_eval = -99999;
         for (int move = 0; move < moves.size(); move++) {
             board.push_move(moves[move]);
@@ -26,14 +27,14 @@ float Engine::minimax(int depth, int max_player) {
     }
 
     else {
-        std::vector<Board::move> moves = board.get_legal_moves(!max_player);
         float min_eval = 99999;
         for (int move = 0; move < moves.size(); move++) {
             board.push_move(moves[move]);
             float eval = minimax(depth - 1, !max_player);
-            min_eval = std::max(eval, min_eval);
+            min_eval = std::min(eval, min_eval);
             board.pop_move(moves[move]);
         }
+
         return min_eval;
     }
 }
@@ -48,8 +49,9 @@ Board::move Engine::minimax_root(int depth, int max_player) {
         board.push_move(moves[move_index]);
         float eval = minimax(depth - 1, !max_player);
         board.pop_move(moves[move_index]);
-        if (max_player && eval < best_eval) best_move_index = move_index;
-        else if (!max_player && eval > best_eval) best_move_index = move_index;
+        if (max_player && eval > best_eval) best_move_index = move_index;
+        else if (!max_player && eval < best_eval) best_move_index = move_index;
+        std::cout << eval << std::endl;
     }
 
     return moves[best_move_index];
@@ -68,7 +70,7 @@ void Engine::play() {
         Board::move user_m = board.parse_move(uci_move);
         board.push_move(user_m);
         board.print_full_board();
-        Board::move engine_m = minimax_root(3, 0);
+        Board::move engine_m = minimax_root(3, 1);
         board.push_move(engine_m);
         board.print_full_board();
     }

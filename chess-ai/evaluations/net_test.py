@@ -5,7 +5,7 @@ import torch
 import net_training as n
 
 agent = n.Agent()
-agent.net.load_state_dict(torch.load('data/eval_model.pth'))
+agent.net.load_state_dict(torch.load('data/eval_model_test.pth'))
 agent.net.cuda()
 
 import sqlite3
@@ -23,12 +23,12 @@ def get_data(id):
 loss = 0
 total = 0
 
-with torch.no_grad():
-    for i in range(50):
-        id = randrange(0, 6000000)
-        feature, lbl = get_data(id)
-        feature = torch.tensor(feature).cuda()
-        lbl = torch.tensor(lbl).cuda()
-        out = agent.net(feature)
-        print("label: ", lbl, "out: ", out)
+
+for i in range(50):
+    id = randrange(0, 6000000)
+    feature, lbl = get_data(id)
+    feature = torch.tensor(feature, dtype=torch.float32).cuda()
+    lbl = torch.tensor(lbl).cuda()
+    out = agent.net.forward(feature)
+    print("label: ", lbl, "out: ", out)
 

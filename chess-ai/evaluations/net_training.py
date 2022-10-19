@@ -44,12 +44,9 @@ class Agent():
         self.connection = sqlite3.connect("data/bitboards.db")
         self.cursor = self.connection.cursor()
 
-    def train(self, x_batch, y_batch):
+    def train(self, x_batch, y_batch, size):
         self.net.optimizer.zero_grad()
-        # if y_batch.shape == torch.Size([1096]):
-        #     y_batch.resize_(1096, 1)
-        # else:
-        #     y_batch.resize_(1843, 1)
+        y_batch = y_batch.view(size, 1)
         x_batch = x_batch.to(self.device)
         y_batch = y_batch.to(self.device)
 
@@ -87,7 +84,7 @@ class Agent():
         loss = []
         batches = []
         count = 0
-        total = 6700851 / 1096
+        total = 670085 / 256
 
         indeces = []
 
@@ -105,17 +102,17 @@ class Agent():
             x = []
             y = []
             
-            #loading 100 batches into memory at once 60 times per epoch for a total of 6000 batches. ~90% of the dataset
-            for _ in range(60):
+            #loading 100 batches into memory at once 260 times per epoch for a total of 6000 batches. ~90% of the dataset
+            for _ in range(260):
                 indices = "("
-                for number in range(1096 * 100):
+                for number in range(256 * 100):
                     if len(indeces_copy) == 0:
                         break
 
                     index = indeces_copy[number + (num_batches * 1096 * 10)]
                     indices += str(index)
 
-                    if number != 1096 * 100 - 1:
+                    if number != 256 * 100 - 1:
                         indices += ", "
                         
                 indices += ")"
@@ -126,15 +123,17 @@ class Agent():
                 y = data[:, 770]
 
                 for i in range(100):
-                    x_train = torch.tensor(x[i * 1096:(i + 1) * 1096], dtype=torch.float32)
-                    y_train = torch.tensor(y[i * 1096:(i + 1) * 1096], dtype=torch.float32)
+                    x_train = torch.tensor(x[i * 256:(i + 1) * 256], dtype=torch.float32)
+                    y_train = torch.tensor(y[i * 256:(i + 1) * 256], dtype=torch.float32)
+
+                    size = (i + 1) * 256 - i * 256
 
                     count += 1
                     batches.append(count)
 
                     if int(count / total * 10) > cur:
                         cur = self.print_progress(count, total)
-                    loss.append(self.train(x_train, y_train))
+                    loss.append(self.train(x_train, y_train, size))
 
             print(sum(loss)/len(loss))
 

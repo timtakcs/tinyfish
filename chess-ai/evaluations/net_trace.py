@@ -3,7 +3,7 @@ import net_training as n
 import sqlite3
 
 agent = n.Agent()
-agent.net.load_state_dict(torch.load('data/eval_model.pth'))
+agent.net.load_state_dict(torch.load('data/eval_model_test.pth'))
 
 connection = sqlite3.connect("data/bitboards.db")
 
@@ -18,4 +18,4 @@ def get_data(id):
 x, y = get_data(760)
 x = torch.tensor(x, dtype=torch.float32)
 traced_net = torch.jit.trace(agent.net.to(device="cpu"), x)
-torch.jit.save(traced_net, 'data/traced_eval_model.pth')
+torch.jit.save(traced_net, 'data/traced_eval_model_test.pth')

@@ -620,7 +620,7 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
 }
 
 std::vector<Board::move> Board::get_legal_moves(int side) {
-    std::vector<Board::move> moves;
+    std::vector<Board::move> moves = {};
     int offset = 0;
     U64 opp = enemy_or_empty(side);
 
@@ -977,9 +977,9 @@ void Board::function_debug() {
     cout << perft(5) << endl;
 }
 
-int main() {
-    Board board;
-    std::string fen("");
-    board.gen_board(fen);
-    board.function_debug();
-}
+// int main() {
+//     Board board;
+//     std::string fen("");
+//     board.gen_board(fen);
+//     board.function_debug();
+// }
