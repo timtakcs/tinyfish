@@ -84,7 +84,7 @@ class Agent():
         loss = []
         batches = []
         count = 0
-        total = 670085 / 256
+        total = 6700851 / 256
 
         indeces = []
 
@@ -176,8 +176,8 @@ class Agent():
 # myDs = MyDataset(6700851)
 # train = torch.utils.data.DataLoader(myDs, batch_size=256)
 
-# print(torch.cuda.is_available())
-# agent = Agent()
-# agent.train_net(5)
-# torch.save(agent.net.state_dict(), 'data/eval_model.pth')
+print(torch.cuda.is_available())
+agent = Agent()
+agent.train_net(5)
+torch.save(agent.net.state_dict(), 'data/eval_model.pth')
 
