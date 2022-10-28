@@ -6,6 +6,6 @@ class Net {
 public:
     torch::jit::script::Module eval_net;
     void load_net();
-    float eval(std::vector<float> state);
+    float eval(std::vector<float> &state);
 };
 

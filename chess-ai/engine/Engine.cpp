@@ -10,11 +10,16 @@ Engine::Engine(std::string fen) {
 //minimax search
 float Engine::minimax(int depth, int min_player) {
     if (depth == 0) { //should also check for checkmate and stalemate
-        return net.eval(board.get_state());
+        std::vector<float> state = board.get_state();
+        return net.eval(state);
     }
 
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
 
+    if (moves.size() == 0) {
+        if (min_player) return 9999; //white wins by checkmate
+        else return -9999; //black wins by checkmate
+    }
     //max player is black
 
     if (min_player) { // black
@@ -62,8 +67,6 @@ Board::move Engine::minimax_root(int depth, int min_player) {
         std::cout << best_eval << std::endl;
     }
 
-    std::cout << moves.size() << " " << best_move_index << std::endl;
-
     return moves[best_move_index];
 }
 
@@ -79,9 +82,10 @@ void Engine::play() {
         std::cin >> uci_move;
         Board::move user_m = board.parse_move(uci_move);
         board.push_move(user_m);
+        // std::cout << user_m.captured_piece <<  " " << user_m.from << " " << user_m.to << std::endl;
         board.print_full_board();
         Board::move engine_m = minimax_root(3, 1);
-        std::cout << engine_m.piece << engine_m.from << engine_m.to << std::endl;
+        // std::cout << engine_m.captured_piece <<  " " << engine_m.from << " " << engine_m.to << std::endl;
         board.push_move(engine_m);
         board.print_full_board();
     }

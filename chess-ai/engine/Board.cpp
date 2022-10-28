@@ -1,7 +1,9 @@
 #include "Board.hpp"
 #include <iostream>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 inline void Board::set_bit(U64 &board, int square) {(board) |= (1ULL << (square));};
 inline Board::U64 Board::get_bit(U64 board, int square) {return (board & (1ULL << square));};
@@ -512,7 +514,6 @@ void Board::populate_attack_mask_arrays() {
     }
 }
 
-//these don't seem to work, come fix them later, you can use the on the fly ones for now
 Board::U64 Board::get_bishop_attack(int square, U64 occupancy) {
     occupancy &= relevant_bishop_squares[square];
     occupancy *= bishop_magics[square];
@@ -534,34 +535,46 @@ Board::U64 Board::get_queen_attack(int square, U64 occupancy) {
     return bishop_attack | rook_attack;
 }
 
-bool Board::is_square_attacked(int square, int color) {
+Board::U64  Board::is_square_attacked(int square, int color) {
     //rewrite the whole thing as two big if statements, i think it should be faster
 
-    //pawn attacks
-    if (!color && pawn_attacks[black][square] & bitmap['P']) return true;
-    if (color && pawn_attacks[white][square] & bitmap['p']) return true;
+    // //pawn attacks
+    // if (!color && pawn_attacks[black][square] & bitmap['P']) return true;
+    // if (color && pawn_attacks[white][square] & bitmap['p']) return true;
 
-    //knight attacks
-    if (!color && knight_attacks[square] & bitmap['N']) return true;
-    if (color && knight_attacks[square] & bitmap['n']) return true;
+    // //knight attacks
+    // if (!color && knight_attacks[square] & bitmap['N']) return true;
+    // if (color && knight_attacks[square] & bitmap['n']) return true;
     
-    //bishop attacks
-    if (!color && get_bishop_attack(square, bitmap['A']) & bitmap['B']) return true;
-    if (color && get_bishop_attack(square, bitmap['A']) & bitmap['b']) return true;
+    // //bishop attacks
+    // if (!color && get_bishop_attack(square, bitmap['A']) & bitmap['B']) return true;
+    // if (color && get_bishop_attack(square, bitmap['A']) & bitmap['b']) return true;
 
-    //rook attacksz
-    if (!color && get_rook_attack(square, bitmap['A']) & bitmap['R']) return true;
-    if (color && get_rook_attack(square, bitmap['A']) & bitmap['r']) return true;
+    // //rook attacksz
+    // if (!color && get_rook_attack(square, bitmap['A']) & bitmap['R']) return true;
+    // if (color && get_rook_attack(square, bitmap['A']) & bitmap['r']) return true;
     
-    //queen attacks
-    if (!color && get_queen_attack(square, bitmap['A']) & bitmap['Q']) return true;
-    if (color && get_queen_attack(square, bitmap['A']) & bitmap['q']) return true;
+    // //queen attacks
+    // if (!color && get_queen_attack(square, bitmap['A']) & bitmap['Q']) return true;
+    // if (color && get_queen_attack(square, bitmap['A']) & bitmap['q']) return true;
 
-    //king attacks
-    if (!color && king_attacks[square] & bitmap['K']) return true;
-    if (color && king_attacks[square] & bitmap['k']) return true;
+    // //king attacks
+    // if (!color && king_attacks[square] & bitmap['K']) return true;
+    // if (color && king_attacks[square] & bitmap['k']) return true;
 
-    return false;
+    if (color) return pawn_attacks[white][square] & bitmap['p'] |
+                      knight_attacks[square] & bitmap['n'] |
+                      get_bishop_attack(square, bitmap['A']) & bitmap['b'] |
+                      get_rook_attack(square, bitmap['A']) & bitmap['r'] |
+                      get_queen_attack(square, bitmap['A']) & bitmap['q'] |
+                      king_attacks[square] & bitmap['k'];
+
+    else return pawn_attacks[white][square] & bitmap['P'] |
+                      knight_attacks[square] & bitmap['N'] |
+                      get_bishop_attack(square, bitmap['A']) & bitmap['B'] |
+                      get_rook_attack(square, bitmap['A']) & bitmap['R'] |
+                      get_queen_attack(square, bitmap['A']) & bitmap['Q'] |
+                      king_attacks[square] & bitmap['K'];
 }
 
 std::vector<int> Board::get_positions(U64 board) {
@@ -628,9 +641,10 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
     
     //generate main moves
     for (int piece = 0; piece < 6; piece++) {
+
         char piece_char = string_pieces[piece + offset];
         U64 board = bitmap[piece_char];
-        std::vector<int> starting_squares = get_positions(board);
+        std::vector<int> starting_squares = get_positions(board); //this is slow
 
         for (auto square: starting_squares) {
             U64 attack;
@@ -673,7 +687,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 }
 
                 move m = get_move(false, square, t_square, 0, side, piece_char, captured_piece, opp);
-
+                
                 //promotion move generation
                 if ((t_square / 8 == 8) && (piece_char == 'P')) {
                     push_move(m);
@@ -795,7 +809,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
     return moves;
 }
 
-void Board::push_move(move m) {
+void Board::push_move(move &m) {
     if (!m.castle) {
         remove_bit(bitmap[m.piece], m.from);
         set_bit(bitmap[m.piece], m.to);
@@ -809,16 +823,16 @@ void Board::push_move(move m) {
         }
 
         //remove white's castling rights if the king or rook is moved
-        if (m.piece == 'K' || m.piece == 'R' && (m.castle & 3)) {
+        if (m.piece == 'K' || m.piece == 'R' && (castle & 3)) {
             castle ^= 3;
         }
 
         //same thing for black
-        else if (m.piece == 'k' || m.piece == 'r' && (m.castle & 12)) {
+        else if (m.piece == 'k' || m.piece == 'r' && (castle & 12)) {
             castle ^= 12;
         }
 
-        if (m.capture) {
+        if (m.captured_piece != ' ') {
             if (m.en_passant) {
                 if (!m.side) {
                     remove_bit(bitmap['p'], m.to + 8);
@@ -870,10 +884,14 @@ void Board::push_move(move m) {
         }
     }
     side = !side;
-    update_board();
+    // auto start = high_resolution_clock::now();
+    // update_board();
+    // auto end = high_resolution_clock::now();
+    // push_time += duration_cast<microseconds>(end - start).count();
 }
 
-void Board::pop_move(move m) {
+void Board::pop_move(move &m) {
+    auto start = high_resolution_clock::now();
     if (!m.castle) {
         remove_bit(bitmap[m.piece], m.to);
         set_bit(bitmap[m.piece], m.from);
@@ -930,7 +948,10 @@ void Board::pop_move(move m) {
     }
     side = m.side;
     en_passant = m.en_passant;
-    update_board();
+
+    // update_board();
+    // auto end = high_resolution_clock::now();
+    // pop_time += duration_cast<microseconds>(end - start).count();
 }
 
 Board::move Board::parse_move(std::string uci) {
@@ -975,12 +996,19 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    cout << perft(5) << endl;
+    auto start = high_resolution_clock::now();
+    cout << perft(4) << endl;
+    auto end = high_resolution_clock::now();
+    int total = duration_cast<microseconds>(end - start).count();
+
+    cout << "The push routine took a total of " << push_time << "ms" << endl;
+    cout << "The pop routine took a total of " << pop_time << "ms" << endl;
+    cout << "The full execution took a total of " << total << "ms" << endl;
 }
 
-// int main() {
-//     Board board;
-//     std::string fen("");
-//     board.gen_board(fen);
-//     board.function_debug();
-// }
+int main() {
+    Board board;
+    std::string fen("");
+    board.gen_board(fen);
+    board.function_debug();
+}

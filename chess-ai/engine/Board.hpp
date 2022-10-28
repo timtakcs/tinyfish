@@ -30,8 +30,8 @@ public:
     //generate legal moves
     std::vector<move> get_legal_moves(int side);
 
-    void push_move(move m);
-    void pop_move(move m);
+    void push_move(move &m);
+    void pop_move(move &m);
 
     std::vector<float> get_state();
 
@@ -53,7 +53,9 @@ private:
     enum sides {white, black};
 
     //binary encoding of castling availability
-    enum castle {wk = 1, wq = 2, bk = 4, bq = 8};
+    enum castling {wk = 1, wq = 2, bk = 4, bq = 8};
+
+    int caslte;
 
     const std::vector<std::string> string_board = { 
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
@@ -109,6 +111,7 @@ private:
 
     U64 get_bishop_attack(int square, U64 occupancy);
     U64 get_rook_attack(int square, U64 occupancy);
+    U64 get_queen_attack(int square, U64 occupancy);
 
     U64 get_obstructed_bishop_attack(int square, U64 occupancy);
     U64 get_obstructed_rook_attack(int square, U64 occupancy);
@@ -298,13 +301,8 @@ private:
         0x4010011029020020ULL
     };
 
-    //generating slider attacks
-    U64 get_bishop_attack(U64 occupancy, int square);
-    U64 get_rook_attack(U64 occupancy, int square);
-    U64 get_queen_attack(int square, U64 occupancy);
-
     //move generation
-    bool is_square_attacked(int square, int color);
+    U64 is_square_attacked(int square, int color);
 
     move get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
     bool is_check(int side);
@@ -320,6 +318,11 @@ private:
     std::map<std::string, int> debbb;
 
     std::map<char, int> debug;
+
+    int push_time = 0;
+    int pop_time = 0;
+    int generate_time = 0;
+    int bishop_time = 0;
 
     //-------------------------
 
