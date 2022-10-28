@@ -10,18 +10,20 @@ inline Board::U64 Board::get_bit(U64 board, int square) {return (board & (1ULL <
 inline void Board::remove_bit(U64 &board, int square) {board &= ~(1ULL << square);};
 
 inline void Board::update_board() {
-    bitmap['0'] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
+    occupancies[0] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
                 | bitmap['B'] | bitmap['P']; 
 
-    bitmap['1'] = bitmap['k'] | bitmap['q'] | bitmap['r'] | bitmap['n']
+    occupancies[1] = bitmap['k'] | bitmap['q'] | bitmap['r'] | bitmap['n']
                 | bitmap['b'] | bitmap['p']; 
 
-    bitmap['A'] = bitmap['1'] | bitmap['0'];
+    occupancies[2] = occupancies[1] | occupancies[0];
 
-    bitmap['E'] = ~bitmap['A'];
+    occupancies[3] = ~occupancies[2];
 }
 
 void Board::gen_board(std::string& fen) {
+    occupancies = {0ULL, 0ULL, 0ULL, 0ULL};
+
     if (fen == "") fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     std::string nums = "12345678";
 
@@ -195,15 +197,15 @@ inline Board::U64 Board::get_pawn_push(int color, int square) {
     set_bit(push_1, square);
 
     if (!color) {
-        push_1 = northOne(push_1) & bitmap['E'];
+        push_1 = northOne(push_1) & occupancies[3];
         if ((square / 8 == 6) && push_1) push_2 = northOne(push_1);
     }   
     else {
-        push_1 = southOne(push_1) & bitmap['E'];
+        push_1 = southOne(push_1) & occupancies[3];
         if ((square / 8 == 1) && push_1) push_2 = southOne(push_1);
     }
 
-    return (push_1 | push_2) & bitmap['E'];
+    return (push_1 | push_2) & occupancies[3];
 }
 
 inline Board::U64 Board::get_pawn_attack(int square, int color) {
@@ -536,32 +538,6 @@ Board::U64 Board::get_queen_attack(int square, U64 occupancy) {
 }
 
 Board::U64  Board::is_square_attacked(int square, int color) {
-    //rewrite the whole thing as two big if statements, i think it should be faster
-
-    // //pawn attacks
-    // if (!color && pawn_attacks[black][square] & bitmap['P']) return true;
-    // if (color && pawn_attacks[white][square] & bitmap['p']) return true;
-
-    // //knight attacks
-    // if (!color && knight_attacks[square] & bitmap['N']) return true;
-    // if (color && knight_attacks[square] & bitmap['n']) return true;
-    
-    // //bishop attacks
-    // if (!color && get_bishop_attack(square, bitmap['A']) & bitmap['B']) return true;
-    // if (color && get_bishop_attack(square, bitmap['A']) & bitmap['b']) return true;
-
-    // //rook attacksz
-    // if (!color && get_rook_attack(square, bitmap['A']) & bitmap['R']) return true;
-    // if (color && get_rook_attack(square, bitmap['A']) & bitmap['r']) return true;
-    
-    // //queen attacks
-    // if (!color && get_queen_attack(square, bitmap['A']) & bitmap['Q']) return true;
-    // if (color && get_queen_attack(square, bitmap['A']) & bitmap['q']) return true;
-
-    // //king attacks
-    // if (!color && king_attacks[square] & bitmap['K']) return true;
-    // if (color && king_attacks[square] & bitmap['k']) return true;
-
     if (color) return pawn_attacks[white][square] & bitmap['p'] |
                       knight_attacks[square] & bitmap['n'] |
                       get_bishop_attack(square, bitmap['A']) & bitmap['b'] |
@@ -607,8 +583,8 @@ bool Board::is_check(int side) {
 }
 
 inline Board::U64 Board::enemy_or_empty(int side) {
-    if (side) return ~bitmap['1'] ^ bitmap['K'];
-    return ~bitmap['0'] ^ bitmap['k'];
+    if (side) return ~occupancies[1] ^ bitmap['K'];
+    return ~occupancies[0] ^ bitmap['k'];
 }
 
 Board::move Board::get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece, U64 opp, char promotion) {
@@ -651,27 +627,27 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             switch(piece_char) {
                 case 'P': 
                 case 'p':
-                    attack = (pawn_attacks[side][square] & (opp ^ bitmap['E'])) | (get_pawn_push(side, square));
+                    attack = (pawn_attacks[side][square] & (opp ^ occupancies[3])) | (get_pawn_push(side, square));
                     break;
                 case 'B': 
                 case 'b':
-                    attack = get_bishop_attack(square, bitmap['A']) & (bitmap['E'] | opp);
+                    attack = get_bishop_attack(square, occupancies[2]) & (occupancies[3] | opp);
                     break;
                 case 'N': 
                 case 'n':
-                    attack = knight_attacks[square] & (bitmap['E'] | opp);
+                    attack = knight_attacks[square] & (occupancies[3] | opp);
                     break;
                 case 'R': 
                 case 'r':
-                    attack = get_rook_attack(square, bitmap['A']) & (bitmap['E'] | opp);
+                    attack = get_rook_attack(square, occupancies[2]) & (occupancies[3] | opp);
                     break;
                 case 'Q': 
                 case 'q':
-                    attack = get_queen_attack(square, bitmap['A']) & (bitmap['E'] | opp);;
+                    attack = get_queen_attack(square, occupancies[2]) & (occupancies[3] | opp);;
                     break;
                 case 'K': 
                 case 'k':
-                    attack = king_attacks[square] & (bitmap['E'] | opp);
+                    attack = king_attacks[square] & (occupancies[3] | opp);
                     break;
             }
 
@@ -734,9 +710,9 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
     //white king side castling
     if ((castle & 1) && !side) {
         if (!is_square_attacked(f1, black) && 
-            !get_bit(bitmap['0'], f1) &&
+            !get_bit(occupancies[0], f1) &&
             !is_square_attacked(g1, black) && 
-            !get_bit(bitmap['0'], g1) &&
+            !get_bit(occupancies[0], g1) &&
             !is_check(white)) {
                 move m = get_move(false, e1, g1, 1, side, 'K');
                 moves.push_back(m);
@@ -745,11 +721,11 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
     //white queen side castling
     if ((castle & 2) && !side) {
         if (!is_square_attacked(d1, black) && 
-            !get_bit(bitmap['0'], d1) &&
+            !get_bit(occupancies[0], d1) &&
             !is_square_attacked(c1, black) && 
-            !get_bit(bitmap['0'], c1) &&
+            !get_bit(occupancies[0], c1) &&
             !is_square_attacked(b1, black) && 
-            !get_bit(bitmap['0'], b1) &&
+            !get_bit(occupancies[0], b1) &&
             !is_check(white)) {
                 move m = get_move(false, e1, c1, 2, side, 'K');
                 moves.push_back(m);
@@ -758,9 +734,9 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
     //black king side castling
     if ((castle & 4) && side) {
         if (!is_square_attacked(f8, white) && 
-            !get_bit(bitmap['1'], f8) &&
+            !get_bit(occupancies[1], f8) &&
             !is_square_attacked(g8, white) && 
-            !get_bit(bitmap['1'], g8) &&
+            !get_bit(occupancies[1], g8) &&
             !is_check(black)) {
                 move m = get_move(false, e8, c8, 4, side, 'k');
                 moves.push_back(m);
@@ -769,11 +745,11 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
     //black queen side castling
     if ((castle & 8) && side) {
         if (!is_square_attacked(d8, white) && 
-            !get_bit(bitmap['1'], d8) &&
+            !get_bit(occupancies[1], d8) &&
             !is_square_attacked(c8, white) && 
-            !get_bit(bitmap['1'], c8) &&
+            !get_bit(occupancies[1], c8) &&
             !is_square_attacked(b8, white) && 
-            !get_bit(bitmap['1'], b8) &&
+            !get_bit(occupancies[1], b8) &&
             !is_check(black)) {
                 move m = get_move(false, e8, g8, 8, side, 'k');
                 moves.push_back(m);
