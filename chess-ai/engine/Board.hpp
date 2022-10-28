@@ -75,6 +75,7 @@ private:
     std::string black_promo_string = "qrkb";
     
     std::map<char, U64> bitmap;
+    std::vector<U64> occupancies;
 
     int side;
     int en_passant = none;
