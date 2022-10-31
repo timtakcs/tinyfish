@@ -23,7 +23,7 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     //max player is black
 
     if (min_player) { // black
-        float min_eval = 99999;
+        float min_eval = 9999;
         for (int move = 0; move < moves.size(); move++) {
             board.push_move(moves[move]);
             float eval = minimax(depth - 1, !min_player, alpha, beta);
@@ -36,7 +36,7 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     }
 
     else {
-        float max_eval = -99999;
+        float max_eval = -9999;
         for (int move = 0; move < moves.size(); move++) {
             board.push_move(moves[move]);
             float eval = minimax(depth - 1, !min_player, alpha, beta);
@@ -52,7 +52,7 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
 
 Board::move Engine::minimax_root(int depth, int min_player, int alpha, int beta) {
     int best_move_index;
-    float best_eval = (min_player)? 99999 : -99999;
+    float best_eval = (min_player)? 9999 : -9999;
 
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
 
@@ -81,17 +81,18 @@ void Engine::play() {
     board.print_full_board();
 
     while (1==1) {
-        std::string uci_move;
-        std::cout << "\n" << "User move (uci): " << std::endl;
-        std::cin >> uci_move;
-        Board::move user_m = board.parse_move(uci_move);
-        board.push_move(user_m);
-        // std::cout << user_m.captured_piece <<  " " << user_m.from << " " << user_m.to << std::endl;
+        // std::string uci_move;
+        // std::cout << "\n" << "User move (uci): " << std::endl;
+        // std::cin >> uci_move;
+        // Board::move user_m = board.parse_move(uci_move);
+        // board.push_move(user_m);
+        // board.print_full_board();
+        // Board::move engine_m = minimax_root(4, 1, -9999, 9999);
+        // board.push_move(engine_m);
+        std::vector<float> state = board.get_state();
+        std::cout << "evaluation: " << net.eval(state) << std::endl;
         board.print_full_board();
-        Board::move engine_m = minimax_root(4, 1, -99999, 99999);
-        // std::cout << engine_m.captured_piece <<  " " << engine_m.from << " " << engine_m.to << std::endl;
-        board.push_move(engine_m);
-        board.print_full_board();
+        break;
     }
 }
 

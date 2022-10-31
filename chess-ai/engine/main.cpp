@@ -2,6 +2,6 @@
 #include "Engine.hpp"
 
 int main() {
-    Engine engine("2kr1bnr/p1pb2pp/1p4q1/2P1ppN1/1Q1p4/N2P2P1/PP2PPBP/R1B2RK1 w - - 0 14");
+    Engine engine("rn1qkb1r/ppp2ppp/4b3/3n4/5P2/2N5/PPPPQ2P/R1B1KBNR w KQkq - 2 8");
     engine.play();
 }
