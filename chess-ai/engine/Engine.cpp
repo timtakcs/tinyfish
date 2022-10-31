@@ -8,7 +8,7 @@ Engine::Engine(std::string fen) {
 }
 
 //minimax search
-float Engine::minimax(int depth, int min_player) {
+float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     if (depth == 0) { //should also check for checkmate and stalemate
         std::vector<float> state = board.get_state();
         return net.eval(state);
@@ -26,9 +26,11 @@ float Engine::minimax(int depth, int min_player) {
         float min_eval = 99999;
         for (int move = 0; move < moves.size(); move++) {
             board.push_move(moves[move]);
-            float eval = minimax(depth - 1, !min_player);
+            float eval = minimax(depth - 1, !min_player, alpha, beta);
             min_eval = std::min(eval, min_eval);
+            beta = std::min((float)beta, min_eval);
             board.pop_move(moves[move]);
+            if (beta <= alpha) break;
         }
         return min_eval;
     }
@@ -37,24 +39,26 @@ float Engine::minimax(int depth, int min_player) {
         float max_eval = -99999;
         for (int move = 0; move < moves.size(); move++) {
             board.push_move(moves[move]);
-            float eval = minimax(depth - 1, !min_player);
+            float eval = minimax(depth - 1, !min_player, alpha, beta);
             max_eval = std::max(eval, max_eval);
+            alpha = std::max((float)alpha, max_eval);
             board.pop_move(moves[move]);
+            if (beta <= alpha) break;
         }
 
         return max_eval;
     }
 }
 
-Board::move Engine::minimax_root(int depth, int min_player) {
+Board::move Engine::minimax_root(int depth, int min_player, int alpha, int beta) {
     int best_move_index;
-    float best_eval = (min_player)? 9999 : -9999;
+    float best_eval = (min_player)? 99999 : -99999;
 
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
 
     for (int move_index = 0; move_index < moves.size(); move_index++) {
         board.push_move(moves[move_index]);
-        float eval = minimax(depth - 1, !min_player);
+        float eval = minimax(depth - 1, !min_player, alpha, beta);
         board.pop_move(moves[move_index]);
         if (min_player && eval < best_eval) {
             best_move_index = move_index;
@@ -84,7 +88,7 @@ void Engine::play() {
         board.push_move(user_m);
         // std::cout << user_m.captured_piece <<  " " << user_m.from << " " << user_m.to << std::endl;
         board.print_full_board();
-        Board::move engine_m = minimax_root(3, 1);
+        Board::move engine_m = minimax_root(4, 1, -99999, 99999);
         // std::cout << engine_m.captured_piece <<  " " << engine_m.from << " " << engine_m.to << std::endl;
         board.push_move(engine_m);
         board.print_full_board();

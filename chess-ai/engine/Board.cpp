@@ -197,15 +197,15 @@ inline Board::U64 Board::get_pawn_push(int color, int square) {
     set_bit(push_1, square);
 
     if (!color) {
-        push_1 = northOne(push_1) & occupancies[3];
+        push_1 = northOne(push_1) & ~occupancies[2];
         if ((square / 8 == 6) && push_1) push_2 = northOne(push_1);
     }   
     else {
-        push_1 = southOne(push_1) & occupancies[3];
+        push_1 = southOne(push_1) & ~occupancies[2];
         if ((square / 8 == 1) && push_1) push_2 = southOne(push_1);
     }
 
-    return (push_1 | push_2) & occupancies[3];
+    return (push_1 | push_2) & ~occupancies[2];
 }
 
 inline Board::U64 Board::get_pawn_attack(int square, int color) {
@@ -540,16 +540,16 @@ Board::U64 Board::get_queen_attack(int square, U64 occupancy) {
 Board::U64  Board::is_square_attacked(int square, int color) {
     if (color) return pawn_attacks[white][square] & bitmap['p'] |
                       knight_attacks[square] & bitmap['n'] |
-                      get_bishop_attack(square, bitmap['A']) & bitmap['b'] |
-                      get_rook_attack(square, bitmap['A']) & bitmap['r'] |
-                      get_queen_attack(square, bitmap['A']) & bitmap['q'] |
+                      get_bishop_attack(square, occupancies[2]) & bitmap['b'] |
+                      get_rook_attack(square, occupancies[2]) & bitmap['r'] |
+                      get_queen_attack(square, occupancies[2]) & bitmap['q'] |
                       king_attacks[square] & bitmap['k'];
 
     else return pawn_attacks[white][square] & bitmap['P'] |
                       knight_attacks[square] & bitmap['N'] |
-                      get_bishop_attack(square, bitmap['A']) & bitmap['B'] |
-                      get_rook_attack(square, bitmap['A']) & bitmap['R'] |
-                      get_queen_attack(square, bitmap['A']) & bitmap['Q'] |
+                      get_bishop_attack(square, occupancies[2]) & bitmap['B'] |
+                      get_rook_attack(square, occupancies[2]) & bitmap['R'] |
+                      get_queen_attack(square, occupancies[2]) & bitmap['Q'] |
                       king_attacks[square] & bitmap['K'];
 }
 
@@ -627,27 +627,27 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             switch(piece_char) {
                 case 'P': 
                 case 'p':
-                    attack = (pawn_attacks[side][square] & (opp ^ occupancies[3])) | (get_pawn_push(side, square));
+                    attack = (pawn_attacks[side][square] & (opp ^ ~occupancies[2])) | (get_pawn_push(side, square));
                     break;
                 case 'B': 
                 case 'b':
-                    attack = get_bishop_attack(square, occupancies[2]) & (occupancies[3] | opp);
+                    attack = get_bishop_attack(square, occupancies[2]) & (~occupancies[2] | opp);
                     break;
                 case 'N': 
                 case 'n':
-                    attack = knight_attacks[square] & (occupancies[3] | opp);
+                    attack = knight_attacks[square] & (~occupancies[2] | opp);
                     break;
                 case 'R': 
                 case 'r':
-                    attack = get_rook_attack(square, occupancies[2]) & (occupancies[3] | opp);
+                    attack = get_rook_attack(square, occupancies[2]) & (~occupancies[2] | opp);
                     break;
                 case 'Q': 
                 case 'q':
-                    attack = get_queen_attack(square, occupancies[2]) & (occupancies[3] | opp);;
+                    attack = get_queen_attack(square, occupancies[2]) & (~occupancies[2] | opp);;
                     break;
                 case 'K': 
                 case 'k':
-                    attack = king_attacks[square] & (occupancies[3] | opp);
+                    attack = king_attacks[square] & (~occupancies[2] | opp);
                     break;
             }
 
@@ -788,7 +788,9 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
 void Board::push_move(move &m) {
     if (!m.castle) {
         remove_bit(bitmap[m.piece], m.from);
+        remove_bit(occupancies[m.side], m.from);
         set_bit(bitmap[m.piece], m.to);
+        set_bit(occupancies[m.side], m.to);
 
         en_passant = none;
         
@@ -816,9 +818,11 @@ void Board::push_move(move &m) {
                 else {
                     remove_bit(bitmap['P'], m.to - 8);
                 }
+                remove_bit(occupancies[!m.side], m.to + 8);
             }
             else {
                 remove_bit(bitmap[m.captured_piece], m.to);
+                remove_bit(occupancies[!m.side], m.to);
             }
         }
         
@@ -832,49 +836,65 @@ void Board::push_move(move &m) {
     else {
         if (m.castle == 1) {
             remove_bit(bitmap['K'], e1);
+            remove_bit(occupancies[0], e1);
             set_bit(bitmap['K'], g1);
+            set_bit(occupancies[0], g1);
             remove_bit(bitmap['R'], h1);
+            remove_bit(occupancies[0], h1);
             set_bit(bitmap['R'], f1);
+            set_bit(occupancies[0], f1);
             castle ^= 1;
         }
         else if (m.castle == 2) {
             remove_bit(bitmap['K'], e1);
+            remove_bit(occupancies[0], e1);
             set_bit(bitmap['K'], c1);
+            set_bit(occupancies[0], c1);
             remove_bit(bitmap['R'], a1);
+            remove_bit(occupancies[0], a1);
             set_bit(bitmap['R'], d1);
+            set_bit(occupancies[0], d1);
             castle ^= 2;
         }
         else if (m.castle == 4) {
             remove_bit(bitmap['k'], e8);
+            remove_bit(occupancies[1], e8);
             set_bit(bitmap['k'], g8);
+            set_bit(occupancies[1], g8);
             remove_bit(bitmap['r'], h8);
+            remove_bit(occupancies[1], h8);
             set_bit(bitmap['r'], f8);
+            set_bit(occupancies[1], f8);
             castle ^= 4;
         }
         else if (m.castle == 8) {
             remove_bit(bitmap['k'], e8);
+            remove_bit(occupancies[1], e8);
             set_bit(bitmap['k'], c8);
+            set_bit(occupancies[1], c8);
             remove_bit(bitmap['r'], a8);
+            remove_bit(occupancies[1], a8);
             set_bit(bitmap['r'], d8);
+            set_bit(occupancies[1], d8);
             castle ^= 8;
         }
     }
     side = !side;
-    // auto start = high_resolution_clock::now();
-    // update_board();
-    // auto end = high_resolution_clock::now();
-    // push_time += duration_cast<microseconds>(end - start).count();
+    occupancies[2] = occupancies[0] | occupancies[1];
 }
 
 void Board::pop_move(move &m) {
     auto start = high_resolution_clock::now();
     if (!m.castle) {
         remove_bit(bitmap[m.piece], m.to);
+        remove_bit(occupancies[m.side], m.to);
         set_bit(bitmap[m.piece], m.from);
+        set_bit(occupancies[m.side], m.from);
     }
 
     if (m.captured_piece != ' ' && !m.en_passant) {
         set_bit(bitmap[m.captured_piece], m.to);
+        set_bit(occupancies[!m.side], m.to);
     }
 
     if (m.en_passant) {
@@ -882,6 +902,7 @@ void Board::pop_move(move &m) {
         int square_dif = 8;
         if (side) square_dif = -8;
         set_bit(bitmap[pawn], m.to + square_dif);
+        set_bit(occupancies[!m.side], m.to + square_dif);
     }
 
     if (m.promotion != ' ') {
@@ -924,6 +945,7 @@ void Board::pop_move(move &m) {
     }
     side = m.side;
     en_passant = m.en_passant;
+    occupancies[2] = occupancies[1] | occupancies[0];
 
     // update_board();
     // auto end = high_resolution_clock::now();
@@ -950,13 +972,13 @@ Board::move Board::parse_move(std::string uci) {
 }
 
 Board::U64 Board::perft(int depth) {
-    if (depth == 0) {
-        return 1ULL;
-    }
-
     U64 nodes = 0;
     
     std::vector<move> moves = get_legal_moves(side);
+
+    if (depth == 1) {
+        return moves.size();
+    }
 
     for(int i = 0; i < moves.size(); i++) {
         std::string m = moves[i].repr;
@@ -973,7 +995,7 @@ Board::U64 Board::perft(int depth) {
 
 void Board::function_debug() {
     auto start = high_resolution_clock::now();
-    cout << perft(4) << endl;
+    cout << perft(5) << endl;
     auto end = high_resolution_clock::now();
     int total = duration_cast<microseconds>(end - start).count();
 
@@ -982,9 +1004,9 @@ void Board::function_debug() {
     cout << "The full execution took a total of " << total << "ms" << endl;
 }
 
-int main() {
-    Board board;
-    std::string fen("");
-    board.gen_board(fen);
-    board.function_debug();
-}
+// int main() {
+//     Board board;
+//     std::string fen("");
+//     board.gen_board(fen);
+//     board.function_debug();
+// }
