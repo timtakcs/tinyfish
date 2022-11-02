@@ -5,7 +5,7 @@ import torch
 import net_training as n
 
 agent = n.Agent()
-agent.net.load_state_dict(torch.load('data/eval_model.pth'))
+agent.net.load_state_dict(torch.load('data/eval_model_d0.pth'))
 agent.net.cuda()
 
 import sqlite3
@@ -25,7 +25,7 @@ total = 0
 
 
 for i in range(50):
-    id = randrange(0, 6000000)
+    id = randrange(0, 60000)
     feature, lbl = get_data(id)
     feature = torch.tensor(feature, dtype=torch.float32).cuda()
     lbl = torch.tensor(lbl).cuda()

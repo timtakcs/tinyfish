@@ -30,6 +30,17 @@ public:
     //generate legal moves
     std::vector<move> get_legal_moves(int side);
 
+    //hashing
+    U64 random();
+    U64 zobrist();
+
+    U64 piece_keys[12][64];
+    U64 en_passant_keys[64];
+    U64 castle_keys[16];
+    U64 side_key;
+
+    void init_keys();
+
     void push_move(move &m);
     void pop_move(move &m);
 

@@ -7,6 +7,16 @@ Engine::Engine(std::string fen) {
     net.load_net();
 }
 
+Engine::hash_entry get_entry(Board::U64 hash) {
+    long index = hash % hash_size;
+    if (trans_table[index].hash == hash) return trans_table[index];
+    else {
+        while(trans_table[index].hash != hash) {
+            index++;
+        }
+    }
+}
+
 //minimax search
 float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     if (depth == 0) { //should also check for checkmate and stalemate

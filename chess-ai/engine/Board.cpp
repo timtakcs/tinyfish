@@ -9,6 +9,15 @@ inline void Board::set_bit(U64 &board, int square) {(board) |= (1ULL << (square)
 inline Board::U64 Board::get_bit(U64 board, int square) {return (board & (1ULL << square));};
 inline void Board::remove_bit(U64 &board, int square) {board &= ~(1ULL << square);};
 
+Board::U64 Board::random() {
+    U64 num = 0ULL;
+    int n = std::rand() % 64;
+    while(n--) {
+        num | (1 << (std::rand() % 64));
+    }
+    return num;
+}
+
 inline void Board::update_board() {
     occupancies[0] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
                 | bitmap['B'] | bitmap['P']; 
@@ -125,6 +134,47 @@ std::vector<float> Board::get_state() {
     }
 
     return state;
+}
+
+void Board::init_keys() {
+    for (int piece = P; piece <= k; piece++) {
+        for (int square = 0; square < 64; square++)
+            piece_keys[piece][square] = random();
+    }
+
+    for (int square = 0; square < 64; square++) {
+        en_passant_keys[square] = random();
+    }
+    
+    for (int index = 0; index < 16; index++) {
+        castle_keys[index] = random();
+    }    
+    
+    // init random side key
+    side_key = random();
+}
+
+Board::U64 Board::zobrist() {
+    U64 key = 0ULL;
+
+    for (int i = 0; i < 12; i++) {
+        U64 board = bitmap[string_pieces[i]];
+        while(board) {
+            int square = get_lsb_index(board);
+            key ^= piece_keys[i][square];
+            remove_bit(board, square);
+        }
+    }
+
+    if (en_passant != none) {
+        key ^= en_passant_keys[en_passant];
+    }
+
+    if (castle) {
+        key ^= castle_keys[castle];
+    }
+
+    return key;
 }
 
 void Board::print_board(U64 board) {
