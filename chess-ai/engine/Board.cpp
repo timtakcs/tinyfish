@@ -556,16 +556,13 @@ Board::U64  Board::is_square_attacked(int square, int color) {
 std::vector<int> Board::get_positions(U64 board) {
     std::vector<int> squares;
     int count = __popcount(board);
-    int bit = 0;
 
-    while (bit < count) {
+    while (board) {
         int index = get_lsb_index(board);
         U64 copy = board;
         remove_bit(copy, index);
-        int square = log2(copy ^ board);
-        squares.push_back(square);
+        squares.push_back(index);
         board = copy;
-        bit++;
     }
 
     return squares;
@@ -575,7 +572,7 @@ bool Board::is_check(int side) {
     U64 king = bitmap['K'];
     if (side) king = bitmap['k'];
 
-    int square = get_positions(king)[0];
+    int square = get_lsb_index(king);
     if (is_square_attacked(square, !side)) {
         return true;
     }
