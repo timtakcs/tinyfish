@@ -81,18 +81,17 @@ void Engine::play() {
     board.print_full_board();
 
     while (1==1) {
-        // std::string uci_move;
-        // std::cout << "\n" << "User move (uci): " << std::endl;
-        // std::cin >> uci_move;
-        // Board::move user_m = board.parse_move(uci_move);
-        // board.push_move(user_m);
-        // board.print_full_board();
-        // Board::move engine_m = minimax_root(4, 1, -9999, 9999);
-        // board.push_move(engine_m);
+        std::string uci_move;
+        std::cout << "\n" << "User move (uci): " << std::endl;
+        std::cin >> uci_move;
+        Board::move user_m = board.parse_move(uci_move);
+        board.push_move(user_m);
+        board.print_full_board();
+        Board::move engine_m = minimax_root(3, 1, -9999, 9999);
+        board.push_move(engine_m);
         std::vector<float> state = board.get_state();
         std::cout << "evaluation: " << net.eval(state) << std::endl;
         board.print_full_board();
-        break;
     }
 }
 

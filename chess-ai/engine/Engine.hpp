@@ -12,6 +12,7 @@ public:
 private:
     //tree search to get evaluations
     float minimax(int depth, int max_player, int alpha, int beta);
+    
     //getting the actual best move
     Board::move minimax_root(int depth, int max_player, int alpha, int beta);
 };

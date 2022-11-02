@@ -10,7 +10,6 @@ import numpy as np
 def get_query(idx):
     return f'SELECT * FROM bitboard WHERE id={idx}'
 
-
 class Net(nn.Module):
     def __init__(self, input_size):
         super().__init__()
@@ -84,11 +83,11 @@ class Agent():
         loss = []
         batches = []
         count = 0
-        total = 6700851 / 256
+        total = 658241 / 256
 
         indeces = []
 
-        for i in range(1, 6700852):
+        for i in range(1, 658241):
             indeces.append(i)
 
         for i in range(epochs):
@@ -103,13 +102,13 @@ class Agent():
             y = []
             
             #loading 100 batches into memory at once 260 times per epoch for a total of 6000 batches. ~90% of the dataset
-            for _ in range(260):
+            for _ in range(26):
                 indices = "("
                 for number in range(256 * 100):
                     if len(indeces_copy) == 0:
                         break
 
-                    index = indeces_copy[number + (num_batches * 1096 * 10)]
+                    index = indeces_copy[number + (num_batches * 256 * 10)]
                     indices += str(index)
 
                     if number != 256 * 100 - 1:
@@ -179,5 +178,5 @@ class Agent():
 # print(torch.cuda.is_available())
 # agent = Agent()
 # agent.train_net(5)
-# torch.save(agent.net.state_dict(), 'data/eval_model.pth')
+# torch.save(agent.net.state_dict(), 'data/eval_model_d0.pth')
 

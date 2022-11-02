@@ -155,18 +155,19 @@ void Board::print_full_board() {
         }
     }
 
+    std::string file = "ABCDEFGH";
+
     //iterate through the array and print each char in the form of a board
     for (int i = 0; i < 64; i++) {
-        if (i % 8 == 0) std::cout << "\n";
+        if (i % 8 == 0) std::cout << "\n" << i / 8 + 1 << ' ';
         std::cout << ' ' << b[i] << ' ';
     }
 
-    std::cout << "\n" << std::endl;
+    std::cout << "\n\n" << "  ";
 
-    std::cout << "en passant: " << string_board[en_passant] << std::endl;
-    std::cout << "castling white: " << std::endl;
-    std::cout << "castling black: " << std::endl;
-    std::cout << "turn: " << side << std::endl;
+    for (int j = 0; j < 8; j++) {
+        std::cout << ' ' << file[j] << ' ';
+    }
 
     std::cout << "\n" << std::endl;
 }
