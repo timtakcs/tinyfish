@@ -2,36 +2,72 @@
 #include "Board.hpp"
 #include <iostream>
 
+#define hashe 0
+#define hashalpha 1
+#define hashbeta 2
+#define fail 1023.57 //just a random value to return in the case of failure 
+
 Engine::Engine(std::string fen) {
     board.gen_board(fen);
     net.load_net();
+    trans_table = std::vector<hash_entry>(100000);
 }
 
-// Engine::hash_entry Engine::get_entry(Board::U64 hash) {
-//     long index = hash % hash_size;
-//     if (trans_table[index].hash == hash) return trans_table[index];
-//     else {
-//         while(trans_table[index].hash != hash) {
-//             index++;
-//         }
-//     }
-// }
+float Engine::get_entry(Board::U64 hash, int depth, int alpha, int beta) {
+    int index = hash % trans_table.size();
+    hash_entry * entry = &trans_table[index];
+
+    if (entry -> hash_val == hash) {
+        if (entry -> depth_val >= depth) {
+            if (entry -> flag == hashe) {
+                return entry->val;
+            }
+            if (entry -> flag == hashalpha) {
+                return alpha;
+            }
+            if (entry -> flag == hashbeta) {
+                return beta;
+            }
+        }
+    }
+    return fail;
+}
+
+void Engine::record_entry(int depth, float eval, int flag, Board::U64 hash) {
+    int index = hash % trans_table.size();
+    hash_entry * entry = &trans_table[index];
+    if (entry -> depth_val >= depth) {
+        entry -> hash_val = hash;
+        // entry -> best_move = move;
+        entry -> depth_val = depth;
+        entry -> val = eval;
+        entry -> flag = flag;
+    }
+}
 
 //minimax search
 float Engine::minimax(int depth, int min_player, int alpha, int beta) {
+    int hash_value = hashalpha;
+    Board::U64 hash = board.zobrist();
+    int val = get_entry(hash, depth, alpha, beta);
+    if (val != fail) return val;
+
     if (depth == 0) { //should also check for checkmate and stalemate
         std::vector<float> state = board.get_state();
         int material_difference = board.material_difference;
-        return net.eval(state, material_difference);
+        float eval = net.eval(state, material_difference);
+        record_entry(depth, eval, hashe, hash)
+        return eval;
     }
 
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
 
     if (moves.size() == 0) {
-        if (min_player) return 9999; //white wins by checkmate
-        else return -9999; //black wins by checkmate
+        float eval = -9999; //black wins by checkmate
+        if (min_player) eval = 9999; //white wins by checkmate
+        record_entry(depth, eval, hashe, hash);
+        return eval;
     }
-    //max player is black
 
     if (min_player) { // black
         float min_eval = 9999;

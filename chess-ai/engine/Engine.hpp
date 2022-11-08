@@ -12,19 +12,18 @@ public:
     Board board;
 
     struct hash_entry {
-        Board::U64 hash;
-        int depth;
+        Board::U64 hash_val;
+        int flag;
+        int depth_val;
         float eval;
-        int ancient;
         Board::move best_move;
     };
 
 private:
-    // long hash_size = 100000;
-    // hash_entry trans_table[100000] = {{0}};
-    // memset(trans_table, '\0', sizeof(trans_table));
+    std::vector<hash_entry> trans_table;
 
-    hash_entry get_entry(Board::U64 hash);
+    float get_entry(Board::U64 hash, int depth, int alpha, int beta);
+    void record_entry(int depth, float eval, int flag, Board::U64 hash);
     void resize_trans_table();
 
     float minimax(int depth, int max_player, int alpha, int beta);

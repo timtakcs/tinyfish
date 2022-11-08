@@ -154,6 +154,31 @@ void Board::init_keys() {
     side_key = random();
 }
 
+Board::U64 Board::zobrist() {
+    U64 key = 0ULL;
+
+    for (int i = 0; i < 12; i++) {
+        U64 board = bitmap[string_pieces[i]];
+        while(board) {
+            int square = get_lsb_index(board);
+            key ^= piece_keys[i][square];
+            remove_bit(board, square);
+        }
+    }
+
+    if (en_passant != none) {
+        key ^= en_passant_keys[en_passant];
+    }
+
+    if (castle) {
+        key ^= castle_keys[castle];
+    }
+
+    if (side) key ^= side_key;
+
+    return key;
+}
+
 int Board::get_value(char piece) {
     switch(piece) {
         case 'P':
@@ -179,29 +204,6 @@ int Board::get_value(char piece) {
         default:
             return 0;
     }
-}
-
-Board::U64 Board::zobrist() {
-    U64 key = 0ULL;
-
-    for (int i = 0; i < 12; i++) {
-        U64 board = bitmap[string_pieces[i]];
-        while(board) {
-            int square = get_lsb_index(board);
-            key ^= piece_keys[i][square];
-            remove_bit(board, square);
-        }
-    }
-
-    if (en_passant != none) {
-        key ^= en_passant_keys[en_passant];
-    }
-
-    if (castle) {
-        key ^= castle_keys[castle];
-    }
-
-    return key;
 }
 
 void Board::print_board(U64 board) {
