@@ -44,8 +44,9 @@ public:
     void push_move(move &m);
     void pop_move(move &m);
 
-    std::vector<float> get_state();
+    int material_difference = 0;
 
+    std::vector<float> get_state();
     move parse_move(std::string uci);
 
 private:
@@ -78,6 +79,8 @@ private:
     "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
     "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "none"
     };
+
+    int get_value(char piece);
 
     // std::string string_pieces = "KQRBNPkqrbnp";
     std::string string_pieces = "PRNBQKprnbqk";

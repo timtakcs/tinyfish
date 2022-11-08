@@ -83,11 +83,11 @@ class Agent():
         loss = []
         batches = []
         count = 0
-        total = 658241 / 256
+        total = 650000 / 256
 
         indeces = []
 
-        for i in range(1, 658241):
+        for i in range(1, 650000):
             indeces.append(i)
 
         for i in range(epochs):
@@ -135,45 +135,6 @@ class Agent():
                     loss.append(self.train(x_train, y_train, size))
 
             print(sum(loss)/len(loss))
-
-    # def train_net(self, epochs, train):
-    #     loss = []
-    #     batches = []
-    #     total = 6700851
-    #     for i in range(epochs):
-    #         cur = 0
-    #         count = 0
-    #         print("epochs: ", i + 1)
-    #         for data in train:
-    #             print("dsdsds")
-    #             x, y = data
-    #             print(y)
-    #             batches.append(count)
-    #             if int(count / total * 10) > cur:
-    #                 cur = self.print_progress(count, total)
-    #             loss.append(self.train(x, y))
-    #         print(sum(loss)/len(loss))
-
-# class MyDataset(IterableDataset):
-#     def __init__(self,count):
-#         self.count = count
-#         self.connection = sqlite3.connect("data/bitboards.db")
-#         self.cursor = self.connection.cursor()
-    
-#     def __iter__(self):
-#         return self
-
-#     def __next__(self):
-#         idx = randrange(self.count)
-#         return self[idx]
-
-#     def __getitem__(self, index):
-#         self.cursor.execute("SELECT * FROM bitboards WHERE id=3")
-#         num = self.cursor.fetchall()
-#         return num[0][1:770], num[0][770]
-
-# myDs = MyDataset(6700851)
-# train = torch.utils.data.DataLoader(myDs, batch_size=256)
 
 # print(torch.cuda.is_available())
 # agent = Agent()

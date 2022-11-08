@@ -8,7 +8,9 @@ set(CMAKE_CUDA_COMPILER /usr/local/cuda-11.7/bin/nvcc)
 
 find_package(Torch REQUIRED)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+set(CMAKE_CUDA_FLAGS "-O3 -DNDEBUG")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} ${TORCH_CXX_FLAGS_RELEASE}")
 
 include_directories("${TORCH_INCLUDE_DIRS}")
 

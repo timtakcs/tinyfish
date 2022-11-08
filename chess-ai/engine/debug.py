@@ -1,5 +1,6 @@
 from threading import get_ident
 import chess
+import chess.engine
 import sys
 import random
 
@@ -35,33 +36,27 @@ def perft(d, board):
 
     return moves
 
-print(perft(2, board))
+# print(perft(2, board))
     
-for piece in strpieces:
-    print(piece, "->", somedict[piece])
+# for piece in strpieces:
+#     print(piece, "->", somedict[piece])
 
-print("\n\n\n")
+# print("\n\n\n")
 
-kingd = {}
+# kingd = {}
 
-for m in king_moves:
-    kingd[m] = 1 if m not in kingd else kingd[m] + 1
+# for m in king_moves:
+#     kingd[m] = 1 if m not in kingd else kingd[m] + 1
 
-for key in kingd.keys():
-    print(key, "->", kingd[key])
+# for key in kingd.keys():
+#     print(key, "->", kingd[key])
 
+def stockfish(board, depth):
+  with chess.engine.SimpleEngine.popen_uci('/usr/games/stockfish') as sf:
+    result = sf.analyse(board, chess.engine.Limit(depth=depth))
+    score = result['score'].white().score()
+    return score
 
-# for i in range(1, 6700852):
-#     indeces.append(i)
+board = chess.Board("rn2kb1r/ppp2ppp/3pb3/8/3Nn2P/8/PPP1PPBP/RNBQ1RK1 w kq - 2 8")
+print((stockfish(board, 0)/100 + 20) / 40)
 
-# temp = indeces
-
-# def get_index(arr):
-#     loc = random.randint(0, len(arr))
-#     idx = arr[loc]
-#     del(arr[loc])
-#     return idx
-
-# for j in range(100):
-#     print("index", get_index(temp))
-#     print("length", len(temp))

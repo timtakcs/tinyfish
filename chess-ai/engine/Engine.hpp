@@ -1,5 +1,6 @@
 #include "Board.hpp"
 #include "Network.hpp"
+#include <bits/stdc++.h>
 
 class Engine {
 public:
@@ -19,8 +20,9 @@ public:
     };
 
 private:
-    long hash_size = 1000;
-    hash_entry trans_table[1000];
+    // long hash_size = 100000;
+    // hash_entry trans_table[100000] = {{0}};
+    // memset(trans_table, '\0', sizeof(trans_table));
 
     hash_entry get_entry(Board::U64 hash);
     void resize_trans_table();

@@ -50,9 +50,14 @@ def parse_comment(comment):
     if len(parse) < 2:
         return 99
     
-
     new = float(parse)
     return new
+
+def stockfish(board, depth):
+  with chess.engine.SimpleEngine.popen_uci('/usr/games/stockfish') as sf:
+    result = sf.analyse(board, chess.engine.Limit(depth=depth))
+    score = result['score'].white().score()
+    return score
 
 def get_data_for_game(game):
     board = chess.Board()

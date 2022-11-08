@@ -154,6 +154,33 @@ void Board::init_keys() {
     side_key = random();
 }
 
+int Board::get_value(char piece) {
+    switch(piece) {
+        case 'P':
+            return 1;
+        case 'p':
+            return -1;
+        case 'N':
+            return 3;
+        case 'n':
+            return -3;
+        case 'B':
+            return 3;
+        case 'b':
+            return -3;
+        case 'R':
+            return 5;
+        case 'r':
+            return -5;
+        case 'Q':
+            return 8;
+        case 'q':
+            return -8;
+        default:
+            return 0;
+    }
+}
+
 Board::U64 Board::zobrist() {
     U64 key = 0ULL;
 
@@ -872,6 +899,7 @@ void Board::push_move(move &m) {
                 remove_bit(bitmap[m.captured_piece], m.to);
                 remove_bit(occupancies[!m.side], m.to);
             }
+            material_difference += get_value(m.captured_piece);
         }
         
         //promotion logic
@@ -953,6 +981,8 @@ void Board::pop_move(move &m) {
         set_bit(occupancies[!m.side], m.to + square_dif);
     }
 
+    material_difference += get_value(m.captured_piece);
+
     if (m.promotion != ' ') {
         //piece moving is handled in the first if clause
         remove_bit(bitmap[m.promotion], m.from);
@@ -962,9 +992,13 @@ void Board::pop_move(move &m) {
     switch (m.castle) {
     case 1:
         set_bit(bitmap['K'], e1);
+        set_bit(occupancies[0], e1);
         remove_bit(bitmap['K'], g1);
+        remove_bit(occupancies[0], g1);
         set_bit(bitmap['R'], h1);
+        set_bit(occupancies[0], h1);
         remove_bit(bitmap['R'], f1);
+        remove_bit(occupancies[0], f1);
         castle ^= 1;
         break;
     case 2:

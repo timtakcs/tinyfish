@@ -7,21 +7,22 @@ Engine::Engine(std::string fen) {
     net.load_net();
 }
 
-Engine::hash_entry get_entry(Board::U64 hash) {
-    long index = hash % hash_size;
-    if (trans_table[index].hash == hash) return trans_table[index];
-    else {
-        while(trans_table[index].hash != hash) {
-            index++;
-        }
-    }
-}
+// Engine::hash_entry Engine::get_entry(Board::U64 hash) {
+//     long index = hash % hash_size;
+//     if (trans_table[index].hash == hash) return trans_table[index];
+//     else {
+//         while(trans_table[index].hash != hash) {
+//             index++;
+//         }
+//     }
+// }
 
 //minimax search
 float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     if (depth == 0) { //should also check for checkmate and stalemate
         std::vector<float> state = board.get_state();
-        return net.eval(state);
+        int material_difference = board.material_difference;
+        return net.eval(state, material_difference);
     }
 
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
@@ -97,10 +98,11 @@ void Engine::play() {
         Board::move user_m = board.parse_move(uci_move);
         board.push_move(user_m);
         board.print_full_board();
-        Board::move engine_m = minimax_root(3, 1, -9999, 9999);
+        Board::move engine_m = minimax_root(4, 1, -9999, 9999);
         board.push_move(engine_m);
         std::vector<float> state = board.get_state();
-        std::cout << "evaluation: " << net.eval(state) << std::endl;
+        int material_difference = board.material_difference;
+        std::cout << "evaluation: " << net.eval(state, material_difference) << std::endl;
         board.print_full_board();
     }
 }
