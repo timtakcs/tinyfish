@@ -22,11 +22,12 @@ public:
 private:
     std::vector<hash_entry> trans_table;
 
-    float get_entry(Board::U64 hash, int depth, int alpha, int beta);
+    float get_entry(Board::U64 hash, int depth, float alpha, float beta);
     void record_entry(int depth, float eval, int flag, Board::U64 hash);
     void resize_trans_table();
 
+    float negamax(int depth, int player, float alpha, float beta);
     float minimax(int depth, int max_player, int alpha, int beta);
-    Board::move minimax_root(int depth, int max_player, int alpha, int beta);
+    Board::move search_root(int depth, int max_player, int alpha, int beta);
 };
 

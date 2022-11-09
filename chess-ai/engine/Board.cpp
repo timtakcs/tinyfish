@@ -13,7 +13,7 @@ Board::U64 Board::random() {
     U64 num = 0ULL;
     int n = std::rand() % 64;
     while(n--) {
-        num | (1 << (std::rand() % 64));
+        num |= (1 << (std::rand() % 64));
     }
     return num;
 }
@@ -94,6 +94,7 @@ void Board::gen_board(std::string& fen) {
     update_board();
     get_leaping_attacks();
     populate_attack_mask_arrays();
+    init_keys();
 
     //set en passant
     if (string_en_passant != "-") {
@@ -238,7 +239,7 @@ void Board::print_full_board() {
 
     //iterate through the array and print each char in the form of a board
     for (int i = 0; i < 64; i++) {
-        if (i % 8 == 0) std::cout << "\n" << i / 8 + 1 << ' ';
+        if (i % 8 == 0) std::cout << "\n" << 8 - (i / 8) << ' ';
         std::cout << ' ' << b[i] << ' ';
     }
 
@@ -901,8 +902,8 @@ void Board::push_move(move &m) {
                 remove_bit(bitmap[m.captured_piece], m.to);
                 remove_bit(occupancies[!m.side], m.to);
             }
-            material_difference += get_value(m.captured_piece);
         }
+        material_difference -= get_value(m.captured_piece);
         
         //promotion logic
         if (m.promotion != ' ') {
@@ -1030,10 +1031,6 @@ void Board::pop_move(move &m) {
     side = m.side;
     en_passant = m.en_passant;
     occupancies[2] = occupancies[1] | occupancies[0];
-
-    // update_board();
-    // auto end = high_resolution_clock::now();
-    // pop_time += duration_cast<microseconds>(end - start).count();
 }
 
 Board::move Board::parse_move(std::string uci) {
@@ -1078,14 +1075,7 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    auto start = high_resolution_clock::now();
-    cout << perft(5) << endl;
-    auto end = high_resolution_clock::now();
-    int total = duration_cast<microseconds>(end - start).count();
-
-    cout << "The push routine took a total of " << push_time << "ms" << endl;
-    cout << "The pop routine took a total of " << pop_time << "ms" << endl;
-    cout << "The full execution took a total of " << total << "ms" << endl;
+    cout << zobrist() << endl;
 }
 
 // int main() {
