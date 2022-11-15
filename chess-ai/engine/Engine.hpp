@@ -26,7 +26,7 @@ private:
     void record_entry(int depth, float eval, int flag, Board::U64 hash);
     void resize_trans_table();
 
-    float negamax(int depth, int player, float alpha, float beta);
+    float negamax(int depth, int player, float alpha, float beta, int color);
     float minimax(int depth, int max_player, int alpha, int beta);
     Board::move search_root(int depth, int max_player, int alpha, int beta);
 };

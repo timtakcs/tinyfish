@@ -1006,23 +1006,35 @@ void Board::pop_move(move &m) {
         break;
     case 2:
         set_bit(bitmap['K'], e1);
+        set_bit(occupancies[0], e1);
         remove_bit(bitmap['K'], c1);
+        remove_bit(occupancies[0], c1);
         set_bit(bitmap['R'], a1);
+        set_bit(occupancies[0], a1);
         remove_bit(bitmap['R'], d1);
+        remove_bit(occupancies[0], d1);
         castle ^= 2;
         break;
     case 4:
         set_bit(bitmap['k'], e8);
+        set_bit(occupancies[1], e8);
         remove_bit(bitmap['k'], g8);
+        remove_bit(occupancies[1], g8);
         set_bit(bitmap['r'], h8);
+        set_bit(occupancies[1], h8);
         remove_bit(bitmap['r'], f8);
+        remove_bit(occupancies[1], f8);
         castle ^= 4;
         break;
     case 8:
         set_bit(bitmap['k'], e8);
+        set_bit(occupancies[1], e8);
         remove_bit(bitmap['k'], c8);
+        remove_bit(occupancies[1], c8);
         set_bit(bitmap['r'], a8);
+        set_bit(occupancies[1], a8);
         remove_bit(bitmap['r'], d8);
+        remove_bit(occupancies[1], d8);
         castle ^= 8;
         break;
     

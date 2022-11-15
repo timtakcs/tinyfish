@@ -10,7 +10,7 @@
 Engine::Engine(std::string fen) {
     board.gen_board(fen);
     net.load_net();
-    trans_table = std::vector<hash_entry>(100000);
+    trans_table = std::vector<hash_entry>(1048583);
 }
 
 float Engine::get_entry(Board::U64 hash, int depth, float alpha, float beta) {
@@ -37,7 +37,6 @@ void Engine::record_entry(int depth, float eval, int flag, Board::U64 hash) {
     int index = hash % trans_table.size();
     hash_entry * entry = &trans_table[index];
     entry -> hash_val = hash;
-    // entry -> best_move = move;
     entry -> depth_val = depth;
     entry -> eval = eval;
     entry -> flag = flag;
@@ -101,18 +100,18 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     }
 }
 
-float Engine::negamax(int depth, int min_player, float alpha, float beta) {
+float Engine::negamax(int depth, int min_player, float alpha, float beta, int color) {
     int hash_function = hashalpha;
 
     Board::U64 hash = board.zobrist();
 
     float eval = get_entry(hash, depth, alpha, beta);
-    // if (eval != fail) return eval;
+    if (eval != fail) return eval;
 
     if (depth == 0) {
         std::vector<float> state = board.get_state();
         int material_difference = board.material_difference;
-        float eval = net.eval(state, material_difference);
+        float eval = color * net.eval(state, material_difference);
         record_entry(depth, eval, hashe, hash);
         return eval;
     }
@@ -125,12 +124,10 @@ float Engine::negamax(int depth, int min_player, float alpha, float beta) {
         record_entry(depth, eval, hashe, hash);
         return eval;
     }
-    
-    // float alpha = -9999;
 
     for (int move = 0; move < moves.size(); move++) {
         board.push_move(moves[move]);
-        eval = -negamax(depth - 1, !min_player, -beta, -alpha);
+        eval = -negamax(depth - 1, !min_player, -beta, -alpha, -color);
         board.pop_move(moves[move]);
         if (eval >= beta) {
             record_entry(depth, beta, hashbeta, hash);
@@ -153,7 +150,7 @@ Board::move Engine::search_root(int depth, int min_player, int alpha, int beta) 
 
     for (int move_index = 0; move_index < moves.size(); move_index++) {
         board.push_move(moves[move_index]);
-        float eval = minimax(depth - 1, !min_player, alpha, beta);
+        float eval = negamax(depth - 1, !min_player, alpha, beta, 1);
         board.pop_move(moves[move_index]);
 
         if (min_player && eval < best_eval) {
