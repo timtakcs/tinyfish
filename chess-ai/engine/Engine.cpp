@@ -13,19 +13,31 @@ Engine::Engine(std::string fen) {
     trans_table = std::vector<hash_entry>(1048583);
 }
 
+void Engine::sort_moves(int count, std::vector<Board::move> &moves) {
+    for (int next = count + 1; next < moves.size(); next++) {
+        if (moves[count].score < moves[next].score) {
+            Board::move temp = moves[count];
+            moves[count] = moves[next];
+            moves[next] = temp;
+        }
+    }
+}
+
 float Engine::get_entry(Board::U64 hash, int depth, float alpha, float beta) {
     int index = hash % trans_table.size();
     hash_entry * entry = &trans_table[index];
+
+    // std::cout << entry->eval << std::endl;
 
     if (entry -> hash_val == hash) {
         if (entry -> depth_val >= depth) {
             if (entry -> flag == hashe) {
                 return entry->eval;
             }
-            if (entry -> flag == hashalpha) {
+            if ((entry -> flag == hashalpha) && (entry -> eval <= alpha)) {
                 return alpha;
             }
-            if (entry -> flag == hashbeta) {
+            if ((entry -> flag == hashbeta) && (entry -> eval >= beta)) {
                 return beta;
             }
         }
@@ -103,16 +115,17 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
 float Engine::negamax(int depth, int min_player, float alpha, float beta, int color) {
     int hash_function = hashalpha;
 
-    Board::U64 hash = board.zobrist();
+    // Board::U64 hash = board.zobrist();
 
-    float eval = get_entry(hash, depth, alpha, beta);
-    if (eval != fail) return eval;
+    // float eval = get_entry(hash, depth, alpha, beta);
+    // if (eval != fail) return eval;
 
     if (depth == 0) {
+        nodes++;
         std::vector<float> state = board.get_state();
         int material_difference = board.material_difference;
         float eval = color * net.eval(state, material_difference);
-        record_entry(depth, eval, hashe, hash);
+        // record_entry(depth, eval, hashe, hash);
         return eval;
     }
 
@@ -121,16 +134,17 @@ float Engine::negamax(int depth, int min_player, float alpha, float beta, int co
     if (moves.size() == 0) {
         float eval = -10000; //black wins by checkmate
         if (min_player) eval = 10000; //white wins by checkmate
-        record_entry(depth, eval, hashe, hash);
+        // record_entry(depth, eval, hashe, hash);
         return eval;
     }
 
     for (int move = 0; move < moves.size(); move++) {
+        sort_moves(move, moves);
         board.push_move(moves[move]);
-        eval = -negamax(depth - 1, !min_player, -beta, -alpha, -color);
+        float eval = -negamax(depth - 1, !min_player, -beta, -alpha, -color);
         board.pop_move(moves[move]);
         if (eval >= beta) {
-            record_entry(depth, beta, hashbeta, hash);
+            // record_entry(depth, beta, hashbeta, hash);
             return beta;
         }
         if (eval > alpha) {
@@ -138,7 +152,7 @@ float Engine::negamax(int depth, int min_player, float alpha, float beta, int co
             alpha = eval;
         }
     }
-    record_entry(depth, alpha, hash_function, hash);
+    // record_entry(depth, alpha, hash_function, hash);
     return alpha;
 }
 
@@ -149,6 +163,7 @@ Board::move Engine::search_root(int depth, int min_player, int alpha, int beta) 
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
 
     for (int move_index = 0; move_index < moves.size(); move_index++) {
+        sort_moves(move_index, moves);
         board.push_move(moves[move_index]);
         float eval = negamax(depth - 1, !min_player, alpha, beta, 1);
         board.pop_move(moves[move_index]);
@@ -186,7 +201,12 @@ void Engine::play() {
         int material_difference = board.material_difference;
         std::cout << "evaluation: " << net.eval(state, material_difference) << std::endl;
         board.print_full_board();
+        std::cout << "total nodes searched: " << nodes << std::endl;
     }
+}
+
+void Engine::debug() {
+    std::vector<Board::move> ms = board.get_legal_moves(0);
 }
 
 // 1.76738

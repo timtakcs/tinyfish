@@ -19,12 +19,18 @@ public:
         Board::move best_move;
     };
 
+    int nodes = 0;
+
+    void debug();
+
 private:
     std::vector<hash_entry> trans_table;
 
     float get_entry(Board::U64 hash, int depth, float alpha, float beta);
     void record_entry(int depth, float eval, int flag, Board::U64 hash);
     void resize_trans_table();
+
+    void sort_moves(int count, std::vector<Board::move> &moves);
 
     float negamax(int depth, int player, float alpha, float beta, int color);
     float minimax(int depth, int max_player, int alpha, int beta);

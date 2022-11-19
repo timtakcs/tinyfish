@@ -33,6 +33,14 @@ inline void Board::update_board() {
 void Board::gen_board(std::string& fen) {
     occupancies = {0ULL, 0ULL, 0ULL, 0ULL};
 
+    piece_index['K'] = K;
+    piece_index['Q'] = Q;
+    piece_index['R'] = R;
+    piece_index['B'] = B;
+    piece_index['N'] = N;
+    piece_index['P'] = P;
+    piece_index[' '] = P + 1;
+
     if (fen == "") fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     std::string nums = "12345678";
 
@@ -675,13 +683,9 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
     m.en_passant = en_passant;
     m.side = side;
     m.piece = piece;
-    if (!castle) m.repr = string_board[from] + string_board[to];
-    else {
-        if (castle == 2 || castle == 8) m.repr = "O-O";
-        else m.repr = "O-O-O";
-    }
     m.captured_piece = captured_piece;
     m.promotion = promotion;
+    m.score = mvv_lva[piece_index[captured_piece]][piece_index[piece]];
 
     return m;
 }
@@ -1077,6 +1081,10 @@ Board::U64 Board::perft(int depth) {
         std::string m = moves[i].repr;
 
         push_move(moves[i]);
+        U64 hash = zobrist();
+        vector<float> state = get_state();
+        if (cols.count(hash) && cols[hash] != state) collisions;
+        else cols[hash] = state;
 
         if (!debug.count(moves[i].piece)) debug[moves[i].piece] = 1;
         else debug[moves[i].piece]++;
@@ -1087,7 +1095,7 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
-    cout << zobrist() << endl;
+    cout << "number of hash collisions" << collisions << endl;
 }
 
 // int main() {

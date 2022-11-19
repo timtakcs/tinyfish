@@ -7,7 +7,7 @@
 
 class Board {
 public:
-    typedef unsigned long long U64; 
+    typedef unsigned long long U64;   
 
     struct move {
         bool capture;
@@ -19,6 +19,7 @@ public:
         char piece;
         char captured_piece;
         char promotion;
+        int score;
         std::string repr;
     };
 
@@ -61,6 +62,18 @@ private:
     };
 
     enum pieces {K, Q, R, B, N, P, k, q, r, b, n, p};
+
+    std::vector<std::vector<int>> mvv_lva = {
+        {0, 0, 0, 0, 0, 0, 0},       // victim K, attacker K, Q, R, B, N, P, None
+        {50, 51, 52, 53, 54, 55, 0}, // victim Q, attacker K, Q, R, B, N, P, None
+        {40, 41, 42, 43, 44, 45, 0}, // victim R, attacker K, Q, R, B, N, P, None
+        {30, 31, 32, 33, 34, 35, 0}, // victim B, attacker K, Q, R, B, N, P, None
+        {20, 21, 22, 23, 24, 25, 0}, // victim N, attacker K, Q, R, B, N, P, None
+        {10, 11, 12, 13, 14, 15, 0}, // victim P, attacker K, Q, R, B, N, P, None
+        {0, 0, 0, 0, 0, 0, 0}        // victim None, attacker K, Q, R, B, N, P, None
+    };  
+
+    std::map<char, int> piece_index;
 
     enum sides {white, black};
 
@@ -338,6 +351,9 @@ private:
     int pop_time = 0;
     int generate_time = 0;
     int bishop_time = 0;
+
+    int collisions = 0;
+    std::map<U64, std::vector<float>> cols;
 
     //-------------------------
 
