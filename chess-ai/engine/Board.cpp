@@ -679,7 +679,13 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castle, int s
     move m;
     m.from = from;
     m.to = to;
+    // //removing the right castling rights
+    // if (!castle) {
+    //     if (piece == 'K' || piece == 'R') m.castle = 3;
+    //     if (piece == 'k' || piece == 'r') m.castle = 12;
+    // }
     m.castle = castle;
+
     m.en_passant = en_passant;
     m.side = side;
     m.piece = piece;
@@ -775,6 +781,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 }
 
                 int temp_en_passant = en_passant;
+                int temp_castle = castle;
 
                 push_move(m);
 
@@ -785,6 +792,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 
                 pop_move(m);
                 en_passant = temp_en_passant;
+                castle = temp_castle;
             }
         }
     }
@@ -907,7 +915,6 @@ void Board::push_move(move &m) {
                 remove_bit(occupancies[!m.side], m.to);
             }
         }
-        material_difference -= get_value(m.captured_piece);
         
         //promotion logic
         if (m.promotion != ' ') {
@@ -962,6 +969,7 @@ void Board::push_move(move &m) {
             castle ^= 8;
         }
     }
+    material_difference -= get_value(m.captured_piece);
     side = !side;
     occupancies[2] = occupancies[0] | occupancies[1];
 }
@@ -1059,11 +1067,8 @@ Board::move Board::parse_move(std::string uci) {
     std::vector<move> moves = get_legal_moves(side);
 
     for (int move = 0; move < moves.size(); move++) {
-        if (moves[move].from == source && moves[move].to == target) {
-            if (promotion = ' ' && promotion == moves[move].promotion) {
-                std::cout << moves[move].captured_piece << std::endl;
-                return moves[move];
-            }
+        if (moves[move].from == source && moves[move].to == target && promotion == moves[move].promotion) {
+            return moves[move];
         }
     }
 }

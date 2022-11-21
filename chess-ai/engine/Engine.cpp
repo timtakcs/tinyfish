@@ -1,6 +1,9 @@
 #include "Engine.hpp"
 #include "Board.hpp"
 #include <iostream>
+#include <chrono>
+
+using namespace std::chrono;
 
 #define hashe 0
 #define hashalpha 1
@@ -129,7 +132,12 @@ float Engine::negamax(int depth, int min_player, float alpha, float beta, int co
         return eval;
     }
 
+    auto start = high_resolution_clock::now();
+
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
+
+    auto end = high_resolution_clock::now();
+    generation += duration_cast<microseconds>(end - start).count();
 
     if (moves.size() == 0) {
         float eval = -10000; //black wins by checkmate
@@ -160,7 +168,10 @@ Board::move Engine::search_root(int depth, int min_player, int alpha, int beta) 
     int best_move_index;
     float best_eval = (min_player)? 9999 : -9999;
 
+    auto start = high_resolution_clock::now();
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
+    auto end = high_resolution_clock::now();
+    generation += duration_cast<microseconds>(end - start).count();
 
     for (int move_index = 0; move_index < moves.size(); move_index++) {
         sort_moves(move_index, moves);
@@ -195,13 +206,25 @@ void Engine::play() {
         Board::move user_m = board.parse_move(uci_move);
         board.push_move(user_m);
         board.print_full_board();
-        Board::move engine_m = search_root(4, 1, -9999, 9999);
+
+        auto start = high_resolution_clock::now();
+        Board::move engine_m = search_root(3, 1, -9999, 9999);
+        auto end = high_resolution_clock::now();
+        total += duration_cast<microseconds>(end - start).count();
+
+        std::cout << "total time: " << total << std::endl;
+        std::cout << "evaluation time: " << evaluation << std::endl;
+        std::cout << "generation time: " << generation << std::endl;
+
+
         board.push_move(engine_m);
         std::vector<float> state = board.get_state();
         int material_difference = board.material_difference;
         std::cout << "evaluation: " << net.eval(state, material_difference) << std::endl;
         board.print_full_board();
-        std::cout << "total nodes searched: " << nodes << std::endl;
+
+        std::cout << "total nodes searched: " << net.total << std::endl;
+        nodes = 0;
     }
 }
 
@@ -209,25 +232,5 @@ void Engine::debug() {
     std::vector<Board::move> ms = board.get_legal_moves(0);
 }
 
-// 1.76738
-// 1.76738
-// 1.76738
-// 1.76738
-// 1.67629
-// 1.67629
-// 1.67629
-// 1.67629
-// 1.67629
-// 1.67629
-// 1.67629
-// 1.67629
-// 1.67316
-// 1.67316
-// 1.67316
-// 1.67316
-// 1.64957
-// 1.63
-// 1.63
-// 1.63
 
 

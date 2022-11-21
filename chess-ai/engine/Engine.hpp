@@ -21,6 +21,10 @@ public:
 
     int nodes = 0;
 
+    int total = 0;
+    int evaluation = 0;
+    int generation = 0;
+
     void debug();
 
 private:
