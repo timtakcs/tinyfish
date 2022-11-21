@@ -187,7 +187,6 @@ Board::move Engine::search_root(int depth, int min_player, int alpha, int beta) 
             best_move_index = move_index;
             best_eval = eval;
         }
-        std::cout << best_eval << std::endl;
     }
 
     return moves[best_move_index];
@@ -204,11 +203,18 @@ void Engine::play() {
         std::cout << "\n" << "User move (uci): " << std::endl;
         std::cin >> uci_move;
         Board::move user_m = board.parse_move(uci_move);
+        
+        while (user_m.to == 1027) {
+            std::cout << "\n" << "Illegal move. User move (uci): " << std::endl;
+            std::cin >> uci_move;
+            user_m = board.parse_move(uci_move);
+        }
+         
         board.push_move(user_m);
         board.print_full_board();
 
         auto start = high_resolution_clock::now();
-        Board::move engine_m = search_root(3, 1, -9999, 9999);
+        Board::move engine_m = search_root(4, 1, -9999, 9999);
         auto end = high_resolution_clock::now();
         total += duration_cast<microseconds>(end - start).count();
 
@@ -223,7 +229,7 @@ void Engine::play() {
         std::cout << "evaluation: " << net.eval(state, material_difference) << std::endl;
         board.print_full_board();
 
-        std::cout << "total nodes searched: " << net.total << std::endl;
+        std::cout << "total nodes searched: " << nodes << std::endl;
         nodes = 0;
     }
 }

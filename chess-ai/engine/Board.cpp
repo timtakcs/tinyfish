@@ -1071,6 +1071,10 @@ Board::move Board::parse_move(std::string uci) {
             return moves[move];
         }
     }
+
+    move m;
+    m.to = 1027;
+    return m;
 }
 
 Board::U64 Board::perft(int depth) {
