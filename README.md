@@ -3,7 +3,7 @@
 A simple chess engine written in c++
 - Uses a neural network trained on stockfish evaluations to evaluate the current position
 - Implements a bitboard move generator
-- Looks for the best move using a naive minimax search (for now)
+- Looks for the best move using a negamax with alpha beta pruning, mvv-lva move ordering and transposition table lookups
 
 To play:
 Clone the repo and run cmake inside the engine folder to build the executable
