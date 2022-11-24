@@ -6,7 +6,7 @@
 using namespace std::chrono;
 
 void Net::load_net() {
-    eval_net = torch::jit::load("../evaluations/data/traced_eval_model_d0.pth");
+    eval_net = torch::jit::load("../evaluations/data/traced_tiny_eval_model_d0.pth");
     eval_net.to(torch::kCUDA);
     // torch::jit::getProfilingMode() = false;
     // eval_net.read_net("../evaluations/data", "eval_model_d0.pth");

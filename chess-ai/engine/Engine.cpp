@@ -125,11 +125,11 @@ float Engine::negamax(int depth, int min_player, float alpha, float beta, int co
 
     if (depth == 0) {
         nodes++;
-        std::vector<float> state = board.get_state();
-        int material_difference = board.material_difference;
-        float eval = color * net.eval(state, material_difference);
+        // std::vector<float> state = board.get_state();
+        // int material_difference = board.material_difference;
+        // float eval = color * net.eval(state, material_difference);
         // record_entry(depth, eval, hashe, hash);
-        return eval;
+        return board.get_eval();
     }
 
     auto start = high_resolution_clock::now();
@@ -189,7 +189,12 @@ Board::move Engine::search_root(int depth, int min_player, int alpha, int beta) 
         }
     }
 
-    return moves[best_move_index];
+    Board::move m = moves[best_move_index];
+
+    std::cout << board.string_board[m.from] << board.string_board[m.to] << std::endl;
+    std::cout << best_eval << std::endl;
+
+    return m;
 }
 
 void Engine::play() {
@@ -214,7 +219,7 @@ void Engine::play() {
         board.print_full_board();
 
         auto start = high_resolution_clock::now();
-        Board::move engine_m = search_root(4, 1, -9999, 9999);
+        Board::move engine_m = search_root(6, 1, -9999, 9999);
         auto end = high_resolution_clock::now();
         total += duration_cast<microseconds>(end - start).count();
 
@@ -224,10 +229,11 @@ void Engine::play() {
 
 
         board.push_move(engine_m);
-        std::vector<float> state = board.get_state();
-        int material_difference = board.material_difference;
-        std::cout << "evaluation: " << net.eval(state, material_difference) << std::endl;
         board.print_full_board();
+
+        // std::vector<float> state = board.get_state();
+        // int material_difference = board.material_difference;
+        // std::cout << "evaluation: " << net.eval(state, material_difference) << std::endl;
 
         std::cout << "total nodes searched: " << nodes << std::endl;
         nodes = 0;

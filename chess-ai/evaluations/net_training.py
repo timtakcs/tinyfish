@@ -14,9 +14,9 @@ class Net(nn.Module):
     def __init__(self, input_size):
         super().__init__()
         self.layer1 = nn.Linear(input_size, 768)
-        self.layer2 = nn.Linear(768, 2048)
-        self.layer3 = nn.Linear(2048, 2048)
-        self.layer4 = nn.Linear(2048, 1)
+        self.layer2 = nn.Linear(768, 256)
+        self.layer3 = nn.Linear(256, 256)
+        self.layer4 = nn.Linear(256, 1)
         self.init_weights()
         self.optimizer = opt.Adam(self.parameters(), lr=1e-3)
         self.loss = nn.MSELoss()
@@ -139,5 +139,5 @@ class Agent():
 # print(torch.cuda.is_available())
 # agent = Agent()
 # agent.train_net(5)
-# torch.save(agent.net.state_dict(), 'data/eval_model_d0.pth')
+# torch.save(agent.net.state_dict(), 'data/tiny_eval_model_d0.pth')
 

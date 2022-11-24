@@ -10,7 +10,7 @@ import chess
 import sqlite3
 
 agent = n.Agent()
-agent.net.load_state_dict(torch.load('data/eval_model_d0.pth'))
+agent.net.load_state_dict(torch.load('data/tiny_eval_model_d0.pth'))
 agent.net.cuda()
 
 def get_bitboard(board) -> str:

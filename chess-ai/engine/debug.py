@@ -51,12 +51,12 @@ def perft(d, board):
 # for key in kingd.keys():
 #     print(key, "->", kingd[key])
 
-def stockfish(board, depth):
-  with chess.engine.SimpleEngine.popen_uci('/usr/games/stockfish') as sf:
-    result = sf.analyse(board, chess.engine.Limit(depth=depth))
-    score = result['score'].white().score()
-    return score
+# def stockfish(board, depth):
+#   with chess.engine.SimpleEngine.popen_uci('/usr/games/stockfish') as sf:
+#     result = sf.analyse(board, chess.engine.Limit(depth=depth))
+#     score = result['score'].white().score()
+#     return score
 
-board = chess.Board("rn2kb1r/ppp2ppp/3pb3/8/3Nn2P/8/PPP1PPBP/RNBQ1RK1 w kq - 2 8")
-print((stockfish(board, 0)/100 + 20) / 40)
+# board = chess.Board("rn2kb1r/ppp2ppp/3pb3/8/3Nn2P/8/PPP1PPBP/RNBQ1RK1 w kq - 2 8")
+# print((stockfish(board, 0)/100 + 20) / 40)
 

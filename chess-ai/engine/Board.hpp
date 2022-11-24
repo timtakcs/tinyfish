@@ -15,6 +15,7 @@ public:
         int from;
         int to;
         int castle;
+        int castle_rights;
         int side;
         char piece;
         char captured_piece;
@@ -22,11 +23,24 @@ public:
         int score;
         std::string repr;
     };
+    
+    const std::vector<std::string> string_board = { 
+    "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
+    "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
+    "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
+    "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
+    "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
+    "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
+    "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
+    "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "none"
+    };
 
     void gen_board(std::string &fen);
     void print_full_board();
     void print_board(U64 board);
     void function_debug();
+
+    float get_eval();
     
     //generate legal moves
     std::vector<move> get_legal_moves(int side);
@@ -73,6 +87,15 @@ private:
         {0, 0, 0, 0, 0, 0, 0}        // victim None, attacker K, Q, R, B, N, P, None
     };  
 
+    std::map<char, std::vector<int>> opening_vals;
+    std::map<char, std::vector<int>> endgame_vals;
+    std::vector<int> opening_piece_vals = { 82, 337, 365, 477, 1025,  0};
+    std::vector<int> endgame_piece_vals = { 94, 281, 297, 512,  936,  0};
+
+    float phase;
+
+    void init_evals();
+
     std::map<char, int> piece_index;
 
     enum sides {white, black};
@@ -81,17 +104,6 @@ private:
     enum castling {wk = 1, wq = 2, bk = 4, bq = 8};
 
     int caslte;
-
-    const std::vector<std::string> string_board = { 
-    "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
-    "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
-    "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
-    "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
-    "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
-    "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
-    "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-    "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "none"
-    };
 
     int get_value(char piece);
 
@@ -113,6 +125,7 @@ private:
     inline U64 get_bit(U64 board, int square);
     inline void remove_bit(U64 &board, int square);
     inline int get_lsb_index(U64 board);
+    inline int flip(int square);
 
     inline void update_board();
 
@@ -332,7 +345,7 @@ private:
     //move generation
     U64 is_square_attacked(int square, int color);
 
-    move get_move(bool en_passant, int from, int to, int castle, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
+    move get_move(bool en_passant, int from, int to, int castling, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
     bool is_check(int side);
     std::vector<int> get_positions(U64 board);
 
