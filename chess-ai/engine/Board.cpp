@@ -939,27 +939,25 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
                 move m = get_move(false, square, t_square, 0, side, piece_char, captured_piece, opp);
                 
                 //promotion move generation
-                if ((t_square / 8 == 8) && (piece_char == 'P')) {
+                if ((t_square / 8 == 0) && (piece_char == 'P')) {
                     push_move(m);
                     if (!is_check(side)) {
-                        move promos[3];
                         for (int promo = 0; promo < 4; promo++) {
-                            promos[promo] = m;
-                            promos[promo].promotion = white_promo_string[promo];
-                            moves.push_back(promos[promo]);
+                            move temp = m;
+                            temp.promotion = white_promo_string[promo];
+                            moves.push_back(temp);
                         }
                     }
                     pop_move(m);
                     continue;
                 }
-                else if ((t_square / 8 == 1) && (piece_char == 'p')) {
+                else if ((t_square / 8 == 7) && (piece_char == 'p')) {
                     push_move(m);
                     if (!is_check(side)) {
-                        move promos[3];
                         for (int promo = 0; promo < 4; promo++) {
-                            promos[promo] = m;
-                            promos[promo].promotion = black_promo_string[promo];
-                            moves.push_back(promos[promo]);
+                            move temp = m;
+                            temp.promotion = black_promo_string[promo];
+                            moves.push_back(temp);
                         }
                     }
                     pop_move(m);
@@ -989,7 +987,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !get_bit(occupancies[0], g1) &&
             !is_check(white)) {
                 move m = get_move(false, e1, g1, 1, side, 'K');
-                moves.push_back(m);
+                // moves.push_back(m);
         }
     }
     //white queen side castling
@@ -1002,7 +1000,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !get_bit(occupancies[0], b1) &&
             !is_check(white)) {
                 move m = get_move(false, e1, c1, 2, side, 'K');
-                moves.push_back(m);
+                // moves.push_back(m);
         }
     }
     //black king side castling
@@ -1013,7 +1011,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !get_bit(occupancies[1], g8) &&
             !is_check(black)) {
                 move m = get_move(false, e8, c8, 4, side, 'k');
-                moves.push_back(m);
+                // moves.push_back(m);
         }
     }
     //black queen side castling
@@ -1026,7 +1024,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !get_bit(occupancies[1], b8) &&
             !is_check(black)) {
                 move m = get_move(false, e8, g8, 8, side, 'k');
-                moves.push_back(m);
+                // moves.push_back(m);
         }
     }
 
@@ -1240,9 +1238,12 @@ Board::move Board::parse_move(std::string uci) {
 
     if(uci.length() == 5) promotion = uci[4];
 
+    cout << promotion << endl;
+
     std::vector<move> moves = get_legal_moves(side);
 
     for (int move = 0; move < moves.size(); move++) {
+        if (moves[move].promotion == promotion) cout << moves[move].promotion << endl;
         if (moves[move].from == source && moves[move].to == target && promotion == moves[move].promotion) {
             return moves[move];
         }

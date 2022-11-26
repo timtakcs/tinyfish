@@ -107,11 +107,10 @@ private:
 
     int get_value(char piece);
 
-    // std::string string_pieces = "KQRBNPkqrbnp";
     std::string string_pieces = "PRNBQKprnbqk";
 
-    std::string white_promo_string = "QRKB";
-    std::string black_promo_string = "qrkb";
+    std::string white_promo_string = "QRNB";
+    std::string black_promo_string = "qrnb";
     
     std::map<char, U64> bitmap;
     std::vector<U64> occupancies;
