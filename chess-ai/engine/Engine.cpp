@@ -125,11 +125,7 @@ float Engine::negamax(int depth, int min_player, float alpha, float beta, int co
 
     if (depth == 0) {
         nodes++;
-        // std::vector<float> state = board.get_state();
-        // int material_difference = board.material_difference;
-        // float eval = color * net.eval(state, material_difference);
-        // record_entry(depth, eval, hashe, hash);
-        return board.get_eval();
+        return color * board.get_eval();
     }
 
     auto start = high_resolution_clock::now();
@@ -219,7 +215,7 @@ void Engine::play() {
         board.print_full_board();
 
         auto start = high_resolution_clock::now();
-        Board::move engine_m = search_root(6, 1, -9999, 9999);
+        Board::move engine_m = search_root(2, 1, -9999, 9999);
         auto end = high_resolution_clock::now();
         total += duration_cast<microseconds>(end - start).count();
 
