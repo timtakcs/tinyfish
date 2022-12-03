@@ -11,7 +11,8 @@ public:
 
     struct move {
         bool capture;
-        bool en_passant;
+        bool bool_en_passant;
+        int en_passant_square;
         int from;
         int to;
         int castle;
@@ -23,6 +24,8 @@ public:
         int score;
         std::string repr;
     };
+
+    inline bool equal_moves (move &lhs, move &rhs);
     
     const std::vector<std::string> string_board = { 
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
@@ -39,6 +42,7 @@ public:
     void print_full_board();
     void print_board(U64 board);
     void function_debug();
+    std::map<char, int> piece_index;
 
     float get_eval();
     
@@ -75,17 +79,7 @@ private:
         a1, b1, c1, d1, e1, f1, g1, h1, none
     };
 
-    enum pieces {K, Q, R, B, N, P, k, q, r, b, n, p};
-
-    std::vector<std::vector<int>> mvv_lva = {
-        {0, 0, 0, 0, 0, 0, 0},       // victim K, attacker K, Q, R, B, N, P, None
-        {50, 51, 52, 53, 54, 55, 0}, // victim Q, attacker K, Q, R, B, N, P, None
-        {40, 41, 42, 43, 44, 45, 0}, // victim R, attacker K, Q, R, B, N, P, None
-        {30, 31, 32, 33, 34, 35, 0}, // victim B, attacker K, Q, R, B, N, P, None
-        {20, 21, 22, 23, 24, 25, 0}, // victim N, attacker K, Q, R, B, N, P, None
-        {10, 11, 12, 13, 14, 15, 0}, // victim P, attacker K, Q, R, B, N, P, None
-        {0, 0, 0, 0, 0, 0, 0}        // victim None, attacker K, Q, R, B, N, P, None
-    };  
+    enum pieces {K, Q, R, B, N, P, k, q, r, b, n, p}; 
 
     std::map<char, std::vector<int>> opening_vals;
     std::map<char, std::vector<int>> endgame_vals;
@@ -95,8 +89,6 @@ private:
     float phase;
 
     void init_evals();
-
-    std::map<char, int> piece_index;
 
     enum sides {white, black};
 
@@ -344,7 +336,7 @@ private:
     //move generation
     U64 is_square_attacked(int square, int color);
 
-    move get_move(bool en_passant, int from, int to, int castling, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
+    move get_move(bool bool_en_passant, int from, int to, int castling, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
     bool is_check(int side);
     std::vector<int> get_positions(U64 board);
 

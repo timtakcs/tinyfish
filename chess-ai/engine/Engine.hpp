@@ -34,6 +34,19 @@ private:
     void record_entry(int depth, float eval, int flag, Board::U64 hash);
     void resize_trans_table();
 
+    std::vector<std::vector<int>> mvv_lva = {
+        {0, 0, 0, 0, 0, 0, 0},       
+        {50, 51, 52, 53, 54, 55, 0}, 
+        {40, 41, 42, 43, 44, 45, 0}, 
+        {30, 31, 32, 33, 34, 35, 0}, 
+        {20, 21, 22, 23, 24, 25, 0}, 
+        {10, 11, 12, 13, 14, 15, 0}, 
+        {0, 0, 0, 0, 0, 0, 0}        
+    }; 
+
+    Board::move killer_moves[2][32];
+
+    void score_moves(std::vector<Board::move> &moves, int depth);
     void sort_moves(int count, std::vector<Board::move> &moves);
 
     float negamax(int depth, int player, float alpha, float beta, int color);

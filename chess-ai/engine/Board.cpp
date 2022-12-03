@@ -19,6 +19,17 @@ Board::U64 Board::random() {
     return num;
 }
 
+inline bool Board::equal_moves(move &lhs, move &rhs) {
+    return (lhs.from == rhs.from) &&
+           (lhs.to == rhs.to) &&
+           (lhs.piece == rhs.piece) && 
+           (lhs.capture == rhs.capture) &&
+           (lhs.en_passant_square == rhs.en_passant_square) && 
+           (lhs.captured_piece == rhs.captured_piece) && 
+           (lhs.promotion == rhs.promotion) && 
+           (lhs.castle == rhs.castle);
+}
+
 inline void Board::update_board() {
     occupancies[0] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
                 | bitmap['B'] | bitmap['P']; 
@@ -853,7 +864,7 @@ inline Board::U64 Board::enemy_or_empty(int side) {
     return ~occupancies[0] ^ bitmap['k'];
 }
 
-Board::move Board::get_move(bool en_passant, int from, int to, int castling, int side, char piece, char captured_piece, U64 opp, char promotion) {
+Board::move Board::get_move(bool bool_en_passant, int from, int to, int castling, int side, char piece, char captured_piece, U64 opp, char promotion) {
     U64 sq = 0ULL;
     set_bit(sq, to);
     move m;
@@ -861,18 +872,18 @@ Board::move Board::get_move(bool en_passant, int from, int to, int castling, int
     m.to = to;
 
     if (!castling) {
-        if ((piece == 'K' || piece == 'R') && !(castle ^ 3)) m.castle_rights = 3;
-        else if ((piece == 'k' || piece == 'r') && !(castle ^ 12)) m.castle_rights = 12;
+        if ((piece == 'K' || piece == 'R') && (castle & 3)) m.castle_rights = 3;
+        else if ((piece == 'k' || piece == 'r') && (castle & 12)) m.castle_rights = 12;
         else m.castle_rights = 0;   
     }
 
     m.castle = castling;
-    m.en_passant = en_passant;
+    m.bool_en_passant = bool_en_passant;
+    m.en_passant_square = en_passant;
     m.side = side;
     m.piece = piece;
     m.captured_piece = captured_piece;
     m.promotion = promotion;
-    m.score = mvv_lva[piece_index[captured_piece]][piece_index[piece]];
 
     return m;
 }
@@ -933,33 +944,33 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
 
                 move m = get_move(false, square, t_square, 0, side, piece_char, captured_piece, opp);
                 
-                // //promotion move generation
-                // if ((t_square / 8 == 0) && (piece_char == 'P')) {
-                //     int temp_en_passant = en_passant;
-                //     push_move(m);
-                //     if (!is_check(side)) {
-                //         for (int promo = 0; promo < 4; promo++) {
-                //             move temp = m;
-                //             temp.promotion = white_promo_string[promo];
-                //             moves.push_back(temp);
-                //         }
-                //     }
-                //     pop_move(m);
-                //     en_passant = temp_en_passant;
-                // }
-                // else if ((t_square / 8 == 7) && (piece_char == 'p')) {
-                //     int temp_en_passant = en_passant;
-                //     push_move(m);
-                //     if (!is_check(side)) {
-                //         for (int promo = 0; promo < 4; promo++) {
-                //             move temp = m;
-                //             temp.promotion = black_promo_string[promo];
-                //             moves.push_back(temp);
-                //         }
-                //     }
-                //     pop_move(m);
-                //     en_passant = temp_en_passant;
-                // }
+                //promotion move generation
+                if ((t_square / 8 == 0) && (piece_char == 'P')) {
+                    int temp_en_passant = en_passant;
+                    push_move(m);
+                    if (!is_check(side)) {
+                        for (int promo = 0; promo < 4; promo++) {
+                            move temp = m;
+                            temp.promotion = white_promo_string[promo];
+                            moves.push_back(temp);
+                        }
+                    }
+                    pop_move(m);
+                    en_passant = temp_en_passant;
+                }
+                else if ((t_square / 8 == 7) && (piece_char == 'p')) {
+                    int temp_en_passant = en_passant;
+                    push_move(m);
+                    if (!is_check(side)) {
+                        for (int promo = 0; promo < 4; promo++) {
+                            move temp = m;
+                            temp.promotion = black_promo_string[promo];
+                            moves.push_back(temp);
+                        }
+                    }
+                    pop_move(m);
+                    en_passant = temp_en_passant;
+                }
 
                 push_move(m);
 
@@ -1023,26 +1034,26 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
     }
 
     //en passant captures
-    if (en_passant != none) {
-        U64 temp = pawn_attacks[!side][en_passant];
-        temp &= bitmap[string_pieces[offset]];
+    // if (en_passant != none) {
+    //     U64 temp = pawn_attacks[!side][en_passant];
+    //     temp &= bitmap[string_pieces[offset]];
 
-        if (temp) {
-            std::vector<int> en_passant_attacks = get_positions(temp);
-            for (auto s: en_passant_attacks) {
-                move m = get_move(true, s, en_passant, 0, side, string_pieces[offset], string_pieces[6 - offset]);
+    //     if (temp) {
+    //         std::vector<int> en_passant_attacks = get_positions(temp);
+    //         for (auto s: en_passant_attacks) {
+    //             move m = get_move(true, s, en_passant, 0, side, string_pieces[offset], string_pieces[6 - offset]);
 
-                push_move(m);
+    //             push_move(m);
 
-                //checking if move is legal
-                if (!is_check(side)) {
-                    moves.push_back(m);
-                }
+    //             //checking if move is legal
+    //             if (!is_check(side)) {
+    //                 moves.push_back(m);
+    //             }
                 
-                pop_move(m);
-            }
-        }
-    }
+    //             pop_move(m);
+    //         }
+    //     }
+    // }
 
     return moves;
 }
@@ -1062,10 +1073,10 @@ void Board::push_move(move &m) {
             en_passant = (m.piece == 'P') ? m.to + 8 : m.to - 8;
         }
 
-        // if (m.castle_rights) castle ^= m.castle_rights;
+        if (m.castle_rights) castle ^= m.castle_rights;
 
         if (m.captured_piece != ' ') {
-            if (m.en_passant) {
+            if (m.bool_en_passant) {
                 if (!m.side) {
                     remove_bit(bitmap['p'], m.to + 8);
                     remove_bit(occupancies[1], m.to + 8);
@@ -1147,18 +1158,12 @@ void Board::pop_move(move &m) {
         remove_bit(bitmap[m.piece], m.to);
         remove_bit(occupancies[m.side], m.to);
 
-        // en_passant = none;
-        
-        // //if pawn moved 2 squares
-        // //set en passant
-        // if ((m.piece == 'p' || m.piece == 'P') && pow(m.to - m.from, 2) == 256) {
-        //     en_passant = (m.piece == 'P') ? m.to + 8 : m.to - 8;
-        // }
+        en_passant = m.en_passant_square;
 
-        // if (m.castle_rights) castle ^= m.castle_rights;
+        if (m.castle_rights) castle ^= m.castle_rights;
 
         if (m.captured_piece != ' ') {
-            if (m.en_passant) {
+            if (m.bool_en_passant) {
                 if (!m.side) {
                     set_bit(bitmap['p'], m.to + 8);
                     set_bit(occupancies[1], m.to + 8);
@@ -1177,14 +1182,12 @@ void Board::pop_move(move &m) {
         
         //promotion logic
         if (m.promotion != ' ') {
-            set_bit(bitmap[m.piece], m.to);
             remove_bit(bitmap[m.promotion], m.to);
         }
     }
     //castling logic
     else {
         if (m.castle == 1) {
-            cout << "castle king side removal" << endl;
             set_bit(bitmap['K'], e1);
             set_bit(occupancies[0], e1);
             remove_bit(bitmap['K'], g1);
@@ -1231,6 +1234,7 @@ void Board::pop_move(move &m) {
     }
     material_difference += get_value(m.captured_piece);
     side = !side;
+    en_passant = m.en_passant_square;
     occupancies[2] = occupancies[0] | occupancies[1];
 }
 
@@ -1276,7 +1280,7 @@ Board::U64 Board::perft(int depth) {
         // else debug[moves[i].piece]++;
 
         if(moves[i].castle) castles++;
-        if(moves[i].en_passant) enps++;
+        if(moves[i].bool_en_passant) enps++;
 
         nodes += perft(depth - 1);
         pop_move(moves[i]);

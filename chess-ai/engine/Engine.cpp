@@ -16,6 +16,22 @@ Engine::Engine(std::string fen) {
     trans_table = std::vector<hash_entry>(1048583);
 }
 
+void Engine::score_moves(std::vector<Board::move> &moves, int depth) {
+    for (auto &m: moves) {
+        if (m.capture) {
+            m.score = mvv_lva[board.piece_index[m.captured_piece]][board.piece_index[m.piece]] + 1000;
+        }
+        else {
+            if (board.equal_moves(killer_moves[0][depth],m)) {
+                m.score = 900;
+            }
+            else if (board.equal_moves(killer_moves[1][depth],m)) {
+                m.score = 800;
+            }
+        }
+    }
+}
+
 void Engine::sort_moves(int count, std::vector<Board::move> &moves) {
     for (int next = count + 1; next < moves.size(); next++) {
         if (moves[count].score < moves[next].score) {
@@ -64,12 +80,9 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     int val = get_entry(hash, depth, alpha, beta);
     // if (val != fail) return val;
 
-    if (depth == 0) { //should also check for checkmate and stalemate
-        std::vector<float> state = board.get_state();
-        int material_difference = board.material_difference;
-        float eval = net.eval(state, material_difference);
-        record_entry(depth, eval, hashe, hash);
-        return eval;
+    if (depth == 0) {
+        nodes++;
+        return board.get_eval();
     }
 
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
@@ -90,7 +103,6 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
             beta = std::min((float)beta, min_eval);
             board.pop_move(moves[move]);
             if (beta <= alpha) {
-                // std::cout << "black beta cutoff" << std::endl;
                 break;
             }
         }
@@ -106,7 +118,6 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
             alpha = std::max((float)alpha, max_eval);
             board.pop_move(moves[move]);
             if (beta <= alpha) {
-                // std::cout << "white beta cutoff" << std::endl;
                 break;
             }
         }
@@ -162,7 +173,8 @@ float Engine::negamax(int depth, int min_player, float alpha, float beta, int co
 
 Board::move Engine::search_root(int depth, int min_player, int alpha, int beta) {
     int best_move_index;
-    float best_eval = (min_player)? 9999 : -9999;
+    float best_eval = -9999;
+    if (min_player) best_eval = 9999;
 
     auto start = high_resolution_clock::now();
     std::vector<Board::move> moves = board.get_legal_moves(min_player);
@@ -174,7 +186,6 @@ Board::move Engine::search_root(int depth, int min_player, int alpha, int beta) 
         board.push_move(moves[move_index]);
         float eval = negamax(depth - 1, !min_player, alpha, beta, 1);
         board.pop_move(moves[move_index]);
-
         if (min_player && eval < best_eval) {
             best_move_index = move_index;
             best_eval = eval;
@@ -215,7 +226,7 @@ void Engine::play() {
         board.print_full_board();
 
         auto start = high_resolution_clock::now();
-        Board::move engine_m = search_root(2, 1, -9999, 9999);
+        Board::move engine_m = search_root(5, 1, -9999, 9999);
         auto end = high_resolution_clock::now();
         total += duration_cast<microseconds>(end - start).count();
 
