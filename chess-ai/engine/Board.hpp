@@ -25,7 +25,16 @@ public:
         std::string repr;
     };
 
-    inline bool equal_moves (move &lhs, move &rhs);
+    inline bool equal_moves(move &lhs, move &rhs) {
+        return (lhs.from == rhs.from) &&
+            (lhs.to == rhs.to) &&
+            (lhs.piece == rhs.piece) && 
+            (lhs.capture == rhs.capture) &&
+            (lhs.en_passant_square == rhs.en_passant_square) && 
+            (lhs.captured_piece == rhs.captured_piece) && 
+            (lhs.promotion == rhs.promotion) && 
+            (lhs.castle == rhs.castle);
+    }
     
     const std::vector<std::string> string_board = { 
     "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8",
@@ -68,6 +77,8 @@ public:
     std::vector<float> get_state();
     move parse_move(std::string uci);
 
+    int side;
+
 private:
     enum board {a8, b8, c8, d8, e8, f8, g8, h8,
         a7, b7, c7, d7, e7, f7, g7, h7,
@@ -107,7 +118,6 @@ private:
     std::map<char, U64> bitmap;
     std::vector<U64> occupancies;
 
-    int side;
     int en_passant = none;
     int castle;
 

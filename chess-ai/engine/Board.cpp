@@ -19,17 +19,6 @@ Board::U64 Board::random() {
     return num;
 }
 
-inline bool Board::equal_moves(move &lhs, move &rhs) {
-    return (lhs.from == rhs.from) &&
-           (lhs.to == rhs.to) &&
-           (lhs.piece == rhs.piece) && 
-           (lhs.capture == rhs.capture) &&
-           (lhs.en_passant_square == rhs.en_passant_square) && 
-           (lhs.captured_piece == rhs.captured_piece) && 
-           (lhs.promotion == rhs.promotion) && 
-           (lhs.castle == rhs.castle);
-}
-
 inline void Board::update_board() {
     occupancies[0] = bitmap['K'] | bitmap['Q'] | bitmap['R'] | bitmap['N']
                 | bitmap['B'] | bitmap['P']; 
@@ -333,7 +322,7 @@ float Board::get_eval() {
     int opening = w_opening - b_opening;
     int endgame = w_endgame - b_endgame;
 
-    return ((((float)opening * (256 - (float)cur_phase)) + ((float)endgame * (float)cur_phase)) / 1000.0);
+    return ((((float)opening * (256 - (float)cur_phase)) + ((float)endgame * (float)cur_phase)))/1000.0;
 }
 
 void Board::init_keys() {

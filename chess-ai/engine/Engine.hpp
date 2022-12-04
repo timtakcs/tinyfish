@@ -1,5 +1,5 @@
 #include "Board.hpp"
-#include "Network.hpp"
+// #include "Network.hpp"
 #include <bits/stdc++.h>
 
 class Engine {
@@ -8,7 +8,7 @@ public:
     void play(); // command line playing
     void uci(); //for chess gui connection
 
-    Net net;
+    // Net net;
     Board board;
 
     struct hash_entry {
@@ -44,13 +44,18 @@ private:
         {0, 0, 0, 0, 0, 0, 0}        
     }; 
 
+    std::string string_pieces = "PRNBQKprnbqk";
+
     Board::move killer_moves[2][32];
+    std::map<char, std::vector<int>> history_moves;
 
     void score_moves(std::vector<Board::move> &moves, int depth);
     void sort_moves(int count, std::vector<Board::move> &moves);
+    std::vector<Board::move> keep_captures(std::vector<Board::move> &moves);
 
-    float negamax(int depth, int player, float alpha, float beta, int color);
-    float minimax(int depth, int max_player, int alpha, int beta);
-    Board::move search_root(int depth, int max_player, int alpha, int beta);
+    float negamax(int depth, float alpha, float beta, int color, int ply);
+    float quiescence(float alpha, float beta, int color, int ply);
+    float minimax(int min_player, int depth, int alpha, int beta);
+    Board::move search_root(int depth, int alpha, int beta);
 };
 
