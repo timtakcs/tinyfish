@@ -8,7 +8,7 @@ set(CMAKE_CUDA_COMPILER /usr/local/cuda-11.7/bin/nvcc)
 
 find_package(Torch REQUIRED)
 
-set(CMAKE_CUDA_FLAGS "-O3 -DNDEBUG")
+set(CMAKE_CUDA_FLAGS "-Ofast -DNDEBUG")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} ${TORCH_CXX_FLAGS_RELEASE}")
 

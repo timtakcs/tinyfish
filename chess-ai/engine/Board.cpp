@@ -42,6 +42,14 @@ void Board::gen_board(std::string& fen) {
     piece_index['P'] = P;
     piece_index[' '] = P + 1;
 
+    piece_index['k'] = K;
+    piece_index['q'] = Q;
+    piece_index['r'] = R;
+    piece_index['b'] = B;
+    piece_index['n'] = N;
+    piece_index['p'] = P;
+    piece_index[' '] = P + 1;
+
     if (fen == "") fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     std::string nums = "12345678";
 
@@ -301,8 +309,8 @@ float Board::get_eval() {
         char white_piece = string_pieces[i];
         char black_piece = string_pieces[i + 6];
 
-        cur_phase -= __popcount(bitmap[white_piece]);
-        cur_phase -= __popcount(bitmap[black_piece]);
+        cur_phase -= __popcount(bitmap[white_piece]) * phase_decrements[i];
+        cur_phase -= __popcount(bitmap[black_piece]) * phase_decrements[i];
 
         std::vector<int> white = get_positions(bitmap[white_piece]);
         std::vector<int> black = get_positions(bitmap[black_piece]);
@@ -322,7 +330,11 @@ float Board::get_eval() {
     int opening = w_opening - b_opening;
     int endgame = w_endgame - b_endgame;
 
-    return ((((float)opening * (256 - (float)cur_phase)) + ((float)endgame * (float)cur_phase)))/1000.0;
+    int opening_game_phase = cur_phase;
+    if (opening_game_phase > phase) opening_game_phase = phase;
+    int end_game_phase = phase - opening_game_phase;
+
+    return (float)(endgame * end_game_phase + opening_game_phase * opening) / phase;
 }
 
 void Board::init_keys() {

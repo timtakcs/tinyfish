@@ -10,6 +10,8 @@ using namespace std::chrono;
 #define hashbeta 2
 #define fail 1023 //just a random value to return in the case of failure 
 
+using namespace std;
+
 Engine::Engine(std::string fen) {
     board.gen_board(fen);
     // net.load_net();
@@ -21,8 +23,8 @@ Engine::Engine(std::string fen) {
 }
 
 void Engine::score_moves(std::vector<Board::move> &moves, int ply) {
-    for (auto &m: moves) {
-        if (m.capture) {
+    for (auto &m : moves) {
+        if (m.captured_piece != ' ') {
             m.score = mvv_lva[board.piece_index[m.captured_piece]][board.piece_index[m.piece]] + 1000;
         }
         else {
@@ -50,7 +52,7 @@ void Engine::sort_moves(int count, std::vector<Board::move> &moves) {
 std::vector<Board::move> Engine::keep_captures(std::vector<Board::move> &moves) {
     std::vector<Board::move> captures;
     for (int i = 0; i < moves.size(); i++) {
-        if (moves[i].capture) captures.push_back(moves[i]);
+        if (moves[i].captured_piece != ' ') captures.push_back(moves[i]);
     }
     return captures;
 }
@@ -140,7 +142,11 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
 float Engine::quiescence(float alpha, float beta, int color, int ply) {
     float evaluation = color * board.get_eval();
 
+    nodes++;
+
     if (evaluation >= beta) {
+        max_ply = max(ply, max_ply);
+        cutoffs++;
         return beta;
     }
     if (evaluation > alpha) {
@@ -157,14 +163,18 @@ float Engine::quiescence(float alpha, float beta, int color, int ply) {
         float eval = -quiescence(-beta, -alpha, -color, ply + 1);
         board.pop_move(moves[move]);
 
-        if (eval >= beta) {
-            return beta;
-        }
         if (eval > alpha) {
             alpha = eval;
+
+            if (eval >= beta) {
+                max_ply = max(ply, max_ply);
+                cutoffs++;
+                return beta;
+            }
         }
     }
 
+    max_ply = max(ply, max_ply);
     return alpha;
 } 
 
@@ -179,8 +189,8 @@ float Engine::negamax(int depth, float alpha, float beta, int color, int ply) {
 
     if (depth == 0) {
         nodes++;
-        color = (board.side)? -1 : 1;
-        return quiescence(alpha, beta, color, ply + 1);
+        // return quiescence(alpha, beta, color, ply);
+        return color * board.get_eval();
     }
 
     auto start = high_resolution_clock::now();
@@ -197,6 +207,8 @@ float Engine::negamax(int depth, float alpha, float beta, int color, int ply) {
         return eval;
     }
 
+    score_moves(moves, ply);
+
     for (int move = 0; move < moves.size(); move++) {
         sort_moves(move, moves);
         board.push_move(moves[move]);
@@ -204,7 +216,7 @@ float Engine::negamax(int depth, float alpha, float beta, int color, int ply) {
         board.pop_move(moves[move]);
         if (eval >= beta) {
             //recording transposition table entry
-            // record_entry(depth, beta, hashbeta, hash);
+            // record_entry(depth, beta, hash_function, hash);
 
             //killer moves
             killer_moves[1][ply] = killer_moves[0][ply];
@@ -221,13 +233,14 @@ float Engine::negamax(int depth, float alpha, float beta, int color, int ply) {
         }
     }
     // record_entry(depth, alpha, hash_function, hash);
+    max_ply = max(ply, max_ply);
     return alpha;
 }
 
-Board::move Engine::search_root(int depth, int alpha, int beta) {
+Board::move Engine::search_root(int depth, float alpha, float beta) {
     int best_move_index;
-    float best_eval = -9999;
-    if (board.side) best_eval = 9999;
+    float best_eval = -999999;
+    if (board.side) best_eval = 999999;
 
     auto start = high_resolution_clock::now();
     std::vector<Board::move> moves = board.get_legal_moves(board.side);
@@ -242,16 +255,23 @@ Board::move Engine::search_root(int depth, int alpha, int beta) {
         if (board.side && eval < best_eval) {
             best_move_index = move_index;
             best_eval = eval;
+            beta = std::min(beta, best_eval);
+            if (beta <= alpha) {
+                break;
+            }
         }
         else if (!board.side && eval > best_eval) {
             best_move_index = move_index;
             best_eval = eval;
+            alpha = std::max(alpha, best_eval);
+            if (beta <= alpha) {
+                break;
+            }
         }
     }
 
     Board::move m = moves[best_move_index];
 
-    std::cout << board.string_board[m.from] << board.string_board[m.to] << std::endl;
     std::cout << best_eval << std::endl;
 
     return m;
@@ -259,50 +279,65 @@ Board::move Engine::search_root(int depth, int alpha, int beta) {
 
 void Engine::play() {
     //user plays as white
-    int max_player = 0;
+    int debug = 0;
 
     board.print_full_board();
 
-    while (1==1) {
-        std::string uci_move;
-        std::cout << "\n" << "User move (uci): " << std::endl;
-        std::cin >> uci_move;
-        Board::move user_m = board.parse_move(uci_move);
+    if (debug) {
+        // std::vector<Board::move> moves = board.get_legal_moves(board.side);
+        // score_moves(moves, 0);
+        // moves = keep_captures(moves);
+
+        // for (int m = 0; m < moves.size(); m++) {
+        //     sort_moves(m, moves);
+
+        //     std::cout << board.string_board[moves[m].from] << board.string_board[moves[m].to] << " " << moves[m].piece << " " << moves[m].captured_piece << " " << moves[m].score << std::endl;
+        // }
+        Board::move m = board.parse_move("e2a6");
+        board.push_move(m);
+
+        // cout << negamax(5, -999999, 999999, 1, 0) << endl;
+
+        Board::move x = board.parse_move("b4c3");
+        board.push_move(x);
+
+        // cout << negamax(5, -999999, 999999, -1, 0) << endl;
+
+        Board::move best = search_root(6, -999999, 999999);
         
-        while (user_m.to == 1027) {
-            std::cout << "\n" << "Illegal move. User move (uci): " << std::endl;
+        cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
+        cout << "max ply: " << max_ply << endl;
+        cout << "nodes searched: " << nodes << endl;
+    }
+    else {
+        while (1==1) {
+            std::string uci_move;
+            std::cout << "\n" << "User move (uci): " << std::endl;
             std::cin >> uci_move;
-            user_m = board.parse_move(uci_move);
+            Board::move user_m = board.parse_move(uci_move);
+            
+            while (user_m.to == 1027) {
+                std::cout << "\n" << "Illegal move. User move (uci): " << std::endl;
+                std::cin >> uci_move;
+                user_m = board.parse_move(uci_move);
+            }
+            
+            board.push_move(user_m);
+            board.print_full_board();
+
+            auto start = high_resolution_clock::now();
+            Board::move engine_m = search_root(7, -999999, 999999);
+            auto end = high_resolution_clock::now();
+            total += duration_cast<microseconds>(end - start).count();
+
+            board.push_move(engine_m);
+            board.print_full_board();
+
+            std::cout << board.string_board[engine_m.from] << board.string_board[engine_m.to] << std::endl;
+            std::cout << "total nodes searched: " << nodes << std::endl;
+            nodes = 0;
         }
-         
-        board.push_move(user_m);
-        board.print_full_board();
-
-        auto start = high_resolution_clock::now();
-        Board::move engine_m = search_root(5, -9999, 9999);
-        auto end = high_resolution_clock::now();
-        total += duration_cast<microseconds>(end - start).count();
-
-        std::cout << "total time: " << total << std::endl;
-        std::cout << "evaluation time: " << evaluation << std::endl;
-        std::cout << "generation time: " << generation << std::endl;
-
-
-        board.push_move(engine_m);
-        board.print_full_board();
-
-        // std::vector<float> state = board.get_state();
-        // int material_difference = board.material_difference;
-        // std::cout << "evaluation: " << net.eval(state, material_difference) << std::endl;
-
-        std::cout << "total nodes searched: " << nodes << std::endl;
-        nodes = 0;
     }
 }
-
-void Engine::debug() {
-    std::vector<Board::move> ms = board.get_legal_moves(0);
-}
-
 
 

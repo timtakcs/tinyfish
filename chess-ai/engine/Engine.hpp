@@ -44,6 +44,9 @@ private:
         {0, 0, 0, 0, 0, 0, 0}        
     }; 
 
+    int max_ply = 0;
+    int cutoffs = 0;
+
     std::string string_pieces = "PRNBQKprnbqk";
 
     Board::move killer_moves[2][32];
@@ -56,6 +59,6 @@ private:
     float negamax(int depth, float alpha, float beta, int color, int ply);
     float quiescence(float alpha, float beta, int color, int ply);
     float minimax(int min_player, int depth, int alpha, int beta);
-    Board::move search_root(int depth, int alpha, int beta);
+    Board::move search_root(int depth, float alpha, float beta);
 };
 

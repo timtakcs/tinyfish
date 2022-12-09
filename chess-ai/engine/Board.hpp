@@ -96,6 +96,7 @@ private:
     std::map<char, std::vector<int>> endgame_vals;
     std::vector<int> opening_piece_vals = { 82, 337, 365, 477, 1025,  0};
     std::vector<int> endgame_piece_vals = { 94, 281, 297, 512,  936,  0};
+    std::vector<int> phase_decrements = {0,1,1,2,4,0};
 
     float phase;
 
