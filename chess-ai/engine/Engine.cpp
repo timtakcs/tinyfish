@@ -189,8 +189,7 @@ float Engine::negamax(int depth, float alpha, float beta, int color, int ply) {
 
     if (depth == 0) {
         nodes++;
-        // return quiescence(alpha, beta, color, ply);
-        return color * board.get_eval();
+        return quiescence(alpha, beta, color, ply);
     }
 
     auto start = high_resolution_clock::now();
@@ -284,28 +283,28 @@ void Engine::play() {
     board.print_full_board();
 
     if (debug) {
-        // std::vector<Board::move> moves = board.get_legal_moves(board.side);
+        std::vector<Board::move> moves = board.get_legal_moves(board.side);
         // score_moves(moves, 0);
         // moves = keep_captures(moves);
 
-        // for (int m = 0; m < moves.size(); m++) {
-        //     sort_moves(m, moves);
+        for (int m = 0; m < moves.size(); m++) {
+            sort_moves(m, moves);
 
-        //     std::cout << board.string_board[moves[m].from] << board.string_board[moves[m].to] << " " << moves[m].piece << " " << moves[m].captured_piece << " " << moves[m].score << std::endl;
-        // }
-        Board::move m = board.parse_move("e2a6");
-        board.push_move(m);
+            std::cout << board.string_board[moves[m].from] << board.string_board[moves[m].to] << " " << moves[m].piece << " " << moves[m].captured_piece << " " << moves[m].score << std::endl;
+        }
+        // Board::move m = board.parse_move("e2a6");
+        // board.push_move(m);
 
         // cout << negamax(5, -999999, 999999, 1, 0) << endl;
 
-        Board::move x = board.parse_move("b4c3");
-        board.push_move(x);
+        // Board::move x = board.parse_move("b4c3");
+        // board.push_move(x);
 
         // cout << negamax(5, -999999, 999999, -1, 0) << endl;
 
-        Board::move best = search_root(6, -999999, 999999);
+        // Board::move best = search_root(6, -999999, 999999);
         
-        cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
+        // cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
         cout << "max ply: " << max_ply << endl;
         cout << "nodes searched: " << nodes << endl;
     }
@@ -326,7 +325,7 @@ void Engine::play() {
             board.print_full_board();
 
             auto start = high_resolution_clock::now();
-            Board::move engine_m = search_root(7, -999999, 999999);
+            Board::move engine_m = search_root(6, -999999, 999999);
             auto end = high_resolution_clock::now();
             total += duration_cast<microseconds>(end - start).count();
 

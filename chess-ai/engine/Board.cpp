@@ -826,7 +826,7 @@ Board::U64  Board::is_square_attacked(int square, int color) {
                       get_queen_attack(square, occupancies[2]) & bitmap['q'] |
                       king_attacks[square] & bitmap['k'];
 
-    else return pawn_attacks[white][square] & bitmap['P'] |
+    else return pawn_attacks[black][square] & bitmap['P'] |
                       knight_attacks[square] & bitmap['N'] |
                       get_bishop_attack(square, occupancies[2]) & bitmap['B'] |
                       get_rook_attack(square, occupancies[2]) & bitmap['R'] |
@@ -885,6 +885,7 @@ Board::move Board::get_move(bool bool_en_passant, int from, int to, int castling
     m.piece = piece;
     m.captured_piece = captured_piece;
     m.promotion = promotion;
+    m.score = 0;
 
     return m;
 }
