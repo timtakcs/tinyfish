@@ -94,12 +94,29 @@ private:
 
     std::map<char, std::vector<int>> opening_vals;
     std::map<char, std::vector<int>> endgame_vals;
-    std::vector<int> opening_piece_vals = { 82, 337, 365, 477, 1025,  0};
-    std::vector<int> endgame_piece_vals = { 94, 281, 297, 512,  936,  0};
+    std::vector<int> opening_piece_vals = { 82, 337, 365, 477, 1025,  12000};
+    std::vector<int> endgame_piece_vals = { 94, 281, 297, 512,  936,  12000};
     std::vector<int> phase_decrements = {0,1,1,2,4,0};
+
+    std::vector<U64> file_masks;
+    std::vector<U64> rank_masks;
+    std::vector<U64> isolated_pawn_masks;
+
+    std::vector<U64> white_passed_pawn_masks;
+    std::vector<U64> black_passed_pawn_masks;
+
+    int double_pawn = -10;
+    int isolated_pawn = -10;
+    int semi_open_file_score = 10;
+    int open_file_score = 15;
+    int king_shield_bonus = 5;
+    
+    std::vector<int> passed_pawn_bonus = {0, 10, 30, 50, 75, 100, 150, 200};
 
     float phase;
 
+    U64 set_file_rank_masks(int file, int rank);
+    void init_masks();
     void init_evals();
 
     enum sides {white, black};

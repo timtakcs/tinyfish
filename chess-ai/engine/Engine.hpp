@@ -32,7 +32,6 @@ private:
 
     float get_entry(Board::U64 hash, int depth, float alpha, float beta);
     void record_entry(int depth, float eval, int flag, Board::U64 hash);
-    void resize_trans_table();
 
     std::vector<std::vector<int>> mvv_lva = {
         {0, 0, 0, 0, 0, 0, 0},       
@@ -51,13 +50,17 @@ private:
 
     Board::move killer_moves[2][32];
     std::map<char, std::vector<int>> history_moves;
+    std::vector<std::vector<Board::move>> pv;
+    std::vector<int> pv_length;
+
+    void print_pv();
 
     void score_moves(std::vector<Board::move> &moves, int depth);
     void sort_moves(int count, std::vector<Board::move> &moves);
     std::vector<Board::move> keep_captures(std::vector<Board::move> &moves);
 
-    float negamax(int depth, float alpha, float beta, int color, int ply);
-    float quiescence(float alpha, float beta, int color, int ply);
+    float negamax(int depth, float alpha, float beta, int ply);
+    float quiescence(float alpha, float beta, int ply);
     float minimax(int min_player, int depth, int alpha, int beta);
     Board::move search_root(int depth, float alpha, float beta);
 };

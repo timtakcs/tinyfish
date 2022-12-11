@@ -298,6 +298,92 @@ void Board::init_evals() {
     };
 } 
 
+Board::U64 Board::set_file_rank_masks(int file, int rank) {
+    U64 mask = 0ULL;
+    
+    for (int r = 0; r < 8; r++) {
+        for (int f = 0; f < 8; f++) {
+            int square = r * 8 + f;
+            
+            if (f != -1) {
+                if (f == file){
+                    U64 copy = mask;
+                    set_bit(copy, square);
+                    mask |= copy;
+                }
+            }
+            
+            else if (rank != -1) {
+                if (r == rank){
+                    U64 copy = mask;
+                    set_bit(copy, square);
+                    mask |= copy;
+                }
+            }
+        }
+    }
+
+    return mask;
+}
+
+void Board::init_masks() {
+    file_masks = vector<U64>(64, 0ULL);
+    rank_masks = vector<U64>(64, 0ULL);
+    isolated_pawn_masks = vector<U64>(64, 0ULL);
+    white_passed_pawn_masks = vector<U64>(64, 0ULL);
+    black_passed_pawn_masks = vector<U64>(64, 0ULL);
+
+    for (int rank = 0; rank < 8; rank++) {
+        for (int file = 0; file < 8; file++) {
+            int square = rank * 8 + file;
+            file_masks[square] |= set_file_rank_masks(file, -1);
+        }
+    }
+
+    for (int rank = 0; rank < 8; rank++) {
+        for (int file = 0; file < 8; file++) {
+            int square = rank * 8 + file;
+            rank_masks[square] |= set_file_rank_masks(-1, rank);
+        }
+    }
+
+    for (int rank = 0; rank < 8; rank++){
+        for (int file = 0; file < 8; file++){
+            int square = rank * 8 + file;
+            isolated_pawn_masks[square] |= set_file_rank_masks(file - 1, -1);
+            isolated_pawn_masks[square] |= set_file_rank_masks(file + 1, -1);
+        }
+    }
+
+    for (int rank = 0; rank < 8; rank++) {
+        for (int file = 0; file < 8; file++) {
+            int square = rank * 8 + file;
+
+            white_passed_pawn_masks[square] |= set_file_rank_masks(file - 1, -1);
+            white_passed_pawn_masks[square] |= set_file_rank_masks(file, -1);
+            white_passed_pawn_masks[square] |= set_file_rank_masks(file + 1, -1);
+            
+            for (int i = 0; i < (8 - rank); i++){
+                white_passed_pawn_masks[square] &= ~rank_masks[(7 - i) * 8 + file];
+            }
+        }
+    }
+
+    for (int rank = 0; rank < 8; rank++) {
+        for (int file = 0; file < 8; file++) {
+            int square = rank * 8 + file;
+
+            black_passed_pawn_masks[square] |= set_file_rank_masks(file - 1, -1);
+            black_passed_pawn_masks[square] |= set_file_rank_masks(file, -1);
+            black_passed_pawn_masks[square] |= set_file_rank_masks(file + 1, -1);
+            
+            for (int i = 0; i < rank + 1; i++){
+                black_passed_pawn_masks[square] &= ~rank_masks[i * 8 + file];
+            }
+        }
+    }
+}
+
 float Board::get_eval() {
     int cur_phase = phase;
     int w_opening = 0;
@@ -334,7 +420,10 @@ float Board::get_eval() {
     if (opening_game_phase > phase) opening_game_phase = phase;
     int end_game_phase = phase - opening_game_phase;
 
-    return (float)(endgame * end_game_phase + opening_game_phase * opening) / phase;
+    float eval = (endgame * end_game_phase + opening_game_phase * opening) / phase;
+
+    int mult = (side)? 1 : -1;
+    return mult * eval;
 }
 
 void Board::init_keys() {
@@ -1274,13 +1363,6 @@ Board::U64 Board::perft(int depth) {
 
         push_move(moves[i]);
 
-        cout << get_eval() << endl;
-
-        // if (cols.count(hash) && cols[hash] != state) collisions;
-        // else cols[hash] = state;
-        // if (!debug.count(moves[i].piece)) debug[moves[i].piece] = 1;
-        // else debug[moves[i].piece]++;
-
         if(moves[i].castle) castles++;
         if(moves[i].bool_en_passant) enps++;
 
@@ -1291,6 +1373,7 @@ Board::U64 Board::perft(int depth) {
 }
 
 void Board::function_debug() {
+    cout << get_eval() << endl;
     cout << perft(3) << endl;
     cout << castles << endl;
     cout << enps << endl;
@@ -1299,7 +1382,8 @@ void Board::function_debug() {
 
 // int main() {
 //     Board board;
-//     std::string fen("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - ");
+//     //r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 
+//     std::string fen("");
 //     board.gen_board(fen);
 //     board.function_debug();
 // }
