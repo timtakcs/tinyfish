@@ -48,14 +48,15 @@ private:
 
     std::string string_pieces = "PRNBQKprnbqk";
 
-    Board::move killer_moves[2][32];
+    std::vector<std::vector<Board::move>> killer_moves;
     std::map<char, std::vector<int>> history_moves;
     std::vector<std::vector<Board::move>> pv;
     std::vector<int> pv_length;
 
     void print_pv();
+    void clear_tables();
 
-    void score_moves(std::vector<Board::move> &moves, int depth);
+    void score_moves(std::vector<Board::move> &moves, int depth, int &pv_scoring);
     void sort_moves(int count, std::vector<Board::move> &moves);
     std::vector<Board::move> keep_captures(std::vector<Board::move> &moves);
 

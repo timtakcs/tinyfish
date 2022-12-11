@@ -21,14 +21,18 @@ Engine::Engine(std::string fen) {
         history_moves[piece] = std::vector<int>(64, 0);
     }
 
+    killer_moves = std::vector<std::vector<Board::move>>(2, std::vector<Board::move>(64));
     pv = std::vector<std::vector<Board::move>>(64, std::vector<Board::move>(64));
     pv_length = std::vector<int>(64);
 }
 
-void Engine::score_moves(std::vector<Board::move> &moves, int ply) {
+void Engine::score_moves(std::vector<Board::move> &moves, int ply, int &pv_scoring) {
     for (auto &m : moves) {
-        if (board.equal_moves(m, pv[ply][ply])){
-            m.score = 2000;
+        if (pv_scoring) {
+            if (board.equal_moves(m, pv[0][ply])){
+                m.score = 2000;
+                pv_scoring = 0;
+            }
         }
 
         if (m.captured_piece != ' ') {
@@ -103,6 +107,16 @@ void Engine::print_pv() {
     cout << endl;
 }
 
+void Engine::clear_tables() {
+    for (auto &piece: string_pieces) {
+        history_moves[piece] = std::vector<int>(64, 0);
+    }
+
+    killer_moves = std::vector<std::vector<Board::move>>(2, std::vector<Board::move>(64));
+    pv = std::vector<std::vector<Board::move>>(64, std::vector<Board::move>(64));
+    pv_length = std::vector<int>(64);
+}
+
 //minimax search
 float Engine::minimax(int depth, int min_player, int alpha, int beta) {
     Board::U64 hash = board.zobrist();
@@ -159,6 +173,8 @@ float Engine::minimax(int depth, int min_player, int alpha, int beta) {
 float Engine::quiescence(float alpha, float beta, int ply) {
     float evaluation = board.get_eval();
 
+    int pv_scoring = 0;
+
     nodes++;
 
     if (evaluation >= beta) {
@@ -180,7 +196,7 @@ float Engine::quiescence(float alpha, float beta, int ply) {
     }
 
     moves = keep_captures(moves);
-    score_moves(moves, ply);
+    score_moves(moves, ply, pv_scoring);
 
     for (int move = 0; move < moves.size(); move++) {
         sort_moves(move, moves);
@@ -193,7 +209,6 @@ float Engine::quiescence(float alpha, float beta, int ply) {
 
             if (eval >= beta) {
                 max_ply = max(ply, max_ply);
-                cutoffs++;
                 return beta;
             }
         }
@@ -208,6 +223,8 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
     int hash_function = hashalpha;
 
     pv_length[ply] = ply;
+
+    int pv_scoring = 1;
 
     nodes++;
 
@@ -234,7 +251,7 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
         return eval;
     }
 
-    score_moves(moves, ply);
+    score_moves(moves, ply, pv_scoring);
 
     for (int move = 0; move < moves.size(); move++) {
         sort_moves(move, moves);
@@ -272,30 +289,32 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
 }
 
 Board::move Engine::search(int depth) {
+    clear_tables();
+
     for (int d = 1; d < depth + 1; d++) {
         float score = negamax(d, -999999, 999999, 0);
         cout << "eval :" << score << endl;
+        cout << "nodes :" << nodes << endl;
+        nodes = 0;
         print_pv();
     }
-    return pv[0][0];
+    cout << endl;
+    Board::move best_move = pv[0][0];
+    return best_move;
 }
 
 void Engine::play() {
     //user plays as white
-    int debug = 1;
+    int debug = 0;
 
     board.print_full_board();
 
     if (debug) {
-        for (int depth = 1; depth < 6; depth++) {
-            // Board::move best = search_root(depth, -999999, 999999);
-            continue;
-            
-        }
+        Board::move best;
 
-        search(7);
+        best = search(6);
 
-        // cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
+        cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
         cout << "max ply: " << max_ply << endl;
         cout << "nodes searched: " << nodes << endl;
         cout << "\n" << endl;

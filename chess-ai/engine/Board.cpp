@@ -420,7 +420,7 @@ float Board::get_eval() {
     if (opening_game_phase > phase) opening_game_phase = phase;
     int end_game_phase = phase - opening_game_phase;
 
-    float eval = (endgame * end_game_phase + opening_game_phase * opening) / phase;
+    float eval = ((endgame * end_game_phase + opening_game_phase * opening) / phase) * 0.1;
 
     int mult = (side)? -1 : 1;
     return mult * eval;
