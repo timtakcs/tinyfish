@@ -190,8 +190,11 @@ float Engine::quiescence(float alpha, float beta, int ply) {
     std::vector<Board::move> moves = board.get_legal_moves(board.side);
 
     if (moves.size() == 0) {
-        float eval = -10000; //black wins by checkmate
-        if (!board.side) eval = 10000; //white wins by checkmate
+        float eval;
+        if (board.is_check(board.side)) eval = -10000; 
+        else if (board.is_check(!board.side)) eval = -10000;
+        else eval = 0;
+        // record_entry(depth, eval, hashe, hash);
         return eval;
     }
 
@@ -245,8 +248,10 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
     generation += duration_cast<microseconds>(end - start).count();
 
     if (moves.size() == 0) {
-        float eval = -10000; //black wins by checkmate
-        if (!board.side) eval = 10000; //white wins by checkmate
+        float eval;
+        if (board.is_check(board.side)) eval = -10000 - depth; 
+        else if (board.is_check(!board.side)) eval = -10000 - depth;
+        else eval = 0;
         // record_entry(depth, eval, hashe, hash);
         return eval;
     }
@@ -293,12 +298,12 @@ Board::move Engine::search(int depth) {
 
     for (int d = 1; d < depth + 1; d++) {
         float score = negamax(d, -999999, 999999, 0);
-        cout << "eval :" << score << endl;
-        cout << "nodes :" << nodes << endl;
+        // cout << "eval :" << score << endl;
+        // cout << "nodes :" << nodes << endl;
         nodes = 0;
-        print_pv();
+        // print_pv();
     }
-    cout << endl;
+    // cout << endl;
     Board::move best_move = pv[0][0];
     return best_move;
 }
@@ -306,8 +311,31 @@ Board::move Engine::search(int depth) {
 void Engine::play() {
     //user plays as white
     int debug = 0;
+    int self_play = 0;
 
     board.print_full_board();
+
+    if (self_play) {
+        while (1) {
+            Board::move move_first = search(6);
+
+            if (move_first.from == move_first.to) break;
+
+            cout << move_first.piece << board.string_board[move_first.from] << board.string_board[move_first.to] << endl;
+
+            board.push_move(move_first);
+
+            board.print_full_board();
+
+            Board::move move_second = search(5);
+
+            if (move_first.from == move_first.to) break;
+
+            board.push_move(move_second);
+
+            cout << move_second.piece << board.string_board[move_second.from] << board.string_board[move_second.to] << endl;
+        }
+    }
 
     if (debug) {
         Board::move best;

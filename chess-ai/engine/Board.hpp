@@ -57,6 +57,7 @@ public:
     
     //generate legal moves
     std::vector<move> get_legal_moves(int side);
+    bool is_check(int side);
 
     //hashing
     U64 random();
@@ -365,7 +366,6 @@ private:
     U64 is_square_attacked(int square, int color);
 
     move get_move(bool bool_en_passant, int from, int to, int castling, int side, char piece, char captured_piece = ' ', U64 opp = 0ULL, char promotion = ' ');
-    bool is_check(int side);
     std::vector<int> get_positions(U64 board);
 
     //debug variables
