@@ -1329,26 +1329,6 @@ void Board::pop_move(move &m) {
     occupancies[2] = occupancies[0] | occupancies[1];
 }
 
-Board::move Board::parse_move(std::string uci) {
-    int source = (uci[0] - 'a') + (8 - (uci[1] - '0')) * 8;
-    int target = (uci[2] - 'a') + (8 - (uci[3] - '0')) * 8;
-    char promotion = ' ';
-
-    if(uci.length() == 5) promotion = uci[4];
-
-    std::vector<move> moves = get_legal_moves(side);
-
-    for (int move = 0; move < moves.size(); move++) {
-        if (moves[move].from == source && moves[move].to == target && promotion == moves[move].promotion) {
-            return moves[move];
-        }
-    }
-
-    move m;
-    m.to = 1027;
-    return m;
-}
-
 Board::U64 Board::perft(int depth) {
     U64 nodes = 0;
     

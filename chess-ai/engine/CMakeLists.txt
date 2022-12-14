@@ -14,7 +14,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_RELEASE} ${TORCH_CXX_FLAGS_RELEASE}")
 
 include_directories("${TORCH_INCLUDE_DIRS}")
 
-add_executable(${PROJECT_NAME} main.cpp Engine.cpp Network.cpp Board.cpp)
+add_executable(${PROJECT_NAME} main.cpp Engine.cpp uci.cpp Board.cpp)
 
 target_link_libraries(${PROJECT_NAME} "${TORCH_LIBRARIES}")
 

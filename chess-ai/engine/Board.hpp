@@ -76,7 +76,6 @@ public:
     int material_difference = 0;
 
     std::vector<float> get_state();
-    move parse_move(std::string uci);
 
     int side;
 

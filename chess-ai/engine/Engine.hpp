@@ -27,6 +27,8 @@ public:
 
     void debug();
 
+    Board::move search(int depth);
+
 private:
     std::vector<hash_entry> trans_table;
 
@@ -62,8 +64,6 @@ private:
 
     float negamax(int depth, float alpha, float beta, int ply);
     float quiescence(float alpha, float beta, int ply);
-    Board::move search(int depth);
-
 
     float minimax(int min_player, int depth, int alpha, int beta);
     Board::move search_root(int depth, float alpha, float beta);

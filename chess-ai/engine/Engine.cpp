@@ -1,5 +1,6 @@
 #include "Engine.hpp"
 #include "Board.hpp"
+#include "uci.hpp"
 #include <iostream>
 #include <chrono>
 
@@ -298,19 +299,24 @@ Board::move Engine::search(int depth) {
 
     for (int d = 1; d < depth + 1; d++) {
         float score = negamax(d, -999999, 999999, 0);
-        // cout << "eval :" << score << endl;
-        // cout << "nodes :" << nodes << endl;
         nodes = 0;
-        // print_pv();
     }
-    // cout << endl;
     Board::move best_move = pv[0][0];
+
+    //printing best move for uci
+    std::string best_move_string = "";
+    best_move_string += board.string_board[best_move.from];
+    best_move_string += board.string_board[best_move.to];
+    if (best_move.promotion != ' ') best_move_string += best_move.promotion;
+
+    cout << "bestmove " << best_move_string << endl;
+
     return best_move;
 }
 
 void Engine::play() {
     //user plays as white
-    int debug = 0;
+    int debug = 1;
     int self_play = 0;
 
     board.print_full_board();
@@ -324,13 +330,10 @@ void Engine::play() {
             cout << move_first.piece << board.string_board[move_first.from] << board.string_board[move_first.to] << endl;
 
             board.push_move(move_first);
-
             board.print_full_board();
 
             Board::move move_second = search(5);
-
             if (move_first.from == move_first.to) break;
-
             board.push_move(move_second);
 
             cout << move_second.piece << board.string_board[move_second.from] << board.string_board[move_second.to] << endl;
@@ -338,26 +341,33 @@ void Engine::play() {
     }
 
     if (debug) {
-        Board::move best;
+        string command = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 b4c3";
+        vector<string> commands = tokenize_string(command);
 
-        best = search(6);
+        parse_position(commands, board);
 
-        cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
-        cout << "max ply: " << max_ply << endl;
-        cout << "nodes searched: " << nodes << endl;
-        cout << "\n" << endl;
+        board.print_full_board();
+
+        // Board::move best;
+
+        // best = search(6);
+
+        // cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
+        // cout << "max ply: " << max_ply << endl;
+        // cout << "nodes searched: " << nodes << endl;
+        // cout << "\n" << endl;
     }
     else {
         while (1==1) {
             std::string uci_move;
             std::cout << "\n" << "User move (uci): " << std::endl;
             std::cin >> uci_move;
-            Board::move user_m = board.parse_move(uci_move);
+            Board::move user_m = parse_move(uci_move, board);
             
             while (user_m.to == 1027) {
                 std::cout << "\n" << "Illegal move. User move (uci): " << std::endl;
                 std::cin >> uci_move;
-                user_m = board.parse_move(uci_move);
+                user_m = parse_move(uci_move, board);
             }
             
             board.push_move(user_m);

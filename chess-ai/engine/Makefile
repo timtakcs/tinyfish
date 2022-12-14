@@ -177,30 +177,6 @@ Engine.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Engine.cpp.s
 .PHONY : Engine.cpp.s
 
-Network.o: Network.cpp.o
-.PHONY : Network.o
-
-# target to build an object file
-Network.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Network.cpp.o
-.PHONY : Network.cpp.o
-
-Network.i: Network.cpp.i
-.PHONY : Network.i
-
-# target to preprocess a source file
-Network.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Network.cpp.i
-.PHONY : Network.cpp.i
-
-Network.s: Network.cpp.s
-.PHONY : Network.s
-
-# target to generate assembly for a file
-Network.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/Network.cpp.s
-.PHONY : Network.cpp.s
-
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -225,6 +201,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+uci.o: uci.cpp.o
+.PHONY : uci.o
+
+# target to build an object file
+uci.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/uci.cpp.o
+.PHONY : uci.cpp.o
+
+uci.i: uci.cpp.i
+.PHONY : uci.i
+
+# target to preprocess a source file
+uci.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/uci.cpp.i
+.PHONY : uci.cpp.i
+
+uci.s: uci.cpp.s
+.PHONY : uci.s
+
+# target to generate assembly for a file
+uci.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tinyfish.dir/build.make CMakeFiles/tinyfish.dir/uci.cpp.s
+.PHONY : uci.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,12 +240,12 @@ help:
 	@echo "... Engine.o"
 	@echo "... Engine.i"
 	@echo "... Engine.s"
-	@echo "... Network.o"
-	@echo "... Network.i"
-	@echo "... Network.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... uci.o"
+	@echo "... uci.i"
+	@echo "... uci.s"
 .PHONY : help
 
 
