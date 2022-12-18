@@ -1,12 +1,25 @@
 # tinyfish
 
-A simple chess engine written in c++
-- Uses a neural network trained on stockfish evaluations to evaluate the current position
-- Implements a bitboard move generator
-- Looks for the best move using a negamax with alpha beta pruning, mvv-lva move ordering and transposition table lookups
+UCI compatible chess engine written in C++, with an ELO rating of approximately 1800.
 
-To play:
-Clone the repo and run cmake inside the engine folder to build the executable
-If on Linux, go to the engine folder and download the tinyfish executable and play
+## Techniques implemented:
+### Move generation
+- Bitboard board representation
+- Magic bitboards for sliding pieces
+### Evaluation:
+- PST taken from PeSTO engine along with tapered evaluation 
+- Originally used a neural net but it suffered in speed
+### Search:
+- Negamax search with alpha beta pruning
+- Quiescence search
+- Transposition tables
+- PV move ordering
+- Iterative deeping
+- MVV-LVA, killer, and history heuristics
 
-Currently only offers a command line interface but will have a UCI connection for GUIs in the near future
+## To play:
+- Clone the repo and run make inside the engine folder to build the executable
+- If on Linux, go to the engine folder and download the tinyfish executable and play
+- Plug into any GUI and go from there
+
+Will soon have an account for it on lichess and it will be open to challenges
