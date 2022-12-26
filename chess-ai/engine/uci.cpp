@@ -20,6 +20,7 @@ Board::move parse_move(std::string uci, Board &board) {
 
     Board::move m;
     m.to = 1027;
+
     return m;
 }
 
@@ -50,64 +51,18 @@ std::vector<std::string> tokenize_string(std::string command) {
 }
 
 std::string extract_fen(int &pointer, std::string command) {
-    std::vector<std::string> parts;
-
-    int ptr = 0;
-    std::string cur = "";
-    while (ptr < 6) {
+    int i = 0;
+    std::string fen = "";
+    while (i < 6 && pointer < command.length()) {
         if (command[pointer] == ' ') {
-            parts.push_back(cur);
-            ptr++; pointer++;
-            cur = "";
+            i++;
         }
-        else {
-            cur += command[pointer];
-            pointer++;
-        }
+        fen += command[pointer];
+        pointer++;
     }
 
-    std::string final = "";
-    for (auto s: parts) {
-        final += s;
-        final += ' ';
-    }
-
-    return final;
+    return fen;
 }
 
-void parse_position(std::vector<std::string> commands, Board &board) {
-    std::string startpos = "";
-
-    if (commands[1] == "fen") {
-        board.gen_board(commands[2]);
-
-        if (commands[3] == "moves") {
-            for (int i = 4; i < commands.size(); i++) {
-                Board::move m = parse_move(commands[i], board);
-                board.push_move(m);
-            }
-        }
-    }
-
-    if (commands[1] == "startpos") {
-        board.gen_board(startpos);
-
-        if (commands[2] == "moves") {
-            for (int i = 3; i < commands.size(); i++) {
-                cout << commands[i] << endl;
-                Board::move m = parse_move(commands[i], board);
-                board.push_move(m);
-            }
-        }
-    }
-}
-
-void parse_go(std::vector<std::string> commands, Engine engine) {
-    int depth = -1;
-
-    if (commands[1] == "depth") {
-        depth = stoi(commands[2]);
-    }
-
-    engine.search(depth);
-}
+//lichess token
+// lip_T123jh0pz2woy2GI937w

@@ -10,13 +10,26 @@ inline Board::U64 Board::get_bit(U64 board, int square) {return (board & (1ULL <
 inline void Board::remove_bit(U64 &board, int square) {board &= ~(1ULL << square);};
 inline int Board::flip(int square) {return (square)^56;};
 
-Board::U64 Board::random() {
-    U64 num = 0ULL;
-    int n = std::rand() % 64;
-    while(n--) {
-        num |= (1 << (std::rand() % 64));
-    }
-    return num;
+unsigned int Board::random32(){
+    unsigned int number = random_state;
+
+    number ^= number << 13;
+    number ^= number >> 17;
+    number ^= number << 5;
+
+    random_state = number;
+    return number;
+}
+
+Board::U64 Board::random64(){
+    U64 n1, n2, n3, n4;
+
+    n1 = (U64)(random32()) & 0xFFFF;
+    n2 = (U64)(random32()) & 0xFFFF;
+    n3 = (U64)(random32()) & 0xFFFF;
+    n4 = (U64)(random32()) & 0xFFFF;
+
+    return n1 | (n2 << 16) | (n3 << 32) | (n4 << 48);
 }
 
 inline void Board::update_board() {
@@ -31,7 +44,7 @@ inline void Board::update_board() {
     occupancies[3] = ~occupancies[2];
 }
 
-void Board::gen_board(std::string& fen) {
+void Board::init_all() {
     occupancies = {0ULL, 0ULL, 0ULL, 0ULL};
 
     piece_index['K'] = K;
@@ -50,6 +63,13 @@ void Board::gen_board(std::string& fen) {
     piece_index['p'] = P;
     piece_index[' '] = P + 1;
 
+    update_board();
+    get_leaping_attacks();
+    populate_attack_mask_arrays();
+    init_keys();
+}
+
+void Board::gen_board(std::string fen) {
     if (fen == "") fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     std::string nums = "12345678";
 
@@ -107,12 +127,6 @@ void Board::gen_board(std::string& fen) {
         square++;
     } 
 
-    //generate full boards and attacks
-    update_board();
-    get_leaping_attacks();
-    populate_attack_mask_arrays();
-    init_keys();
-
     //set en passant
     if (string_en_passant != "-") {
         int file = string_en_passant[0] - 'a';
@@ -124,6 +138,8 @@ void Board::gen_board(std::string& fen) {
     //set turn
     if (turn == "w") side = white;
     else side = black;
+
+    // castle = 0;
 
     //parsing castling rights
     for (int i = 0; i < string_castle.length(); i++) {
@@ -427,28 +443,32 @@ float Board::get_eval() {
 }
 
 void Board::init_keys() {
+    random_state = 1804289383;
+
     for (int piece = P; piece <= k; piece++) {
         for (int square = 0; square < 64; square++)
-            piece_keys[piece][square] = random();
+            piece_keys[piece][square] = random64();
     }
 
     for (int square = 0; square < 64; square++) {
-        en_passant_keys[square] = random();
+        en_passant_keys[square] = random64();
     }
     
     for (int index = 0; index < 16; index++) {
-        castle_keys[index] = random();
+        castle_keys[index] = random64();
     }    
     
     // init random side key
-    side_key = random();
+    side_key = random64();
 }
 
 Board::U64 Board::zobrist() {
     U64 key = 0ULL;
 
+    U64 board;
+
     for (int i = 0; i < 12; i++) {
-        U64 board = bitmap[string_pieces[i]];
+        board = bitmap[string_pieces[i]];
         while(board) {
             int square = get_lsb_index(board);
             key ^= piece_keys[i][square];
@@ -1106,7 +1126,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !is_square_attacked(g8, white) && 
             !get_bit(occupancies[1], g8) &&
             !is_check(black)) {
-                move m = get_move(false, e8, c8, 4, side, 'k');
+                move m = get_move(false, e8, g8, 4, side, 'k');
                 moves.push_back(m);
         }
     }
@@ -1119,7 +1139,7 @@ std::vector<Board::move> Board::get_legal_moves(int side) {
             !is_square_attacked(b8, white) && 
             !get_bit(occupancies[1], b8) &&
             !is_check(black)) {
-                move m = get_move(false, e8, g8, 8, side, 'k');
+                move m = get_move(false, e8, c8, 8, side, 'k');
                 moves.push_back(m);
         }
     }

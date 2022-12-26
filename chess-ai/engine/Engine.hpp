@@ -5,8 +5,8 @@
 class Engine {
 public:
     Engine(std::string fen);
-    void play(); // command line playing
-    void uci(); //for chess gui connection
+    void play(); 
+    void uci(); 
 
     // Net net;
     Board board;
@@ -28,6 +28,9 @@ public:
     void debug();
 
     Board::move search(int depth);
+
+    void parse_go(std::vector<std::string> commands);
+    void parse_position(std::vector<std::string> commands);
 
 private:
     std::vector<hash_entry> trans_table;

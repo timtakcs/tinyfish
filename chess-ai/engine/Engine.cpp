@@ -6,7 +6,7 @@
 
 using namespace std::chrono;
 
-#define hashe 0
+#define hashexact 0
 #define hashalpha 1
 #define hashbeta 2
 #define fail 1023 //just a random value to return in the case of failure 
@@ -15,8 +15,9 @@ using namespace std;
 
 Engine::Engine(std::string fen) {
     board.gen_board(fen);
+    board.init_all();
     // net.load_net();
-    trans_table = std::vector<hash_entry>(1048583);
+    trans_table = std::vector<hash_entry>(15485863);
 
     for (auto &piece: string_pieces) {
         history_moves[piece] = std::vector<int>(64, 0);
@@ -70,12 +71,12 @@ std::vector<Board::move> Engine::keep_captures(std::vector<Board::move> &moves) 
 }
 
 float Engine::get_entry(Board::U64 hash, int depth, float alpha, float beta) {
-    int index = hash % trans_table.size();
+    long index = hash % trans_table.size();
     hash_entry * entry = &trans_table[index];
 
     if (entry -> hash_val == hash) {
         if (entry -> depth_val >= depth) {
-            if (entry -> flag == hashe) {
+            if (entry -> flag == hashexact) {
                 return entry->eval;
             }
             if ((entry -> flag == hashalpha) && (entry -> eval <= alpha)) {
@@ -90,7 +91,7 @@ float Engine::get_entry(Board::U64 hash, int depth, float alpha, float beta) {
 }
 
 void Engine::record_entry(int depth, float eval, int flag, Board::U64 hash) {
-    int index = hash % trans_table.size();
+    long index = hash % trans_table.size();
     hash_entry * entry = &trans_table[index];
     entry -> hash_val = hash;
     entry -> depth_val = depth;
@@ -118,59 +119,6 @@ void Engine::clear_tables() {
     pv_length = std::vector<int>(64);
 }
 
-//minimax search
-float Engine::minimax(int depth, int min_player, int alpha, int beta) {
-    Board::U64 hash = board.zobrist();
-
-    int val = get_entry(hash, depth, alpha, beta);
-    // if (val != fail) return val;
-
-    if (depth == 0) {
-        nodes++;
-        return board.get_eval();
-    }
-
-    std::vector<Board::move> moves = board.get_legal_moves(min_player);
-
-    if (moves.size() == 0) {
-        float eval = -9999; //black wins by checkmate
-        if (min_player) eval = 9999; //white wins by checkmate
-        record_entry(depth, eval, hashe, hash);
-        return eval;
-    }
-
-    if (min_player) { // black
-        float min_eval = 9999;
-        for (int move = 0; move < moves.size(); move++) {
-            board.push_move(moves[move]);
-            float eval = minimax(depth - 1, !min_player, alpha, beta);
-            min_eval = std::min(eval, min_eval);
-            beta = std::min((float)beta, min_eval);
-            board.pop_move(moves[move]);
-            if (beta <= alpha) {
-                break;
-            }
-        }
-        return min_eval;
-    }
-
-    else {
-        float max_eval = -9999;
-        for (int move = 0; move < moves.size(); move++) {
-            board.push_move(moves[move]);
-            float eval = minimax(depth - 1, !min_player, alpha, beta);
-            max_eval = std::max(eval, max_eval);
-            alpha = std::max((float)alpha, max_eval);
-            board.pop_move(moves[move]);
-            if (beta <= alpha) {
-                break;
-            }
-        }
-
-        return max_eval;
-    }
-}
-
 float Engine::quiescence(float alpha, float beta, int ply) {
     float evaluation = board.get_eval();
 
@@ -195,7 +143,6 @@ float Engine::quiescence(float alpha, float beta, int ply) {
         if (board.is_check(board.side)) eval = -10000; 
         else if (board.is_check(!board.side)) eval = -10000;
         else eval = 0;
-        // record_entry(depth, eval, hashe, hash);
         return eval;
     }
 
@@ -232,28 +179,26 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
 
     nodes++;
 
-    // Board::U64 hash = board.zobrist();
+    Board::U64 hash = board.zobrist();
 
-    // float eval = get_entry(hash, depth, alpha, beta);
-    // if (eval != fail) return eval;
-
-    if (depth == 0) {
-        return quiescence(alpha, beta, ply);
+    float eval = get_entry(hash, depth, alpha, beta);
+    if (eval != fail) {
+        return eval;
     }
 
-    auto start = high_resolution_clock::now();
+    if (depth == 0) {
+        float eval = quiescence(alpha, beta, ply);
+        record_entry(depth, eval, hashexact, hash);
+        return eval;
+    }
 
     std::vector<Board::move> moves = board.get_legal_moves(board.side);
-
-    auto end = high_resolution_clock::now();
-    generation += duration_cast<microseconds>(end - start).count();
 
     if (moves.size() == 0) {
         float eval;
         if (board.is_check(board.side)) eval = -10000 - depth; 
         else if (board.is_check(!board.side)) eval = -10000 - depth;
         else eval = 0;
-        // record_entry(depth, eval, hashe, hash);
         return eval;
     }
 
@@ -264,9 +209,10 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
         board.push_move(moves[move]);
         float eval = -negamax(depth - 1, -beta, -alpha, ply + 1);
         board.pop_move(moves[move]);
+
         if (eval >= beta) {
             //recording transposition table entry
-            // record_entry(depth, beta, hash_function, hash);
+            record_entry(depth, beta, hashbeta, hash);
 
             //killer moves
             killer_moves[1][ply] = killer_moves[0][ply];
@@ -278,7 +224,7 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
             //history moves
             history_moves[moves[move].piece][moves[move].to] += depth;
 
-            hash_function = hashe;
+            hash_function = hashexact;
             alpha = eval;
 
             pv[ply][ply] = moves[move];
@@ -289,7 +235,7 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
             pv_length[ply] = pv_length[ply + 1];
         }
     }
-    // record_entry(depth, alpha, hash_function, hash);
+    record_entry(depth, alpha, hash_function, hash);
     max_ply = max(ply, max_ply);
     return alpha;
 }
@@ -297,10 +243,13 @@ float Engine::negamax(int depth, float alpha, float beta, int ply) {
 Board::move Engine::search(int depth) {
     clear_tables();
 
+    nodes = 0;
+
     for (int d = 1; d < depth + 1; d++) {
         float score = negamax(d, -999999, 999999, 0);
-        nodes = 0;
+        print_pv();
     }
+
     Board::move best_move = pv[0][0];
 
     //printing best move for uci
@@ -314,41 +263,108 @@ Board::move Engine::search(int depth) {
     return best_move;
 }
 
-void Engine::play() {
-    //user plays as white
-    int debug = 1;
-    int self_play = 0;
+// UCI functions to avoid making another class
 
-    board.print_full_board();
+void Engine::parse_position(std::vector<std::string> commands) {
+    std::string startpos = "";
 
-    if (self_play) {
-        while (1) {
-            Board::move move_first = search(6);
+    if (commands[1] == "fen") {
+        board.gen_board(commands[2]);
 
-            if (move_first.from == move_first.to) break;
-
-            cout << move_first.piece << board.string_board[move_first.from] << board.string_board[move_first.to] << endl;
-
-            board.push_move(move_first);
-            board.print_full_board();
-
-            Board::move move_second = search(5);
-            if (move_first.from == move_first.to) break;
-            board.push_move(move_second);
-
-            cout << move_second.piece << board.string_board[move_second.from] << board.string_board[move_second.to] << endl;
+        if (commands.size() > 3) {
+            if (commands[3] == "moves") {
+                for (int i = 4; i < commands.size(); i++) {
+                    Board::move m = parse_move(commands[i], board);
+                    board.push_move(m);
+                }
+            }
         }
     }
 
+    if (commands[1] == "startpos") {
+        board.gen_board(startpos);
+
+        if (commands.size() > 2) {
+            if (commands[2] == "moves") {
+                for (int i = 3; i < commands.size(); i++) {
+                    Board::move m = parse_move(commands[i], board);
+                    board.push_move(m);
+                }
+            }
+        }
+    }
+}
+
+void Engine::parse_go(std::vector<std::string> commands) {
+    int depth = 6;
+
+    if (commands[1] == "depth") {
+        depth = stoi(commands[2]);
+    }
+    search(depth);
+}
+
+void Engine::uci() {
+    std::string input;
+
+    // gui greeting
+    cout << "id name tinyfish" << endl;
+    cout << "id name timtak" << endl;
+    cout << "uciok" << endl;
+
+    while (1==1) {
+        getline(cin, input);
+
+        if (input[0] == '\n') continue;
+
+        std::vector<std::string> command_tokens = tokenize_string(input);
+
+        if (command_tokens[0] == "isready") {
+            cout << "readyok" << endl;
+            continue;
+        }
+
+        if (command_tokens[0] == "position") {
+            parse_position(command_tokens);
+        }
+
+        if (command_tokens[0] == "ucinewgame") {
+            parse_position({"position", "startpos"});
+        }
+
+        if (command_tokens[0] == "go") {
+            parse_go(command_tokens);
+        }
+
+        if (command_tokens[0] == "quit") {
+            break;
+        }
+
+        if (command_tokens[0] == "uci") {
+            cout << "id name tinyfish" << endl;
+            cout << "id name timtak" << endl;
+            cout << "uciok" << endl;
+        }
+    }
+}
+
+void Engine::play() {
+    //user plays as white
+    int debug = 1;
+    int cli = 0;
+    int gui = 0;
+
     if (debug) {
-        string command = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1 moves e2a6 b4c3";
-        vector<string> commands = tokenize_string(command);
+        Board::move best;
 
-        parse_position(commands, board);
+        // board.gen_board("");
 
-        board.print_full_board();
+        // Board::move m = parse_move("e2e4", board);
+        // Board::move x = parse_move("b8c6", board);
+        // board.push_move(m);
+        // board.push_move(x);
 
-        // Board::move best;
+        // board.print_full_board();
 
         // best = search(6);
 
@@ -356,8 +372,21 @@ void Engine::play() {
         // cout << "max ply: " << max_ply << endl;
         // cout << "nodes searched: " << nodes << endl;
         // cout << "\n" << endl;
+
+        // std::vector<std::string> t = tokenize_string("position startpos moves e2e4 b8c6");
+        // parse_position(t);
+
+        // board.print_full_board();
+
+        best = search(6);
+
+        cout << "best move: " << best.piece << board.string_board[best.from] << board.string_board[best.to] << endl;
+        cout << "max ply: " << max_ply << endl;
+        cout << "nodes searched: " << nodes << endl;
+        cout << "\n" << endl;
     }
-    else {
+
+    if (cli) {
         while (1==1) {
             std::string uci_move;
             std::cout << "\n" << "User move (uci): " << std::endl;
@@ -386,6 +415,10 @@ void Engine::play() {
             std::cout << "max ply: " << max_ply << std::endl;
             nodes = 0;
         }
+    }
+
+    if (gui) {
+        uci();
     }
 }
 

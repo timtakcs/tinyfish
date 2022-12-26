@@ -8,6 +8,8 @@
 class Board {
 public:
     typedef unsigned long long U64;   
+    
+    void init_all();
 
     struct move {
         bool capture;
@@ -47,7 +49,7 @@ public:
     "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1", "none"
     };
 
-    void gen_board(std::string &fen);
+    void gen_board(std::string fen);
     void print_full_board();
     void print_board(U64 board);
     void function_debug();
@@ -60,7 +62,10 @@ public:
     bool is_check(int side);
 
     //hashing
-    U64 random();
+    unsigned int random_state = 1804289383;
+
+    unsigned int random32();
+    U64 random64();
     U64 zobrist();
 
     U64 piece_keys[12][64];
@@ -90,7 +95,7 @@ private:
         a1, b1, c1, d1, e1, f1, g1, h1, none
     };
 
-    enum pieces {K, Q, R, B, N, P, k, q, r, b, n, p}; 
+    enum pieces {P, R, N, B, Q, K, p, r, n, b, q, k}; 
 
     std::map<char, std::vector<int>> opening_vals;
     std::map<char, std::vector<int>> endgame_vals;
