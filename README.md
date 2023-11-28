@@ -1,6 +1,6 @@
 # tinyfish
 
-UCI compatible chess engine written in C++, with an ELO rating of approximately 1800.
+UCI compatible chess engine written in C++
 
 ## Techniques implemented:
 ### Move generation
